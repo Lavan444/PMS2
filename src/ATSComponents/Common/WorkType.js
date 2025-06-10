@@ -155,7 +155,7 @@ const TaskCreator = () => {
             id: 'story',
             statuses: ['To Do', 'In Progress', 'Done']
         },
-        { 
+        {
             name: 'Epic',
             icon: 'pi pi-sitemap',
             color: '#6554c0',
@@ -497,7 +497,7 @@ const TaskCreator = () => {
 
     const dropdownWorkTypes = [
         ...workTypes,
-        { id: 'divider', disabled: true }, 
+        { id: 'divider', disabled: true },
         { name: 'Add Work Type', id: 'create-new-work-type' },
         { name: 'Edit Work Type', id: 'edit-selected-work-type' }
     ];
@@ -508,8 +508,8 @@ const TaskCreator = () => {
             <Toast ref={toast} />
             <ConfirmDialog />
 
-            <div className="formgrid grid p-fluid" style={{ maxWidth: '500px', margin: 'auto' }}>
-                <div className="field col-12 p-0 mb-0">
+            <div className="formgrid grid p-fluid" >
+                <div className="field col-12   mb-3">
                     {/* <label htmlFor="workType" className="mb-2">
                         Work type <span className="text-red-500">*</span>
                     </label> */}

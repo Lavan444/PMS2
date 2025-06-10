@@ -6531,7 +6531,6 @@ const AllActiveemp = () => {
             </p>
           </form>
         </Dialog>
-        {/* Interview schedule other end */}
       </div>
     </React.Fragment>
   )

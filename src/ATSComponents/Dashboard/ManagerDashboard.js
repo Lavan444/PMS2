@@ -6,9 +6,12 @@ import { Dropdown } from 'primereact/dropdown';
 import { FilterMatchMode } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
 
 
 const ManagerDashboard = () => {
+    const navigate = useNavigate();
 
     // all departments dropdown starts
 
@@ -26,6 +29,14 @@ const ManagerDashboard = () => {
         { name: 'This Week' },
         { name: 'Last 30 Days' },
         { name: 'One Year' }
+    ];
+
+    const [worktype, setworktype] = useState(null);
+    const worktypes = [
+        { name: 'All' },
+        { name: 'Task' },
+        { name: 'Bug' },
+        { name: 'Others' }
     ];
 
     // all departments dropdown ends
@@ -241,217 +252,153 @@ const ManagerDashboard = () => {
     // open jobs table starts
     const [openjobfilters, setopenjobfilters] = useState({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        job_id: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        job_title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        job_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        openings: { value: null, matchMode: FilterMatchMode.EQUALS },
-        hiring_manager: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        project_code: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        project_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+        start_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
+        end_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
+        extended_end_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
+        reason_for_late: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        project_manager: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        job_location: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        workplace_type: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        job_type: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        primary_skills: { value: null, matchMode: FilterMatchMode.CONTAINS },
-        experience_required: { value: null, matchMode: FilterMatchMode.EQUALS },
-        min_salary: { value: null, matchMode: FilterMatchMode.GREATER_THAN_OR_EQUAL },
-        max_salary: { value: null, matchMode: FilterMatchMode.LESS_THAN_OR_EQUAL },
-        department: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        job_start_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
-        job_end_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
-        user_ids: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
 
     const [selectedJobs, setSelectedJobs] = useState([]);
 
+    // Handle view project function
+    const handleViewProject = () => {
+        // Navigate to allactive-jobs page
+        navigate('/allactive-jobs');
+    };
+
+    // Extended End Date body template
+    const extendedEndDateBodyTemplate = (rowData) => {
+        return rowData.extended_end_date ? (
+            <span>{rowData.extended_end_date}</span>
+        ) : (
+            <span style={{ color: '#888', fontStyle: 'italic' }}>Not Extended</span>
+        );
+    };
+
+    // Reason for Late body template
+    const reasonForLateBodyTemplate = (rowData) => {
+        return rowData.reason_for_late ? (
+            <span>{rowData.reason_for_late}</span>
+        ) : (
+            <span style={{ color: '#888', fontStyle: 'italic' }}>No reason specified</span>
+        );
+    };
+
     const openJobs = [
         {
-            job_id: "Job-101",
-            job_title: "Web Developer",
-            job_status: "Open",
-            openings: 5,
-            hiring_manager: "Rajesh Kumar",
-            company: "TechMahindra",
-            job_location: "Bangalore, Karnataka",
-            workplace_type: "Hybrid",
-            job_type: "Full-time",
-            primary_skills: "JavaScript, React, Node.js",
-            experience_required: 3,
-            min_salary: 70000,
-            max_salary: 100000,
-            department: "Engineering",
-            job_start_date: "01-02-2025",
-            job_end_date: "01-05-2025",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-001",
+            project_name: "Customer Portal Development",
+            status: "In Progress",
+            start_date: "01-01-2025",
+            end_date: "30-04-2025",
+            extended_end_date: "15-05-2025",
+            reason_for_late: "Additional feature requests from client",
+            project_manager: "Amit Sharma",
+            company: "TechMahindra"
         },
         {
-            job_id: "Job-102",
-            job_title: "Graphic Designer",
-            job_status: "Open",
-            openings: 2,
-            hiring_manager: "Priya Sharma",
-            company: "Infosys",
-            job_location: "Hyderabad, Telangana",
-            workplace_type: "Remote",
-            job_type: "Contract",
-            primary_skills: "Agile, Scrum",
-            experience_required: 5,
-            min_salary: 90000,
-            max_salary: 120000,
-            department: "Management",
-            job_start_date: "15-03-2025",
-            job_end_date: "30-06-2025",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-002",
+            project_name: "Mobile Banking Application",
+            status: "Completed",
+            start_date: "15-01-2025",
+            end_date: "28-03-2025",
+            extended_end_date: null,
+            reason_for_late: null,
+            project_manager: "Priya Patel",
+            company: "Infosys"
         },
         {
-            job_id: "Job-103",
-            job_title: "Project Manager",
-            job_status: "Open",
-            openings: 3,
-            hiring_manager: "Vikram Singh",
-            company: "TCS",
-            job_location: "Pune, Maharashtra",
-            workplace_type: "Hybrid",
-            job_type: "Full-Time",
-            primary_skills: "JavaScript, React, Node.js",
-            experience_required: 2,
-            min_salary: 80000,
-            max_salary: 100000,
-            department: "Development",
-            job_start_date: "01-02-2025",
-            job_end_date: "31-01-2026",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-003",
+            project_name: "Business Intelligence Dashboard",
+            status: "In Progress",
+            start_date: "01-02-2025",
+            end_date: "31-05-2025",
+            extended_end_date: "15-06-2025",
+            reason_for_late: "Data integration complexities",
+            project_manager: "Vikram Singh",
+            company: "TCS"
         },
         {
-            job_id: "Job-104",
-            job_title: "UI/UX Designer",
-            job_status: "Closed",
-            openings: 1,
-            hiring_manager: "Ananya Reddy",
-            company: "Wipro",
-            job_location: "Chennai, Tamil Nadu",
-            workplace_type: "On-Site",
-            job_type: "Full-Time",
-            primary_skills: "Python, Machine Learning, SQL",
-            experience_required: 3,
-            min_salary: 100000,
-            max_salary: 130000,
-            department: "Data Analytics",
-            job_start_date: "10-01-2025",
-            job_end_date: "31-12-2025",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-004",
+            project_name: "Cloud Infrastructure Migration",
+            status: "On Hold",
+            start_date: "10-01-2025",
+            end_date: "30-08-2025",
+            extended_end_date: "30-09-2025",
+            reason_for_late: "Budget approval pending",
+            project_manager: "Ananya Reddy",
+            company: "Wipro"
         },
         {
-            job_id: "Job-105",
-            job_title: "HR Specialist",
-            job_status: "Open",
-            openings: 2,
-            hiring_manager: "Arjun Patel",
-            company: "HCL Technologies",
-            job_location: "Gurgaon, Haryana",
-            workplace_type: "Remote",
-            job_type: "Contract",
-            primary_skills: "Figma, Sketch, Adobe XD",
-            experience_required: 4,
-            min_salary: 70000,
-            max_salary: 90000,
-            department: "Design",
-            job_start_date: "01-10-2025",
-            job_end_date: "31-10-2025",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-005",
+            project_name: "Employee Management System",
+            status: "In Progress",
+            start_date: "01-03-2025",
+            end_date: "30-07-2025",
+            extended_end_date: null,
+            reason_for_late: null,
+            project_manager: "Arjun Kumar",
+            company: "HCL Technologies"
         },
         {
-            job_id: "Job-106",
-            job_title: "Marketing Manager",
-            job_status: "Open",
-            openings: 3,
-            hiring_manager: "Divya Nair",
-            company: "TechWave India",
-            job_location: "Noida, Uttar Pradesh",
-            workplace_type: "Hybrid",
-            job_type: "Full-Time",
-            primary_skills: "React, JavaScript, CSS, HTML",
-            experience_required: 3,
-            min_salary: 80000,
-            max_salary: 100000,
-            department: "Engineering",
-            job_start_date: "15-03-2025",
-            job_end_date: "15-03-2026",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-006",
+            project_name: "Digital Marketing Platform",
+            status: "Completed",
+            start_date: "15-12-2024",
+            end_date: "28-02-2025",
+            extended_end_date: null,
+            reason_for_late: null,
+            project_manager: "Divya Nair",
+            company: "TechWave Solutions"
         },
         {
-            job_id: "Job-107",
-            job_title: "Content Writer",
-            job_status: "Open",
-            openings: 1,
-            hiring_manager: "Rahul Iyer",
-            company: "Accenture",
-            job_location: "Mumbai, Maharashtra",
-            workplace_type: "On-Site",
-            job_type: "Part-Time",
-            primary_skills: "Node.js, Express, MongoDB, AWS",
-            experience_required: 5,
-            min_salary: 90000,
-            max_salary: 120000,
-            department: "Engineering",
-            job_start_date: "01-05-2025",
-            job_end_date: "31-12-2025",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-007",
+            project_name: "Enterprise Content Management",
+            status: "In Progress",
+            start_date: "01-04-2025",
+            end_date: "31-08-2025",
+            extended_end_date: "15-09-2025",
+            reason_for_late: "Security compliance requirements",
+            project_manager: "Rahul Iyer",
+            company: "Accenture"
         },
         {
-            job_id: "Job-108",
-            job_title: "Data Scientist",
-            job_status: "Open",
-            openings: 2,
-            hiring_manager: "Neha Kapoor",
-            company: "Cognizant",
-            job_location: "Kolkata, West Bengal",
-            workplace_type: "Remote",
-            job_type: "Full-Time",
-            primary_skills: "Python, SQL, Machine Learning, Tableau",
-            experience_required: 6,
-            min_salary: 95000,
-            max_salary: 130000,
-            department: "Data Science",
-            job_start_date: "01-02-2025",
-            job_end_date: "01-02-2026",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-008",
+            project_name: "AI-Powered Analytics Engine",
+            status: "In Progress",
+            start_date: "01-02-2025",
+            end_date: "31-07-2025",
+            extended_end_date: "31-08-2025",
+            reason_for_late: "Model training optimization required",
+            project_manager: "Neha Kapoor",
+            company: "Cognizant"
         },
         {
-            job_id: "Job-109",
-            job_title: "Project Manager",
-            job_status: "Open",
-            openings: 1,
-            hiring_manager: "Sanjay Joshi",
-            company: "Capgemini",
-            job_location: "Ahmedabad, Gujarat",
-            workplace_type: "Hybrid",
-            job_type: "Contract",
-            primary_skills: "Agile, Scrum, Jira, Leadership",
-            experience_required: 7,
-            min_salary: 110000,
-            max_salary: 140000,
-            department: "Management",
-            job_start_date: "01-06-2025",
-            job_end_date: "31-12-2025",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-009",
+            project_name: "Project Collaboration Suite",
+            status: "Completed",
+            start_date: "15-11-2024",
+            end_date: "15-02-2025",
+            extended_end_date: null,
+            reason_for_late: null,
+            project_manager: "Sanjay Joshi",
+            company: "Capgemini"
         },
         {
-            job_id: "Job-110",
-            job_title: "Marketing Specialist",
-            job_status: "Open",
-            openings: 4,
-            hiring_manager: "Pooja Desai",
-            company: "Zoho",
-            job_location: "Coimbatore, Tamil Nadu",
-            workplace_type: "On-Site",
-            job_type: "Full-Time",
-            primary_skills: "SEO, SEM, Content Marketing, Google Analytics",
-            experience_required: 2,
-            min_salary: 60000,
-            max_salary: 80000,
-            department: "Marketing",
-            job_start_date: "01-03-2025",
-            job_end_date: "31-12-2025",
-            user_ids: "Harish",
+            project_code: "PROJ-2025-010",
+            project_name: "Omnichannel Marketing Solution",
+            status: "In Progress",
+            start_date: "01-03-2025",
+            end_date: "31-07-2025",
+            extended_end_date: "15-08-2025",
+            reason_for_late: "Third-party API integration delays",
+            project_manager: "Pooja Desai",
+            company: "Zoho Corporation"
         }
     ];
     //  open jobs table ends
@@ -575,6 +522,13 @@ const ManagerDashboard = () => {
                                 <Dropdown value={selectedRange} onChange={(e) => setSelectedRange(e.value)} options={ranges} optionLabel="name"
                                     placeholder="Custom Range" className="w-full bgclr" checkmark={true} highlightOnSelect={false} />
                             </Col>
+
+                            <Col lg={3} md={6} className="mb-4">
+                                <Dropdown value={worktype} onChange={(e) => setworktype(e.value)} options={worktypes} optionLabel="name"
+                                    placeholder="WorkTypes" className="w-full bgclr" checkmark={true} highlightOnSelect={false} />
+                            </Col>
+
+
                         </Row>
 
                         <Row>
@@ -639,46 +593,58 @@ const ManagerDashboard = () => {
                                 <div className="mandashtable">
                                     <Card className="h-100">
                                         <div className="d-flex align-items-center justify-content-between mb-3">
-                                            <h1 className="title">Recent Open Jobs</h1>
-                                            <Dropdown
-                                                value={selectedPeriod}
-                                                onChange={(e) => setSelectedPeriod(e.value)}
-                                                options={periods}
-                                                optionLabel="name"
-                                                placeholder="Select a Period"
-                                                className="md:w-10rem bgclr"
-                                            />
-                                        </div>
+                                            <div className="d-flex align-items-center gap-3">
+                                                <h1 className="title mb-0">Recent Projects</h1>
+                                                {selectedJobs.length > 0 && (
+                                                    <Button
+                                                        icon="pi pi-eye"
+                                                        className="p-button-rounded rounded-1 p-button-text p-button-sm"
+                                                        onClick={handleViewProject}
+                                                        tooltip={`View ${selectedJobs.length} selected project${selectedJobs.length > 1 ? 's' : ''}`}
+                                                        tooltipOptions={{ position: 'top' }}
+                                                        style={{
+                                                            width: '32px',
+                                                            height: '32px',
+                                                            color: '#4f46e5'
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
 
+
+                                            <div className="d-flex align-items-center gap-3">
+
+                                                <Dropdown
+                                                    value={selectedPeriod}
+                                                    onChange={(e) => setSelectedPeriod(e.value)}
+                                                    options={periods}
+                                                    optionLabel="name"
+                                                    placeholder="Select a Period"
+                                                    className="md:w-12.1rem bgclr"
+                                                />
+                                            </div>
+                                        </div>
 
                                         <div className="card1 actjobsumtable">
                                             <DataTable
                                                 value={openJobs}
-                                                dataKey="job_id"
+                                                dataKey="project_code"
                                                 filters={openjobfilters}
                                                 filterDisplay="row"
                                                 globalFilterFields={[
-                                                    "job_id",
-                                                    "job_title",
-                                                    "job_status",
-                                                    "openings",
-                                                    "hiring_manager",
-                                                    "company",
-                                                    "job_location",
-                                                    "workplace_type",
-                                                    "job_type",
-                                                    "primary_skills",
-                                                    "experience_required",
-                                                    "min_salary",
-                                                    "max_salary",
-                                                    "department",
-                                                    "job_start_date",
-                                                    "job_end_date",
-                                                    "user_ids",
+                                                    "project_code",
+                                                    "project_name",
+                                                    "status",
+                                                    "start_date",
+                                                    "end_date",
+                                                    "extended_end_date",
+                                                    "reason_for_late",
+                                                    "project_manager",
+                                                    "company"
                                                 ]}
                                                 scrollable
                                                 scrollHeight="400px"
-                                                emptyMessage="No open jobs found."
+                                                emptyMessage="No projects found."
                                                 selection={selectedJobs}
                                                 onSelectionChange={(e) => setSelectedJobs(e.value)}
                                                 selectionMode="multiple"
@@ -686,23 +652,29 @@ const ManagerDashboard = () => {
                                                 columnResizeMode="expand"
                                             >
                                                 <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                                <Column field="job_id" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="job_title" header="Job Title" sortable frozen filter style={{ minWidth: "10rem" }} />
-                                                <Column field="job_status" header="Job Status" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="openings" header="Openings" sortable filter style={{ minWidth: "8rem" }} />
-                                                <Column field="hiring_manager" header="Hiring Manager" sortable filter style={{ minWidth: "12rem" }} />
+                                                <Column field="project_code" header="Project Code" sortable filter style={{ minWidth: "10rem" }} />
+                                                <Column field="project_name" header="Project Name" sortable frozen filter style={{ minWidth: "15rem" }} />
+                                                <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
+                                                <Column field="start_date" header="Start Date" sortable filter style={{ minWidth: "10rem" }} />
+                                                <Column field="end_date" header="End Date" sortable filter style={{ minWidth: "10rem" }} />
+                                                <Column 
+                                                    field="extended_end_date" 
+                                                    header="Extended End Date" 
+                                                    sortable 
+                                                    filter 
+                                                    style={{ minWidth: "12rem" }}
+                                                    body={extendedEndDateBodyTemplate}
+                                                />
+                                                <Column 
+                                                    field="reason_for_late" 
+                                                    header="Reason for Late" 
+                                                    sortable 
+                                                    filter 
+                                                    style={{ minWidth: "15rem" }}
+                                                    body={reasonForLateBodyTemplate}
+                                                />
+                                                <Column field="project_manager" header="Project Manager" sortable filter style={{ minWidth: "12rem" }} />
                                                 <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="job_location" header="Job Location" sortable filter style={{ minWidth: "12rem" }} />
-                                                <Column field="workplace_type" header="Workplace Type" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="job_type" header="Job Type" sortable filter style={{ minWidth: "8rem" }} />
-                                                <Column field="primary_skills" header="Primary Skills" sortable filter style={{ minWidth: "15rem" }} />
-                                                <Column field="experience_required" header="Experience Required" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="min_salary" header="Min Salary" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="max_salary" header="Max Salary" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="department" header="Department" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="job_start_date" header="Job Start Date" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="job_end_date" header="Job End Date" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column field="user_ids" header="User IDs" sortable filter style={{ minWidth: "12rem" }} />
                                             </DataTable>
                                         </div>
                                     </Card>

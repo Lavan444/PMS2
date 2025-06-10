@@ -604,7 +604,7 @@ As the assigned team member, you will be responsible for managing your specific 
                             {/* Documents start */}
 
 
-                             <Card className="bg-form">
+                            <Card className="bg-form">
                                 <CardBody>
                                     <h4 className="card-title mb-2">Project Documents</h4>
                                     <Row>
@@ -709,7 +709,7 @@ As the assigned team member, you will be responsible for managing your specific 
 
                             {/* Documents end */}
 
-                             <Card className="bg-form">
+                            <Card className="bg-form">
                                 <CardBody>
                                     <h4 className="card-title mb-2">System Fields</h4>
                                     <Row>
@@ -830,12 +830,12 @@ As the assigned team member, you will be responsible for managing your specific 
 
                             {/* phases start */}
 
-                                <Card className="bg-form">
+                            <Card className="bg-form">
                                 <CardBody>
                                     <h4 className="card-title mb-2"> Phases of Project Development</h4>
-                                  <EstimateTable />
+                                    <EstimateTable />
                                 </CardBody>
-                                
+
                                 <Dialog
                                     header="Add Document"
                                     visible={displayDialog}
@@ -921,15 +921,15 @@ As the assigned team member, you will be responsible for managing your specific 
                             {/* Notes start */}
 
 
-                              <Card className="bg-form">
+                            <Card className="bg-form">
                                 <CardBody>
 
 
-                                   
+
                                     <Row>
                                         <Col lg={12}>
 
-                                          <h4 className="card-title mb-3">Notes</h4>
+                                            <h4 className="card-title mb-3">Notes</h4>
                                             <div className="d-flex justify-content-end">
                                                 <PrimeButton
                                                     type="button"
@@ -1075,10 +1075,10 @@ As the assigned team member, you will be responsible for managing your specific 
 
                             {/* Notes end */}
 
-                           
+
                         </Col>
 
-                      
+
                     </Row>
 
                     <Row className="align-items-center mb-3">

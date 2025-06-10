@@ -66,7 +66,7 @@ import EstimateTable from "./EstimateTable"
 const JobAllActive = ({ toggleSidebar }) => {
   const [PoliciesfilesErrorMessagepan, setPoliciesfilesErrorMessagepan] =
     useState()
-
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState("Active"); // default value
   const { first, rows } = useSelector(state => state.calendar.pagination)
 
   const {
@@ -91,7 +91,7 @@ const JobAllActive = ({ toggleSidebar }) => {
     { label: "Jobs", icon: "pi pi-briefcase" },
   ]
 
-  const  customWorkTypes1= [
+  const customWorkTypes1 = [
     {
       name: 'Discovery / Initiation',
       color: '#000000',
@@ -118,12 +118,12 @@ const JobAllActive = ({ toggleSidebar }) => {
       id: 'active1',
       statuses: ['Pending', 'Processing', 'Completed']
     },
-    
+
   ];
 
 
 
-  const  customWorkTypes4= [
+  const customWorkTypes4 = [
     {
       name: 'BA',
       color: '#000000',
@@ -157,7 +157,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       id: 'active1',
       statuses: ['Pending', 'Processing', 'Completed']
     },
-    
+
   ];
   const selectedEmailTemplate = (option, props) => {
     if (option) {
@@ -509,40 +509,8 @@ const JobAllActive = ({ toggleSidebar }) => {
         let results = response.data.results
         setCustomers(results)
       }
-    } catch (error) {}
+    } catch (error) { }
   }
-
-  // const onSubmit = async (data) => {
-  //     const formData = new FormData();
-  //     const formattedFromDate = moment(jobStartDate).format("YYYY-MM-DD");
-  //     const formattedtoDate = moment(jobEndDate).format("YYYY-MM-DD");
-  //     const req = {
-  //         job_title: data.jobtitle,
-  //         company_id: Number(data.comapany),
-  //         hiring_manager: Number(data.hirringmanager),
-  //         required_experience: experience,
-  //         job_posting_date: formattedFromDate,
-  //         job_closing_date: formattedtoDate,
-  //         location: getValues("Workplace"),
-  //         required_skills: primartkey,
-  //         job_description: text,
-
-  //     };
-
-  //     try {
-  //         const response = await axios.post(`${process.env.REACT_APP_Jobs}/api/v1/jobs/`, req, {
-  //             headers: {
-  //                 Authorization: `Bearer ${token}`,
-  //             },
-  //         }
-  //         );
-
-  //         getallactivejobs()
-  //         setVisibleRight(false)
-  //     } catch (error) {
-  //         console.error("Error sending data to API:", error);
-  //     }
-  // };
 
   const getCompanydata = async () => {
     try {
@@ -558,7 +526,7 @@ const JobAllActive = ({ toggleSidebar }) => {
         let results = response.data.results
         setcompamyitem(results)
       }
-    } catch (error) {}
+    } catch (error) { }
   }
   const getHirringmanager = async () => {
     try {
@@ -574,7 +542,7 @@ const JobAllActive = ({ toggleSidebar }) => {
         let results = response.data.results
         sethirringdata(results)
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   const deleteHandler = async () => {
@@ -933,14 +901,9 @@ const JobAllActive = ({ toggleSidebar }) => {
       created_by: { value: null, matchMode: FilterMatchMode.CONTAINS },
     })
 
-    // Reset the pagination
-    // setPageState((prevState) => ({
-    //     ...prevState,
-    //     first: 0,
-    // }));
   }
 
-  // clear search ends
+
 
   const dt = useRef(null)
 
@@ -1103,94 +1066,10 @@ const JobAllActive = ({ toggleSidebar }) => {
       assigned_to: "Kiran Rao",
     },
 
-    // {
-    //   task_status: "In Progress",
-    //   task_code: "Task-105",
-    //   task_name: "Connect with GSTN APIs",
-    //   "Estimated Work Hours": "16",
-    //   start_date: "03-05-2025",
-    //   end_date: "07-05-2025",
-    //   project_name: "Tax Compliance (Proj-105)",
-    //   assigned_to: "Rajeev Menon",
-    // },
-    // {
-    //   task_status: "Completed",
-    //   task_code: "Task-106",
-    //   task_name: "Add Biometric Sync",
-    //   "Estimated Work Hours": "6",
-    //   start_date: "01-05-2025",
-    //   end_date: "02-05-2025",
-    //   project_name: "HR Automation (Proj-106)",
-    //   assigned_to: "Nikhil Kapoor",
-    // },
-    // {
-    //   task_status: "Not Started",
-    //   task_code: "Task-107",
-    //   task_name: "Bug Fix - Overlapping Leaves",
-    //   "Estimated Work Hours": "4",
-    //   start_date: "05-05-2025",
-    //   end_date: "06-05-2025",
-    //   project_name: "HR Automation (Proj-107)",
-    //   assigned_to: "Alok Yadav",
-    // },
-    // {
-    //   task_status: "Completed",
-    //   task_code: "Task-108",
-    //   task_name: "Add Employee Self-Review",
-    //   "Estimated Work Hours": "9",
-    //   start_date: "02-05-2025",
-    //   end_date: "04-05-2025",
-    //   project_name: "Performance System (Proj-108)",
-    //   assigned_to: "Tarun Singh",
-    // },
-    // {
-    //   task_status: "In Progress",
-    //   task_code: "Task-109",
-    //   task_name: "Create Gantt Chart View",
-    //   "Estimated Work Hours": "14",
-    //   start_date: "06-05-2025",
-    //   end_date: "09-05-2025",
-    //   project_name: "Project Management (Proj-109)",
-    //   assigned_to: "Amit Choudhary",
-    // },
-    // {
-    //   task_status: "Completed",
-    //   task_code: "Task-110",
-    //   task_name: "Add SMS Alert Integration",
-    //   "Estimated Work Hours": "7",
-    //   start_date: "04-05-2025",
-    //   end_date: "05-05-2025",
-    //   project_name: "Communication System (Proj-110)",
-    //   assigned_to: "Rohit Varma",
-    // },
-    // {
-    //   task_status: "Completed",
-    //   task_code: "Task-111",
-    //   task_name: "Optimize File Uploads",
-    //   "Estimated Work Hours": "6",
-    //   start_date: "03-05-2025",
-    //   end_date: "04-05-2025",
-    //   project_name: "Document Management (Proj-111)",
-    //   assigned_to: "Ravi Sekhar",
-    // },
+
   ]
 
   const [selectedReceivedJobs, setSelectedReceivedJobs] = useState([])
-
-  // potential
-
-  // const [potentialJobsFilters, setPotentialJobsFilters] = useState({
-  //   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  //   status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   jobid: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   job_title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   candidate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   contact: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   date_time: { value: null, matchMode: FilterMatchMode.DATE_IS },
-  //   user_id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  // })
-
   const [potentialJobsFilters, setPotentialJobsFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     task_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -1227,21 +1106,6 @@ const JobAllActive = ({ toggleSidebar }) => {
   ]
 
   const [selectedPotentialJobs, setSelectedPotentialJobs] = useState([])
-
-  // rejected
-
-  // const [rejectedJobsFilters, setRejectedJobsFilters] = useState({
-  //   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  //   status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   jobid: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   job_title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   candidate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   contact: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   date_time: { value: null, matchMode: FilterMatchMode.DATE_IS },
-  //   user_id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  // })
-
   const [rejectedJobsFilters, setRejectedJobsFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     task_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -1363,20 +1227,6 @@ const JobAllActive = ({ toggleSidebar }) => {
 
   const [selectedSubmittedJobs, setSelectedSubmittedJobs] = useState([])
 
-  // offer start
-
-  // const [offerJobsFilters, setOfferJobsFilters] = useState({
-  //   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  //   status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   jobid: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   job_title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   candidate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   contact: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  //   date_time: { value: null, matchMode: FilterMatchMode.DATE_IS },
-  //   user_id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  // })
-
   const [offerJobsFilters, setOfferJobsFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     task_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -1420,16 +1270,16 @@ const JobAllActive = ({ toggleSidebar }) => {
   // placed start
 
   const [placedJobsFilters, setPlacedJobsFilters] = useState({
-  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  task_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  task_code: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  task_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  "Estimated Work Hours": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  start_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
-  end_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
-  project_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  assigned_to: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-});
+    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    task_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    task_code: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    task_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    "Estimated Work Hours": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    start_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
+    end_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
+    project_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    assigned_to: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  });
 
 
   const placedJobs = [
@@ -1514,10 +1364,6 @@ const JobAllActive = ({ toggleSidebar }) => {
   ]
 
   const [selectedActivities, setSelectedActivities] = useState([])
-
-  // view form activities ends
-
-  // view form notes starts
   const [isEditorVisible, setEditorVisible] = useState(false) // Manage editor visibility
   const [editorContent, setEditorContent] = useState("") // Manage editor content
   const [editIndex, setEditIndex] = useState(null)
@@ -1632,80 +1478,50 @@ const JobAllActive = ({ toggleSidebar }) => {
 
   const [visibleViewRight, setVisibleViewRight] = useState(false)
   const [editingRow, setEditingRow] = useState(null)
-  // const [documents, setDocuments] = useState([
-  //   {
-  //     key: "1",
-  //     data: {
-  //       id: "1",
-  //       certificate_name: "Discovery / Initiation",
-  //       docSubject: [
-  //         "Project charter",
-  //         "Goals & scope", 
-  //         "Stakeholder identification"
-  //       ],
-  //       created_at: "Jun 20 - July 15 2025",
-  //       responsible: "BA Team",
-  //     },
-  //   },
-  //   {
-  //     key: "2",
-  //     data: {
-  //       id: "2",
-  //       certificate_name: "Planning / Requirements",
-  //      docSubject: [
-  //         "Project charter",
-  //         "Goals & scope", 
-  //         "Stakeholder identification"
-  //       ],
-  //       created_at: "May 20 - Jun 15 2025",
-  //       responsible: "Development Team",
-  //     },
-  //   },
-  // ])
 
   const [documents, setDocuments] = useState([
-  {
-    key: "1",
-    data: {
-      id: "1",
-      certificate_name: "Discovery / Initiation",
-      docSubject: [
-        "Project charter",
-        "Goals & scope",
-        "Stakeholder identification"
-      ],
-      created_at: "Jun 20 - July 15 2025",
-      responsible: "BA Team",
+    {
+      key: "1",
+      data: {
+        id: "1",
+        certificate_name: "Discovery / Initiation",
+        docSubject: [
+          "Project charter",
+          "Goals & scope",
+          "Stakeholder identification"
+        ],
+        created_at: "Jun 20 - July 15 2025",
+        responsible: "BA Team",
+      },
     },
-  },
-  {
-    key: "2",
-    data: {
-      id: "2",
-      certificate_name: "Planning / Requirements",
-      docSubject: [
-        "Job Feedback Report for Lavankumar Kalvala - Web Developer"
-      ],
-      created_at: "May 20 - Jun 15 2025",
-      responsible: "Development Team",
+    {
+      key: "2",
+      data: {
+        id: "2",
+        certificate_name: "Planning / Requirements",
+        docSubject: [
+          "Job Feedback Report for Lavankumar Kalvala - Web Developer"
+        ],
+        created_at: "May 20 - Jun 15 2025",
+        responsible: "Development Team",
+      },
     },
-  },
-]);
+  ]);
 
   const keyDeliverablesTemplate = (rowData) => {
-  if (Array.isArray(rowData.docSubject)) {
-    return (
-      <div className="key-deliverables">
-        {rowData.docSubject.map((item, index) => (
-          <div key={index} className="deliverable-item">
-            - {item}
-          </div>
-        ))}
-      </div>
-    );
-  }
-  return rowData.docSubject;
-};
+    if (Array.isArray(rowData.docSubject)) {
+      return (
+        <div className="key-deliverables">
+          {rowData.docSubject.map((item, index) => (
+            <div key={index} className="deliverable-item">
+              - {item}
+            </div>
+          ))}
+        </div>
+      );
+    }
+    return rowData.docSubject;
+  };
 
   const handleEdit = rowKey => {
     setEditingRow(rowKey)
@@ -1770,13 +1586,7 @@ const JobAllActive = ({ toggleSidebar }) => {
   const [selectedSchedule, setSelectedSchedule] = useState(null)
 
   const actScheduleOptions = [
-    // {
-    //   name: 'Interview',
-    //   code: 'SCH-IN',
-    //   icon: 'pi pi-user',
-    //   action: () => SetInterviewpop(true),
 
-    // },
     {
       name: "Call",
       code: "SCH-CA",
@@ -1795,12 +1605,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       icon: "pi pi-check-square",
       action: () => SetInterviewpopTask(true),
     },
-    // {
-    //   name: 'Event',
-    //   code: 'SCH-EV',
-    //   icon: 'pi pi-bell',
-    //   action: () => SetInterviewpopEvent(true),
-    // },
+
     {
       name: "Other",
       code: "SCH-OT",
@@ -1812,7 +1617,6 @@ const JobAllActive = ({ toggleSidebar }) => {
   const handleScheduleChange = e => {
     setSelectedSchedule(e.value)
 
-    // Trigger the action if defined for the selected option
     if (e.value && e.value.action) {
       e.value.action() // Execute the custom action
     }
@@ -2191,8 +1995,6 @@ const JobAllActive = ({ toggleSidebar }) => {
     { name: "3 Days", value: "3 Day" },
   ]
 
-  // const [typeInterviewval, settypeInterviewval] = useState([])
-  // const [typeInterviewcontact, settypeInterviewcontact] = useState([])
   const [typeInterviewcondi, settypeInterviewcondi] = useState([])
   const [subjectval, setsubjectval] = useState(null)
   const [popchecked2, setPopchecked2] = useState(false)
@@ -2226,9 +2028,6 @@ const JobAllActive = ({ toggleSidebar }) => {
   const handlePopupCheckbox = e => {
     setPopchecked(e.checked)
   }
-  // interview popup ends
-
-  // input values starts
 
   const [jobid, setJobid] = useState("Proj-101")
   const [jobtitle, setJobtitle] = useState("AI Generator")
@@ -2270,29 +2069,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                         <i className="pi pi-briefcase"></i>{" "}
                         {selectedJobsData.length} Selected
                       </button>
-
-                      {/* {selectedJobsData.length === 1 && (
-  <>
-    <Tooltip target=".view" content="View" position="bottom" style={{ marginTop: "5px" }} />
-    <button
-      type="button"
-      className="btn btn-secondary icons-btn ms-1 view"
-      onClick={() => setVisibleViewRight(true)}
-    >
-      <i className="pi pi-eye"></i>
-    </button>
-
-    <Tooltip target=".edit" content="Edit" position="top" style={{ marginBottom: "5px" }} />
-    <Link to="/jobs-editform" className="p-link">
-      <button
-        type="button"
-        className="btn btn-secondary icons-btn ms-1 edit"
-      >
-        <i className="pi pi-pencil"></i>
-      </button>
-    </Link>
-  </>
-)} */}
 
                       <span className="icons-ac">
                         <Tooltip
@@ -2369,11 +2145,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
                 <span className="drop-ac">
                   <SubmitJobtoCandidate />
-
                   <CascadeSelect
-                    // value={selectedSchedule}
-                    // onChange={(e) => setSelectedSchedule(e.value)}
-                    // options={actScheduleOptions}
                     onChange={handleScheduleChange}
                     options={actScheduleOptions}
                     optionLabel="name"
@@ -2441,7 +2213,6 @@ const JobAllActive = ({ toggleSidebar }) => {
 
                   <div className="card1 mt-3 actjobsumtable">
                     <DataTable
-                      // header={headerBtn}
                       ref={dt} // Reference for CSV export
                       value={jobsData.slice(first, first + rows)}
                       rows={rows}
@@ -2488,7 +2259,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                         sortable
                         filter
                       />
-                      {/* <Column field="job_status" header="Description" sortable filter /> */}
                       <Column
                         field="openings"
                         header="Project Manager"
@@ -2496,7 +2266,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                         filter
                       />
 
-                      {/* <Column field="job_location" header="Project Handled By" sortable filter /> */}
                       <Column
                         field="workplace_type"
                         header="Reason for Delay"
@@ -2534,20 +2303,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                         sortable
                         filter
                       />
-                      {/* <Column field="primary_skills" header="Primary Skills" sortable filter /> */}
-                      {/* <Column field="experience_required" header="Experience" sortable filter /> */}
-                      {/* <Column field="min_salary" header="Min Salary" sortable filter /> */}
-                      {/* <Column field="max_salary" header="Max Salary" sortable filter /> */}
-                      {/* <Column field="department" header="Department" sortable filter /> */}
-
-                      {/* <Column field="job_hiring_goal" header="Hiring Goal" sortable filter  /> */}
-                      {/* <Column field="job_function" header="Function" sortable filter />
-                      <Column field="seniority" header="Seniority" sortable filter />
-                      <Column field="category" header="Category" sortable filter />
-                      <Column field="group" header="Group" sortable filter />
-                      <Column field="create_date" header="Create Date" sortable filter />
-                      <Column field="edit_date" header="Edit Date" sortable filter /> */}
-                      {/* <Column field="created_by" header="Action" sortable filter /> */}
                     </DataTable>
                   </div>
                 </section>
@@ -2566,9 +2321,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                   <div className="sidebar-header">
                     <h3>Create a Project</h3>
                     <div className="d-flex align-items-center">
-                      {/* <Link to="/jobs-editform">
-                        <p className="mb-0 text-white"> <i class="fa-regular fa-pen-to-square me-3"></i> </p>
-                      </Link> */}
                       <Button
                         icon="pi pi-times"
                         className="p-button-text close-btn"
@@ -2578,19 +2330,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </div>
                   <div className="card sidebardetails">
                     <Row className="mb-0">
-                      <Col lg={6}>
-                        <div className="p-field">
-                          <label htmlFor="jobTitle" className="p-d-block">
-                            Project Name <span className="text-danger">*</span>
-                          </label>
-                          <InputText
-                            id="jobTitle"
-                            placeholder="Web Developer"
-                            className="p-d-block"
-                            value={jobtitle}
-                          />
-                        </div>
-                      </Col>
+
                       <Col lg={6}>
                         <div className="field">
                           <label htmlFor="jobId" className="mb-1">
@@ -2605,72 +2345,25 @@ const JobAllActive = ({ toggleSidebar }) => {
                           />
                         </div>
                       </Col>
-
-                      <Col lg={12}>
-                      {/* <WorkTypeManager/> */}
-
-                      <WorkType/>
+                      <Col lg={6}>
+                        <div className="p-field">
+                          <label htmlFor="jobTitle" className="p-d-block">
+                            Project Name <span className="text-danger">*</span>
+                          </label>
+                          <InputText
+                            id="jobTitle"
+                            placeholder="Web Developer"
+                            className="p-d-block"
+                            value={jobtitle}
+                          />
+                        </div>
                       </Col>
+
+                      {/* <Col lg={12}>
+
+                        <WorkType  />
+                      </Col> */}
                     </Row>
-
-                    {/* <Row className="mb-2">
-                        <Col lg={6}>
-                          <div className="p-field">
-                            <label htmlFor="company">Company</label>
-                            <Dropdown
-                              value={selectedCompany}
-                              onChange={(e) => setSelectedCompany(e.value)}
-                              options={companyOptions}
-                              optionLabel="name"
-                              placeholder="Varun Digital Media"
-                              filter
-                              className="w-full bgclr"
-                            />
-
-                          </div>
-                        </Col>
-                        <Col lg={6}>
-                          <div className="p-field">
-                            <label htmlFor="hiringManager">Hiring Manager</label>
-                            <Dropdown
-                              value={selectedPerson}
-                              options={personOptions}
-                              onChange={(e) => setSelectedPerson(e.value)}
-                              optionLabel={(option) => `${option.name}, ${option.role}`}
-                              placeholder="Mahesh Kumar Bhoga"
-                              className="bgclr"
-                            />
-                          </div>
-                        </Col>
-
-                      </Row> */}
-
-                    {/* <Row className="mb-2">
-                        <Col lg={6}>
-                          <label htmlFor="experience">Experience in Years</label>
-                          <InputText inputId="experience" value={expyears}
-                            // minFractionDigits={1} maxFractionDigits={100} step={0.1}
-                            className="w-full activejobdrop"
-                            placeholder="3 Years" />
-                        </Col>
-                        <Col lg={6}>
-                          <div className="p-field">
-                            <label htmlFor="jobLocation">Job Location</label>
-                            <Dropdown
-                              id="jobLocation"
-                              value={jobLocation}
-                              onChange={(e) => setJobLocation(e.value)}
-                              options={jobLocations}
-                              optionLabel="name"
-                              filter
-                              filterPlaceholder="Search Location"
-                              className="w-full activejobdrop"
-                              placeholder="Hyderabad"
-                            />
-                          </div>
-                        </Col>
-
-                      </Row> */}
 
                     <Row className="mb-3">
                       <Col lg={6}>
@@ -2742,82 +2435,42 @@ const JobAllActive = ({ toggleSidebar }) => {
                     </Row>
 
                     <Row className="mb-3">
-                      <label htmlFor="jobEndDate" className="mr-2">
-                        Primary skills
-                      </label>
-                      <Select
-                        id="primarySkills"
-                        name="primarySkills"
-                        isMulti
-                        options={skillsOptions}
-                        value={skillsOptions.filter(option =>
-                          selectedPrimarySkills.includes(option.value)
-                        )}
-                        onChange={handlePrimarySkillsChange}
-                        placeholder="HTML, CSS, JavaScript"
-                      />
-                    </Row>
-
-                    <Row className="mb-2">
-                      {/* <Col lg={6}>
-                          <div className="p-field">
-                            <label htmlFor="hiringManager">Select Company</label>
-                            <select
-                              className='form-select profileDetailsInput w-full' id="MyPro_EmpDet_Team_WorkInfo_DesSelBox"
-                              aria-label='Default select example'
-
-                            >
-                              <option value=''>-- select company --</option>
-                              <option value='Office'>Work From Office (WFO)</option>
-                              <option value='Remote'>Work From Home (WFH)</option>
-                              <option value='Hybrid'>Work From Remote (WFR)</option>
-
-                            </select>
-                          </div>
-                        </Col>
-
-                        <Col lg={6}>
-                          <div className="p-field">
-                            <label htmlFor="hiringManager">Project Handled By</label>
-                            <select
-                              className='form-select profileDetailsInput w-full' id="MyPro_EmpDet_Team_WorkInfo_DesSelBox"
-                              aria-label='Default select example'
-
-                            >
-                              <option value=''>-- select --</option>
-                              <option value='Office'>Work From Office (WFO)</option>
-                              <option value='Remote'>Work From Home (WFH)</option>
-                              <option value='Hybrid'>Work From Remote (WFR)</option>
-
-                            </select>
-                          </div>
-                        </Col> */}
-
                       <Col lg={6}>
-                        <div className="p-field">
-                          <label htmlFor="jobType">Categories</label>
-                          <TreeSelect
-                            value={selectedCategoryKey}
-                            onChange={e => setSelectedCategoryKey(e.value)}
-                            options={categories}
-                            filter
-                            className="w-full"
-                            placeholder="Frontend"
-                          ></TreeSelect>
-                        </div>
+                        <label htmlFor="projectStatus" className="mr-2">
+                          Project Status
+                        </label>
+                        <Select
+                          id="projectStatus"
+                          name="projectStatus"
+                          options={[
+                            { value: "Active", label: "Active" },
+                            { value: "In Active", label: "In Active" },
+                            { value: "On Hold", label: "On Hold" }
+                          ]}
+                          value={{
+                            value: selectedProjectStatus,
+                            label: selectedProjectStatus
+                          }}
+                          onChange={(option) => setSelectedProjectStatus(option.value)}
+                          placeholder="Select status"
+                        />
                       </Col>
+
                       <Col lg={6}>
                         <div className="p-field">
-                          <label htmlFor="jobType">Groups</label>
-                          <TreeSelect
-                            value={selectedGroupKey}
-                            onChange={e => setSelectedGroupKey(e.value)}
-                            options={groups}
-                            filter
-                            className="w-full"
-                            placeholder="HTML, CSS"
-                          ></TreeSelect>
-                        </div>
+                          <label htmlFor="hiringManager">Work Type</label>
+                          {/* <select
+                            className="form-select profileDetailsInput w-full"
+                            id="MyPro_EmpDet_Team_WorkInfo_DesSelBox"
+                            aria-label="Default select example"
+                          >
+                            <option value="">Select Work Type</option>
+                            <option value="Office">Onsite</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Hybrid">Hybrid</option>
+                          </select> */}
+                          <WorkType />                        
+                          </div>
                       </Col>
                     </Row>
 
@@ -2874,6 +2527,35 @@ const JobAllActive = ({ toggleSidebar }) => {
                         <small className="text-muted">
                           Eg: (pdf,word,excel,zip)
                         </small>
+                      </Col>
+
+
+                      <Col lg={6}>
+                        <div className="p-field mt-3">
+                          <label htmlFor="jobType">Categories</label>
+                          <TreeSelect
+                            value={selectedCategoryKey}
+                            onChange={e => setSelectedCategoryKey(e.value)}
+                            options={categories}
+                            filter
+                            className="w-full"
+                            placeholder="Frontend"
+                          ></TreeSelect>
+                        </div>
+                      </Col>
+
+                      <Col lg={6}>
+                        <div className="p-field mt-3">
+                          <label htmlFor="jobType">Groups</label>
+                          <TreeSelect
+                            value={selectedGroupKey}
+                            onChange={e => setSelectedGroupKey(e.value)}
+                            options={groups}
+                            filter
+                            className="w-full"
+                            placeholder="HTML, CSS"
+                          ></TreeSelect>
+                        </div>
                       </Col>
                     </Row>
 
@@ -3064,18 +2746,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                             </div>
                           </Col>
 
-                          {/* <Col lg={4}>
-                            <div className="field">
-                              <label htmlFor="primarySkills">Primary Skills</label>
-                              <InputText
-                                id="primarySkills"
-                                placeholder="HTML, CSS, Javascript"
-                                className="w-full"
-                                value={primskills}
-                              />
-                            </div>
-                          </Col> */}
-
                           <Col lg={4}>
                             <div className="p-field">
                               <label htmlFor="jobType">UserID</label>
@@ -3176,47 +2846,47 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Row>
               </TabPanel>
 
-               <TabPanel header="Estimates" leftIcon="pi pi-sitemap mr-2">
+              <TabPanel header="Estimates" leftIcon="pi pi-sitemap mr-2">
                 <Row>
                   <Col lg={12}>
-                  <EstimateTable />
+                    <EstimateTable />
 
                     <Row className="mt-5">
-                          <Col lg={12}>
-                            <div className="doc-table">
-                              <TreeTable
-                                value={documents}
-                                tableStyle={{ minWidth: "50rem" }}
-                              >
-                                <Column
-                                  field="certificate_name"
-                                  header="Document Type"
-                                  body={rowData =>
-                                    editableTemplate(
-                                      rowData,
-                                      "certificate_name"
-                                    )
-                                  }
-                                />
-                                <Column
-                                  field="docSubject"
-                                  header="Document Subject"
-                                  body={rowData =>
-                                    editableTemplate(rowData, "docSubject")
-                                  }
-                                />
-                                <Column
-                                  field="created_at"
-                                  header="Applied Date & Time"
-                                />
-                                <Column
-                                  body={actionTemplate}
-                                  header="Actions"
-                                />
-                              </TreeTable>
-                            </div>
-                          </Col>
-                        </Row>
+                      <Col lg={12}>
+                        <div className="doc-table">
+                          <TreeTable
+                            value={documents}
+                            tableStyle={{ minWidth: "50rem" }}
+                          >
+                            <Column
+                              field="certificate_name"
+                              header="Document Type"
+                              body={rowData =>
+                                editableTemplate(
+                                  rowData,
+                                  "certificate_name"
+                                )
+                              }
+                            />
+                            <Column
+                              field="docSubject"
+                              header="Document Subject"
+                              body={rowData =>
+                                editableTemplate(rowData, "docSubject")
+                              }
+                            />
+                            <Column
+                              field="created_at"
+                              header="Applied Date & Time"
+                            />
+                            <Column
+                              body={actionTemplate}
+                              header="Actions"
+                            />
+                          </TreeTable>
+                        </div>
+                      </Col>
+                    </Row>
                     <Accordion activeIndex={0}>
                     </Accordion>
                   </Col>
@@ -3255,9 +2925,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                           ]}
                           emptyMessage="No activities found."
                           selection={selectedActivities}
-                          onSelectionChange={e =>
-                            setSelectedActivities(e.value)
-                          }
+                          onSelectionChange={e => setSelectedActivities(e.value)}
                           selectionMode="multiple"
                           resizableColumns
                           columnResizeMode="expand"
@@ -3403,7 +3071,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                                       header="Estimated Work Hours"
                                       sortable
                                       filter
-                                      style={{ minWidth: "4rem"}}
+                                      style={{ minWidth: "4rem" }}
                                       className="dis-tablecenter"
                                     />
                                     <Column
@@ -3455,7 +3123,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-                                 
+
 
                                   <DataTable
                                     value={potentialJobs.map(job => ({
@@ -3579,7 +3247,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-                                 
+
 
                                   <DataTable
                                     value={submittedJobs}
@@ -3698,7 +3366,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-                                
+
 
                                   <DataTable
                                     value={interviewJobs}
@@ -3817,7 +3485,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-                                  
+
 
                                   <DataTable
                                     value={offerJobs}
@@ -4347,15 +4015,11 @@ const JobAllActive = ({ toggleSidebar }) => {
         </Col>
       </Row>
 
-      {/* view page ends */}
-
-      {/* Interview schedule start */}
       <Dialog
         header="Appointment - LavanKumar Kalvala"
         visible={interviewpop}
         className="interview-popup"
         style={{ width: "50vw" }}
-        // onHide={() => { if (!interviewpop) return; SetInterviewpop(false); }}
         onHide={() => {
           SetInterviewpop(false)
         }}
@@ -4372,12 +4036,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       value={intertype}
                       onChange={e => setintertype(e.target.value)}
                     />
-                    {/* <Dropdown 
-                                                    // disabled
-                                                    value={intertype}
-                                                    onChange={(e) => setintertype(e.target.value)}
-                                                    options={interviewdroptype}
-                                                    className="w-full search-option" /> */}
                   </div>
                 </Col>
 
@@ -4482,26 +4140,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </div>
                 </Col>
 
-                {/* <Col xl={6}>
-                                    <div className="p-field flex flex-column">
-                                        <label
-                                            For="Priority"
-                                            className=" block"
-                                        >
-                                            Contact
-                                        </label>
-
-                                        <Dropdown
-                                            value={prioritycontact}
-                                            onChange={(e) => setprioritycontact(e.value)}
-                                            options={typeInterviewcontact}
-                                            optionLabel="name"
-                                            placeholder="Contact"
-                                            className="w-full search-option"
-                                        />
-                                    </div>
-                                </Col> */}
-
                 <LinkJobsPopup />
               </Row>
 
@@ -4521,15 +4159,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       maxSelectedLabels={0}
                       className="w-full"
                     />
-                    {/* <Dropdown
-                                                    value={condidatevalu}
-                                                    onChange={e => setcondidatevalu(e.value)}
-                                                    options={typeInterviewcondi}
-                                                    optionLabel="name"
-                                                    placeholder="Select a Status"
-                                                    className="w-full search-option"
-                            
-                                                  /> */}
                   </div>
                 </Col>
                 <Col xl={6}>
@@ -4622,307 +4251,7 @@ const JobAllActive = ({ toggleSidebar }) => {
               </Row>
             </div>
 
-            <Row className="mt-2">
-              <Col xl={12}>
-                <div className="d-flex justify-content-end">
-                  <button
-                    type="submit"
-                    class="btn btn-primary waves-effect waves-light btn btn-primary me-2 btn-main"
-                  >
-                    <i className="pi pi-save me-1"></i>
-                    Save
-                  </button>
-                  <button
-                    color="primary"
-                    className="btn btn-primary waves-effect waves-light me-2 cancel-outlinebtn"
-                  >
-                    <i className="pi pi-times me-1"></i>
-                    Cancel
-                  </button>
-                </div>
-              </Col>
-            </Row>
-          </p>
-        </form>
-      </Dialog>
-      {/* Interview schedule end */}
-
-      {/* ----------------------- */}
-      {/* Interview schedule start */}
-      <Dialog
-        header="Appointment - Lavankumar Kalvala"
-        visible={interviewpop}
-        className="interview-popup"
-        style={{ width: "50vw" }}
-        // onHide={() => { if (!interviewpop) return; SetInterviewpop(false); }}
-        onHide={() => {
-          SetInterviewpop(false)
-        }}
-      >
-        <form>
-          <p className="bg-form">
-            <div className="mb-4">
-              <Row className="mb-2">
-                <Col xl={6}>
-                  <div className="p-field flex flex-column">
-                    <label htmlFor="interview">Type</label>
-                    <InputText
-                      disabled
-                      value={intertype}
-                      onChange={e => setintertype(e.target.value)}
-                    />
-                    {/* <Dropdown 
-                                                            // disabled
-                                                            value={intertype}
-                                                            onChange={(e) => setintertype(e.target.value)}
-                                                            options={interviewdroptype}
-                                                            className="w-full search-option" /> */}
-                  </div>
-                </Col>
-
-                <Col xl={6}>
-                  <div className="p-field flex flex-column">
-                    <label htmlFor="integer" className=" block">
-                      Sub-Type
-                    </label>
-                    <Dropdown
-                      value={subtype}
-                      onChange={e => setSubtype(e.value)}
-                      options={typeInterview}
-                      optionLabel="name"
-                      placeholder="Subtype"
-                      className="w-full search-option"
-                    />
-                  </div>
-                </Col>
-              </Row>
-
-              <Row>
-                <Col xl={6}>
-                  <Row className="mb-2">
-                    <Col xl={6}>
-                      <div className="p-field flex-auto">
-                        <label htmlFor="buttondisplay" className="block">
-                          Start date
-                        </label>
-                        <Calendar
-                          value={startdate}
-                          onChange={e => setStartdate(e.value)}
-                          showIcon
-                        />
-                      </div>
-                    </Col>
-
-                    <Col xl={6}>
-                      <div className="p-field flex-auto">
-                        <label htmlFor="buttondisplay" className="block">
-                          Time
-                        </label>
-                        <Calendar
-                          value={starttime}
-                          onChange={e => setStarttime(e.value)}
-                          showIcon
-                          timeOnly
-                          icon={() => <i className="pi pi-clock" />}
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-
-                <Col xl={6}>
-                  <Row className="mb-2">
-                    <Col xl={6}>
-                      <div className="flex-auto">
-                        <label htmlFor="buttondisplay" className="block">
-                          End date
-                        </label>
-                        <Calendar
-                          value={enddate}
-                          onChange={e => setenddate(e.value)}
-                          showIcon
-                        />
-                      </div>
-                    </Col>
-
-                    <Col xl={6}>
-                      <div className="flex-auto">
-                        <label htmlFor="buttondisplay" className="block">
-                          Time
-                        </label>
-
-                        <Calendar
-                          value={endtime}
-                          onChange={e => setendtime(e.value)}
-                          showIcon
-                          timeOnly
-                          icon={() => <i className="pi pi-clock" />}
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            </div>
-
-            <div className="mb-4">
-              <Row className="mb-2">
-                {/* <Col xl={6}>
-                    <div className="flex flex-column">
-                      <label For="Priority">Jobs List</label>
-                      <Dropdown
-                        value={subtypeget}
-                        onChange={e => setsubtypeget(e.value)}
-                        options={jobStatusDrop}
-                        optionLabel="name"
-                        placeholder="Select a Status"
-                        className="w-full search-option"
-                      />
-                    </div>
-                  </Col> */}
-                <LinkContactsPopup />
-
-                <Col xl={6}>
-                  {/* <div className="p-field flex flex-column">
-                      <label
-                        For="Priority"
-                        className=" block"
-                      >
-                        Contact
-                      </label>
-
-                      <Dropdown
-                        value={prioritycontact}
-                        onChange={(e) => setprioritycontact(e.value)}
-                        options={typeInterviewcontact}
-                        optionLabel="name"
-                        placeholder="Contact"
-                        className="w-full search-option"
-                      />
-                    </div> */}
-                  {/* <LinkContactsPopup/> */}
-                  <LinkContact2Popup />
-                </Col>
-              </Row>
-
-              <Row className="mb-2">
-                <Col xl={6}>
-                  <div className="p-field flex flex-column">
-                    <label For="Candidate">Candidate</label>
-                    <MultiSelect
-                      value={condidatevalu}
-                      disabled
-                      onChange={e => {
-                        condidatelist(e)
-                      }}
-                      options={typeInterviewcondi}
-                      optionLabel="name"
-                      placeholder={`Lavankumar Kalvala`}
-                      maxSelectedLabels={0}
-                      className="w-full"
-                    />
-                    {/* <Dropdown
-                                                            value={condidatevalu}
-                                                            onChange={e => setcondidatevalu(e.value)}
-                                                            options={typeInterviewcondi}
-                                                            optionLabel="name"
-                                                            placeholder="Select a Status"
-                                                            className="w-full search-option"
-                                    
-                                                          /> */}
-                  </div>
-                </Col>
-                <Col xl={6}>
-                  <div className="p-field flex flex-column">
-                    <label htmlFor="username">Subject</label>
-                    <InputText
-                      placeholder="Subject"
-                      value={subjectval}
-                      onChange={e => setsubjectval(e.target.value)}
-                    />
-                  </div>
-                </Col>
-              </Row>
-
-              <Row className="mb-2 mt-3">
-                <Col xl={12}>
-                  <div className="">
-                    <InputTextarea
-                      className="w-full"
-                      value={popTextares}
-                      onChange={e => setPopTextares(e.target.value)}
-                      placeholder="Interview Test"
-                      rows={3}
-                      cols={20}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            </div>
-
-            <div>
-              <Row className="mb-2">
-                <Col lg={6}>
-                  <Row>
-                    <Col xl={6}>
-                      <div className="p-field flex flex-column">
-                        <label For="Priority" className=" block">
-                          Priority
-                        </label>
-                        <Dropdown
-                          value={priority}
-                          onChange={e => setPriority(e.value)}
-                          options={priorityValue}
-                          optionLabel="name"
-                          placeholder="Priority"
-                          className="w-full search-option"
-                        />
-                      </div>
-                    </Col>
-                    <Col xl={6}>
-                      <Row className="mt-2">
-                        <Col xl={6}>
-                          <div className="d-flex align-items-center mt-4">
-                            <Checkbox
-                              inputId="checkbox"
-                              checked={popchecked}
-                              onChange={handlePopupCheckbox}
-                            />
-                            <label htmlFor="username" className="ms-1 mt-2">
-                              Completed
-                            </label>
-                          </div>
-                        </Col>
-
-                        <Col xl={6}>
-                          <div className="d-flex align-items-center mt-4">
-                            <Checkbox
-                              inputId="checkbox"
-                              checked={popchecked2}
-                              onChange={handlePopupCheckbox2}
-                            />
-                            <label htmlFor="username" className="ms-1 mt-2">
-                              Private
-                            </label>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xl={6}>
-                  <label htmlFor="username">User Id's</label>
-                  <Chips
-                    value={userid}
-                    onChange={e => setUserid(e.value)}
-                    itemTemplate={customChip}
-                    className="w-full"
-                  />
-                </Col>
-              </Row>
-            </div>
-
-            <Row className="mt-2">
+            <Row className="">
               <Col xl={12}>
                 <div className="d-flex justify-content-end">
                   <button
@@ -4970,12 +4299,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       value={intertype3}
                       onChange={e => setintertype1(e.target.value)}
                     />
-                    {/* <Dropdown 
-                                                            // disabled
-                                                            value={intertype}
-                                                            onChange={(e) => setintertype(e.target.value)}
-                                                            options={interviewdroptype}
-                                                            className="w-full search-option" /> */}
                   </div>
                 </Col>
 
@@ -5068,11 +4391,11 @@ const JobAllActive = ({ toggleSidebar }) => {
               <Row className="mb-2">
                 <Col xl={6}>
                   <div className="flex flex-column">
-                    <label For="Priority">Project Status</label>
+                    <label For="Priority">Job Status</label>
                     <Dropdown
                       value={subtypeget}
                       onChange={e => setsubtypeget(e.value)}
-                      options={jobStatusDrop}
+                      options={typeInterview}
                       optionLabel="name"
                       placeholder="Select a Status"
                       className="w-full search-option"
@@ -5080,32 +4403,13 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </div>
                 </Col>
 
-                {/* <Col xl={6}>
-                    <div className="p-field flex flex-column">
-                      <label
-                        For="Priority"
-                        className=" block"
-                      >
-                        Contact
-                      </label>
-
-                      <Dropdown
-                        value={prioritycontact}
-                        onChange={(e) => setprioritycontact(e.value)}
-                        options={typeInterviewcontact}
-                        optionLabel="name"
-                        placeholder="Contact"
-                        className="w-full search-option"
-                      />
-                    </div>
-                  </Col> */}
-                <LinkContactsPopup />
+                <LinkJobsPopup />
               </Row>
 
               <Row className="mb-2">
                 <Col xl={6}>
                   <div className="p-field flex flex-column">
-                    <label For="Candidate">Task</label>
+                    <label For="Candidate">Candidate</label>
                     <MultiSelect
                       value={condidatevalu}
                       disabled
@@ -5118,15 +4422,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       maxSelectedLabels={0}
                       className="w-full"
                     />
-                    {/* <Dropdown
-                                                            value={condidatevalu}
-                                                            onChange={e => setcondidatevalu(e.value)}
-                                                            options={typeInterviewcondi}
-                                                            optionLabel="name"
-                                                            placeholder="Select a Status"
-                                                            className="w-full search-option"
-                                    
-                                                          /> */}
                   </div>
                 </Col>
                 <Col xl={6}>
@@ -5148,7 +4443,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                       className="w-full"
                       value={popTextares}
                       onChange={e => setPopTextares(e.target.value)}
-                      placeholder="Test"
+                      placeholder="Interview Test"
                       rows={3}
                       cols={20}
                     />
@@ -5250,7 +4545,6 @@ const JobAllActive = ({ toggleSidebar }) => {
         visible={interviewpopMeeting}
         className="interview-popup"
         style={{ width: "50vw" }}
-        // onHide={() => { if (!interviewpop) return; SetInterviewpop(false); }}
         onHide={() => {
           SetInterviewpopMeeting(false)
         }}
@@ -5267,12 +4561,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       value={intertype2}
                       onChange={e => setintertype(e.target.value)}
                     />
-                    {/* <Dropdown 
-                                                            // disabled
-                                                            value={intertype}
-                                                            onChange={(e) => setintertype(e.target.value)}
-                                                            options={interviewdroptype}
-                                                            className="w-full search-option" /> */}
                   </div>
                 </Col>
 
@@ -5377,26 +4665,8 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </div>
                 </Col>
 
-                {/* <Col xl={6}> */}
-                {/* <div className="p-field flex flex-column">
-                      <label
-                        For="Priority"
-                        className=" block"
-                      >
-                        Contact
-                      </label>
 
-                      <Dropdown
-                        value={prioritycontact}
-                        onChange={(e) => setprioritycontact(e.value)}
-                        options={typeInterviewcontact}
-                        optionLabel="name"
-                        placeholder="Contact"
-                        className="w-full search-option"
-                      />
-                    </div> */}
                 <LinkContactsPopup />
-                {/* </Col> */}
               </Row>
 
               <Row className="mb-2">
@@ -5415,15 +4685,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       maxSelectedLabels={0}
                       className="w-full"
                     />
-                    {/* <Dropdown
-                                                            value={condidatevalu}
-                                                            onChange={e => setcondidatevalu(e.value)}
-                                                            options={typeInterviewcondi}
-                                                            optionLabel="name"
-                                                            placeholder="Select a Status"
-                                                            className="w-full search-option"
-                                    
-                                                          /> */}
                   </div>
                 </Col>
                 <Col xl={6}>
@@ -5455,53 +4716,6 @@ const JobAllActive = ({ toggleSidebar }) => {
             </div>
 
             <div>
-              <Row className="mb-2">
-                <Col xl={6}>
-                  <div className="p-field">
-                    <label htmlFor="username">Auto Followup</label>
-                    <Dropdown
-                      value={followup}
-                      onChange={e => setFollowup(e.value)}
-                      options={followupOptions}
-                      optionLabel="name"
-                      placeholder="Select a Followup Interval"
-                      className="w-full search-option"
-                    />
-                  </div>
-                </Col>
-
-                <Col xl={6}>
-                  <Row>
-                    <Col xl={6}>
-                      <div className="p-field flex flex-column">
-                        <label htmlFor="username">Repeat</label>
-                        <Dropdown
-                          value={repeat}
-                          onChange={e => setRepeat(e.value)}
-                          options={repeatOptions}
-                          optionLabel="name"
-                          placeholder="Select a Repeat Option"
-                          className="w-full search-option"
-                        />
-                      </div>
-                    </Col>
-
-                    <Col xl={6}>
-                      <div className="p-field flex flex-column">
-                        <label htmlFor="username">Reminder</label>
-                        <Dropdown
-                          value={reminder}
-                          onChange={e => setReminder(e.value)}
-                          options={reminderOptions}
-                          optionLabel="name"
-                          placeholder="Select a Reminder"
-                          className="w-full search-option"
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
               <Row className="mb-2">
                 <Col lg={6}>
                   <Row>
@@ -5611,12 +4825,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                       value={intertype1}
                       onChange={e => setintertype1(e.target.value)}
                     />
-                    {/* <Dropdown 
-                                                            // disabled
-                                                            value={intertype}
-                                                            onChange={(e) => setintertype(e.target.value)}
-                                                            options={interviewdroptype}
-                                                            className="w-full search-option" /> */}
+
                   </div>
                 </Col>
 
@@ -5740,15 +4949,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       maxSelectedLabels={0}
                       className="w-full"
                     />
-                    {/* <Dropdown
-                                                            value={condidatevalu}
-                                                            onChange={e => setcondidatevalu(e.value)}
-                                                            options={typeInterviewcondi}
-                                                            optionLabel="name"
-                                                            placeholder="Select a Status"
-                                                            className="w-full search-option"
-                                    
-                                                          /> */}
                   </div>
                 </Col>
                 <Col xl={6}>
@@ -5780,53 +4980,6 @@ const JobAllActive = ({ toggleSidebar }) => {
             </div>
 
             <div>
-              <Row className="mb-2">
-                <Col xl={6}>
-                  <div className="p-field">
-                    <label htmlFor="username">Auto Followup</label>
-                    <Dropdown
-                      value={followup}
-                      onChange={e => setFollowup(e.value)}
-                      options={followupOptions}
-                      optionLabel="name"
-                      placeholder="Select a Followup Interval"
-                      className="w-full search-option"
-                    />
-                  </div>
-                </Col>
-
-                <Col xl={6}>
-                  <Row>
-                    <Col xl={6}>
-                      <div className="p-field flex flex-column">
-                        <label htmlFor="username">Repeat</label>
-                        <Dropdown
-                          value={repeat}
-                          onChange={e => setRepeat(e.value)}
-                          options={repeatOptions}
-                          optionLabel="name"
-                          placeholder="Select a Repeat Option"
-                          className="w-full search-option"
-                        />
-                      </div>
-                    </Col>
-
-                    <Col xl={6}>
-                      <div className="p-field flex flex-column">
-                        <label htmlFor="username">Reminder</label>
-                        <Dropdown
-                          value={reminder}
-                          onChange={e => setReminder(e.value)}
-                          options={reminderOptions}
-                          optionLabel="name"
-                          placeholder="Select a Reminder"
-                          className="w-full search-option"
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
               <Row className="mb-2">
                 <Col lg={6}>
                   <Row>
@@ -5933,15 +5086,9 @@ const JobAllActive = ({ toggleSidebar }) => {
                     <label htmlFor="interview">Type</label>
                     <InputText
                       disabled
-                      value={intertype4}
+                      value={intertype5}
                       onChange={e => setintertype1(e.target.value)}
                     />
-                    {/* <Dropdown 
-                                                            // disabled
-                                                            value={intertype}
-                                                            onChange={(e) => setintertype(e.target.value)}
-                                                            options={interviewdroptype}
-                                                            className="w-full search-option" /> */}
                   </div>
                 </Col>
 
@@ -6065,15 +5212,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       maxSelectedLabels={0}
                       className="w-full"
                     />
-                    {/* <Dropdown
-                                                            value={condidatevalu}
-                                                            onChange={e => setcondidatevalu(e.value)}
-                                                            options={typeInterviewcondi}
-                                                            optionLabel="name"
-                                                            placeholder="Select a Status"
-                                                            className="w-full search-option"
-                                    
-                                                          /> */}
                   </div>
                 </Col>
                 <Col xl={6}>
@@ -6105,53 +5243,6 @@ const JobAllActive = ({ toggleSidebar }) => {
             </div>
 
             <div>
-              <Row className="mb-2">
-                <Col xl={6}>
-                  <div className="p-field">
-                    <label htmlFor="username">Auto Followup</label>
-                    <Dropdown
-                      value={followup}
-                      onChange={e => setFollowup(e.value)}
-                      options={followupOptions}
-                      optionLabel="name"
-                      placeholder="Select a Followup Interval"
-                      className="w-full search-option"
-                    />
-                  </div>
-                </Col>
-
-                <Col xl={6}>
-                  <Row>
-                    <Col xl={6}>
-                      <div className="p-field flex flex-column">
-                        <label htmlFor="username">Repeat</label>
-                        <Dropdown
-                          value={repeat}
-                          onChange={e => setRepeat(e.value)}
-                          options={repeatOptions}
-                          optionLabel="name"
-                          placeholder="Select a Repeat Option"
-                          className="w-full search-option"
-                        />
-                      </div>
-                    </Col>
-
-                    <Col xl={6}>
-                      <div className="p-field flex flex-column">
-                        <label htmlFor="username">Reminder</label>
-                        <Dropdown
-                          value={reminder}
-                          onChange={e => setReminder(e.value)}
-                          options={reminderOptions}
-                          optionLabel="name"
-                          placeholder="Select a Reminder"
-                          className="w-full search-option"
-                        />
-                      </div>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
               <Row className="mb-2">
                 <Col lg={6}>
                   <Row>
@@ -6238,13 +5329,12 @@ const JobAllActive = ({ toggleSidebar }) => {
       </Dialog>
       {/* Interview schedule Event end */}
 
-      {/* Interview schedule other start */}
+      {/* Interview schedule Other start */}
       <Dialog
         header="Appointment - Lavankumar Kalvala"
         visible={interviewpopOther}
         className="interview-popup"
         style={{ width: "50vw" }}
-        // onHide={() => { if (!interviewpop) return; SetInterviewpop(false); }}
         onHide={() => {
           SetInterviewpopOther(false)
         }}
@@ -6261,12 +5351,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       value={intertype5}
                       onChange={e => setintertype1(e.target.value)}
                     />
-                    {/* <Dropdown 
-                                                            // disabled
-                                                            value={intertype}
-                                                            onChange={(e) => setintertype(e.target.value)}
-                                                            options={interviewdroptype}
-                                                            className="w-full search-option" /> */}
                   </div>
                 </Col>
 
@@ -6390,15 +5474,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       maxSelectedLabels={0}
                       className="w-full"
                     />
-                    {/* <Dropdown
-                                                            value={condidatevalu}
-                                                            onChange={e => setcondidatevalu(e.value)}
-                                                            options={typeInterviewcondi}
-                                                            optionLabel="name"
-                                                            placeholder="Select a Status"
-                                                            className="w-full search-option"
-                                    
-                                                          /> */}
                   </div>
                 </Col>
                 <Col xl={6}>
@@ -6514,9 +5589,7 @@ const JobAllActive = ({ toggleSidebar }) => {
           </p>
         </form>
       </Dialog>
-      {/* Interview schedule other end */}
-
-      {/* ----------------------- */}
+      {/* Interview schedule Other end */}
     </React.Fragment>
   )
 }

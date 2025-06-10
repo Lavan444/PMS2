@@ -2960,7 +2960,7 @@ const ContactsAllActive = () => {
                       </Row>
 
 
-                      <Row className="mb-2">
+                      {/* <Row className="mb-2">
                         <Col lg={12}>
                           <div className="p-field">
                             <label htmlFor="jobType">Attach Document</label>
@@ -2975,7 +2975,7 @@ const ContactsAllActive = () => {
                             />
                           </div>
                         </Col>
-                      </Row>
+                      </Row> */}
 
                       <Row className="mb-2">
                         <Col lg={6}>

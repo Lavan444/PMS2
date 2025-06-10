@@ -224,6 +224,11 @@ const EstimateTable = () => {
             font-weight: 600;
             font-size: 1rem;
             padding: 14px 18px !important;
+            text-align: left !important;
+          }
+          /* Center align Actions header */
+          .custom-ats-table .p-datatable-thead > tr > th:last-child {
+            text-align: center !important;
           }
           /* Table row styling */
           .custom-ats-table .p-datatable-tbody > tr {
@@ -240,6 +245,20 @@ const EstimateTable = () => {
             font-size: 0.97rem;
             padding: 12px 18px !important;
             vertical-align: middle;
+            text-align: left !important;
+          }
+          /* Center align Actions column data */
+          .custom-ats-table .p-datatable-tbody > tr > td:last-child {
+            text-align: center !important;
+          }
+          /* Action buttons styling - make them smaller */
+          .custom-ats-table .p-button-rounded.p-button-sm {
+            width: 28px !important;
+            height: 28px !important;
+            padding: 0 !important;
+          }
+          .custom-ats-table .p-button-rounded.p-button-sm .p-button-icon {
+            font-size: 0.8rem !important;
           }
           /* Table container */
           .doc-table {
@@ -275,24 +294,24 @@ const EstimateTable = () => {
           showGridlines={false}
           style={{ border: 'none', boxShadow: 'none' }}
         >
-          <Column field="phase" header="Phase" style={{ width: '22%' }}></Column>
+          <Column field="phase" header="Phase" style={{ width: '20%' }}></Column>
           <Column
             field="dateRange"
             header="Duration (Example)"
             body={dateRangeBody}
-            style={{ width: '22%' }}
+            style={{ width: '25%' }}
           ></Column>
           <Column
             field="deliverables"
             header="Key Deliverables"
             body={deliverablesTemplate}
-            style={{ width: '31%' }}
+            style={{ width: '35%' }}
           ></Column>
           <Column field="responsible" header="Responsible" style={{ width: '15%' }}></Column>
           <Column
             header="Actions"
             body={actionsBodyTemplate}
-            style={{ width: '10%', textAlign: 'center' }}
+            style={{ width: '5%', textAlign: 'center' }}
           />
         </DataTable>
       </div>

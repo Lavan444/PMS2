@@ -2322,12 +2322,20 @@ const JobAllActive = ({ toggleSidebar }) => {
                     <h3>Create a Project</h3>
                     <div className="d-flex align-items-center">
                       <Button
+                        icon="pi pi-pencil"
+                        className="p-button-text edit-btn rounded-2 p-2"
+                        style={{ backgroundColor: '#f0f0f0' }} // Optional: light background
+                        title="Edit Project"
+                        onClick={() => navigate('/jobs-editform')}
+                      />
+                      <Button
                         icon="pi pi-times"
                         className="p-button-text close-btn"
                         onClick={() => setVisibleRight(false)}
                       />
                     </div>
                   </div>
+
                   <div className="card sidebardetails">
                     <Row className="mb-0">
 
@@ -2358,11 +2366,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                           />
                         </div>
                       </Col>
-
-                      {/* <Col lg={12}>
-
-                        <WorkType  />
-                      </Col> */}
                     </Row>
 
                     <Row className="mb-3">
@@ -2459,18 +2462,9 @@ const JobAllActive = ({ toggleSidebar }) => {
                       <Col lg={6}>
                         <div className="p-field">
                           <label htmlFor="hiringManager">Work Type</label>
-                          {/* <select
-                            className="form-select profileDetailsInput w-full"
-                            id="MyPro_EmpDet_Team_WorkInfo_DesSelBox"
-                            aria-label="Default select example"
-                          >
-                            <option value="">Select Work Type</option>
-                            <option value="Office">Onsite</option>
-                            <option value="Remote">Remote</option>
-                            <option value="Hybrid">Hybrid</option>
-                          </select> */}
-                          <WorkType />                        
-                          </div>
+
+                          <WorkType />
+                        </div>
                       </Col>
                     </Row>
 
@@ -5589,7 +5583,6 @@ const JobAllActive = ({ toggleSidebar }) => {
           </p>
         </form>
       </Dialog>
-      {/* Interview schedule Other end */}
     </React.Fragment>
   )
 }

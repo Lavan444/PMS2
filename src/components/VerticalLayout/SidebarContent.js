@@ -289,7 +289,7 @@ const SidebarContent = props => {
               </ul>
             </li>
 
-            {/* <li>
+            <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="pi pi-sitemap"></i>
                 <span>{props.t("Candidate Pipeline")}</span>
@@ -302,7 +302,7 @@ const SidebarContent = props => {
                   <Link to="/tableview">{props.t("Table View")}</Link>
                 </li>
               </ul>
-            </li> */}
+            </li>
 
 
             <li>

@@ -2438,7 +2438,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                     </Row>
 
                     <Row className="mb-3">
-                      <Col lg={6}>
+                      <Col lg={12}>
                         <label htmlFor="projectStatus" className="mr-2">
                           Project Status
                         </label>
@@ -2457,14 +2457,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                           onChange={(option) => setSelectedProjectStatus(option.value)}
                           placeholder="Select status"
                         />
-                      </Col>
-
-                      <Col lg={6}>
-                        <div className="p-field">
-                          <label htmlFor="hiringManager">Work Type</label>
-
-                          <WorkType />
-                        </div>
                       </Col>
                     </Row>
 

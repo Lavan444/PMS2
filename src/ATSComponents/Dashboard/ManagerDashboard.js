@@ -8,12 +8,76 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
+import { Sidebar } from 'primereact/sidebar';
+import { InputText } from 'primereact/inputtext';
+import { Calendar } from 'primereact/calendar';
+import { Editor } from 'primereact/editor';
+import { TreeSelect } from 'primereact/treeselect';
+import Select from 'react-select';
 
 
 const ManagerDashboard = () => {
     const navigate = useNavigate();
 
-    // all departments dropdown starts
+    // Sidebar state variables
+    const [visibleRight, setVisibleRight] = useState(false);
+    const [jobid, setJobid] = useState('PROJ-2025-001');
+    const [jobtitle, setJobtitle] = useState('');
+    const [jobStartDate, setJobStartDate] = useState(null);
+    const [jobEndDate, setJobEndDate] = useState(null);
+    const [selectedProjectStatus, setSelectedProjectStatus] = useState('');
+    const [text, setText] = useState('');
+    const [selectedCategoryKey, setSelectedCategoryKey] = useState(null);
+    const [selectedGroupKey, setSelectedGroupKey] = useState(null);
+    const [PoliciesfilesErrorMessagepan, setPoliciesfilesErrorMessagepan] = useState('');
+
+    // Categories and groups data
+    const categories = [
+        {
+            key: '0',
+            label: 'Frontend',
+            data: 'Frontend Folder',
+            icon: 'pi pi-fw pi-folder',
+            children: [
+                { key: '0-0', label: 'React', data: 'React Document', icon: 'pi pi-fw pi-file' },
+                { key: '0-1', label: 'Angular', data: 'Angular Document', icon: 'pi pi-fw pi-file' }
+            ]
+        },
+        {
+            key: '1',
+            label: 'Backend',
+            data: 'Backend Folder',
+            icon: 'pi pi-fw pi-folder',
+            children: [
+                { key: '1-0', label: 'Node.js', data: 'Node.js Document', icon: 'pi pi-fw pi-file' },
+                { key: '1-1', label: 'Python', data: 'Python Document', icon: 'pi pi-fw pi-file' }
+            ]
+        }
+    ];
+
+    const groups = [
+        {
+            key: '0',
+            label: 'HTML, CSS',
+            data: 'HTML, CSS Group',
+            icon: 'pi pi-fw pi-folder'
+        },
+        {
+            key: '1',
+            label: 'JavaScript',
+            data: 'JavaScript Group',
+            icon: 'pi pi-fw pi-folder'
+        }
+    ];
+
+    // Editor header template
+    const header = (
+        <span className="ql-formats">
+            <button className="ql-bold" aria-label="Bold"></button>
+            <button className="ql-italic" aria-label="Italic"></button>
+            <button className="ql-underline" aria-label="Underline"></button>
+        </span>
+    );
 
     const [selectedValues, setSelectedValues] = useState(null);
     const values = [
@@ -267,8 +331,22 @@ const ManagerDashboard = () => {
 
     // Handle view project function
     const handleViewProject = () => {
-        // Navigate to allactive-jobs page
-        navigate('/allactive-jobs');
+        if (selectedJobs.length > 0) {
+            // Load first selected project data into form
+            const firstProject = selectedJobs[0];
+            setJobid(firstProject.project_code);
+            setJobtitle(firstProject.project_name);
+            setSelectedProjectStatus(firstProject.status);
+            // Convert date strings to Date objects if needed
+            if (firstProject.start_date) {
+                setJobStartDate(new Date(firstProject.start_date.split('-').reverse().join('-')));
+            }
+            if (firstProject.end_date) {
+                setJobEndDate(new Date(firstProject.end_date.split('-').reverse().join('-')));
+            }
+            setText(`<p>Project: ${firstProject.project_name}</p><p>Manager: ${firstProject.project_manager}</p><p>Company: ${firstProject.company}</p>`);
+        }
+        setVisibleRight(true);
     };
 
     // Extended End Date body template
@@ -657,19 +735,19 @@ const ManagerDashboard = () => {
                                                 <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
                                                 <Column field="start_date" header="Start Date" sortable filter style={{ minWidth: "10rem" }} />
                                                 <Column field="end_date" header="End Date" sortable filter style={{ minWidth: "10rem" }} />
-                                                <Column 
-                                                    field="extended_end_date" 
-                                                    header="Extended End Date" 
-                                                    sortable 
-                                                    filter 
+                                                <Column
+                                                    field="extended_end_date"
+                                                    header="Extended End Date"
+                                                    sortable
+                                                    filter
                                                     style={{ minWidth: "12rem" }}
                                                     body={extendedEndDateBodyTemplate}
                                                 />
-                                                <Column 
-                                                    field="reason_for_late" 
-                                                    header="Reason for Late" 
-                                                    sortable 
-                                                    filter 
+                                                <Column
+                                                    field="reason_for_late"
+                                                    header="Reason for Late"
+                                                    sortable
+                                                    filter
                                                     style={{ minWidth: "15rem" }}
                                                     body={reasonForLateBodyTemplate}
                                                 />
@@ -682,6 +760,266 @@ const ManagerDashboard = () => {
                                 </div>
                             </Col>
                         </Row>
+
+                        {/* Sidebar start */}
+                        <Row>
+                            <Col lg={12}>
+                                <Sidebar
+                                    visible={visibleRight}
+                                    position="right"
+                                    className="sidebar"
+                                    onHide={() => setVisibleRight(false)}
+                                >
+                                    <div className="sidebar-header">
+                                        <h3>View Project Details</h3>
+                                        <div className="d-flex align-items-center">
+                                            <Button
+                                                icon="pi pi-pencil"
+                                                className="p-button-text edit-btn rounded-2 p-2"
+                                                style={{ backgroundColor: '#f0f0f0' }}
+                                                title="Edit Project"
+                                                onClick={() => navigate('/jobs-editform')}
+                                            />
+                                            <Button
+                                                icon="pi pi-times"
+                                                className="p-button-text close-btn"
+                                                onClick={() => setVisibleRight(false)}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="card sidebardetails">
+                                        <Row className="mb-0">
+                                            <Col lg={6}>
+                                                <div className="field">
+                                                    <label htmlFor="jobId" className="mb-1">
+                                                        Project Code{" "}
+                                                    </label>
+                                                    <InputText
+                                                        id="jobId"
+                                                        placeholder="Job-101"
+                                                        className="w-full"
+                                                        value={jobid}
+                                                        disabled
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col lg={6}>
+                                                <div className="p-field">
+                                                    <label htmlFor="jobTitle" className="p-d-block">
+                                                        Project Name <span className="text-danger">*</span>
+                                                    </label>
+                                                    <InputText
+                                                        id="jobTitle"
+                                                        placeholder="Web Developer"
+                                                        className="p-d-block"
+                                                        value={jobtitle}
+                                                        onChange={(e) => setJobtitle(e.target.value)}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mb-3">
+                                            <Col lg={6}>
+                                                <div className="p-field">
+                                                    <label htmlFor="hiringManager">Select Company</label>
+                                                    <select
+                                                        className="form-select profileDetailsInput w-full"
+                                                        id="MyPro_EmpDet_Team_WorkInfo_DesSelBox"
+                                                        aria-label="Default select example"
+                                                    >
+                                                        <option value="">Varun Digital Media</option>
+                                                        <option value="Office">Varun Digital Media</option>
+                                                        <option value="Remote">
+                                                            Pranathi Software Services
+                                                        </option>
+                                                        <option value="Hybrid">
+                                                            Vitel Global Communications
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </Col>
+
+                                            <Col lg={6}>
+                                                <div className="p-field">
+                                                    <label htmlFor="hiringManager">Project Manager</label>
+                                                    <select
+                                                        className="form-select profileDetailsInput w-full"
+                                                        id="MyPro_EmpDet_Team_WorkInfo_DesSelBox"
+                                                        aria-label="Default select example"
+                                                    >
+                                                        <option value="">Mahesh Kumar Bhoga</option>
+                                                        <option value="Office">Mahesh Kumar Bhoga</option>
+                                                        <option value="Remote">Salmanuddin Sayyad</option>
+                                                        <option value="Hybrid">Girish Bodepudi</option>
+                                                    </select>
+                                                </div>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mb-3">
+                                            <Col lg={6}>
+                                                <label htmlFor="jobStartDate" className="p-mb-2">
+                                                    Project Start Date
+                                                </label>
+                                                <Calendar
+                                                    id="jobStartDate"
+                                                    value={jobStartDate}
+                                                    onChange={e => setJobStartDate(e.value)}
+                                                    dateFormat="dd/mm/yy"
+                                                    placeholder="20/04/2025"
+                                                    className="w-full activejobdrop"
+                                                    showIcon
+                                                />
+                                            </Col>
+                                            <Col lg={6}>
+                                                <label htmlFor="jobEndDate" className="mr-2">
+                                                    Project End Date
+                                                </label>
+                                                <Calendar
+                                                    id="jobEndDate"
+                                                    value={jobEndDate}
+                                                    onChange={e => setJobEndDate(e.value)}
+                                                    dateFormat="dd/mm/yy"
+                                                    placeholder="20/05/2025"
+                                                    className="w-full activejobdrop"
+                                                    showIcon
+                                                />
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mb-3">
+                                            <Col lg={12}>
+                                                <label htmlFor="projectStatus" className="mr-2">
+                                                    Project Status
+                                                </label>
+                                                <Select
+                                                    id="projectStatus"
+                                                    name="projectStatus"
+                                                    options={[
+                                                        { value: "Active", label: "Active" },
+                                                        { value: "In Active", label: "In Active" },
+                                                        { value: "On Hold", label: "On Hold" },
+                                                        { value: "In Progress", label: "In Progress" },
+                                                        { value: "Completed", label: "Completed" }
+                                                    ]}
+                                                    value={{
+                                                        value: selectedProjectStatus,
+                                                        label: selectedProjectStatus
+                                                    }}
+                                                    onChange={(option) => setSelectedProjectStatus(option.value)}
+                                                    placeholder="Select status"
+                                                />
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mb-2 d-flex justify-content-between align-items-end">
+                                            <Col lg={6}>
+                                                <div className="">
+                                                    <label htmlFor="descriptionEditor">Description</label>
+                                                </div>
+                                            </Col>
+                                            <Col lg={6} className="d-flex justify-content-end mt-2">
+                                                <Button
+                                                    color="primary"
+                                                    className="btn btn-primary aibtn"
+                                                >
+                                                    <i className="pi pi-star me-1"></i>
+                                                    Write with AI
+                                                </Button>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mb-3">
+                                            <Col lg={12}>
+                                                <div className="">
+                                                    <Editor
+                                                        value={text}
+                                                        onTextChange={e => setText(e.htmlValue)}
+                                                        headerTemplate={header}
+                                                        style={{ height: "140px" }}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mb-3">
+                                            <Col lg={12}>
+                                                <label
+                                                    htmlFor="availabilityDate"
+                                                    className="mb-0 avbdate"
+                                                >
+                                                    Files Upload
+                                                </label>
+
+                                                <input
+                                                    type="file"
+                                                    accept="image/jpg,image/jpeg,image/png,image/pdf"
+                                                    className="form-control addEmp_ProfilePhoto"
+                                                    id="MyPro_UploadedProfilePhoto_Modal_FilesInput"
+                                                />
+
+                                                <small className="text-danger">
+                                                    {" "}
+                                                    {PoliciesfilesErrorMessagepan}
+                                                </small>
+                                                <small className="text-muted">
+                                                    Eg: (pdf,word,excel,zip)
+                                                </small>
+                                            </Col>
+
+                                            <Col lg={6}>
+                                                <div className="p-field mt-3">
+                                                    <label htmlFor="jobType">Categories</label>
+                                                    <TreeSelect
+                                                        value={selectedCategoryKey}
+                                                        onChange={e => setSelectedCategoryKey(e.value)}
+                                                        options={categories}
+                                                        filter
+                                                        className="w-full"
+                                                        placeholder="Frontend"
+                                                    ></TreeSelect>
+                                                </div>
+                                            </Col>
+
+                                            <Col lg={6}>
+                                                <div className="p-field mt-3">
+                                                    <label htmlFor="jobType">Groups</label>
+                                                    <TreeSelect
+                                                        value={selectedGroupKey}
+                                                        onChange={e => setSelectedGroupKey(e.value)}
+                                                        options={groups}
+                                                        filter
+                                                        className="w-full"
+                                                        placeholder="HTML, CSS"
+                                                    ></TreeSelect>
+                                                </div>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="justify-content-end align-items-end mt-2">
+                                            <Col lg={6}>
+                                                <div className="p-field">
+                                                    <input type="checkbox" className="me-2" defaultChecked />
+                                                    <label htmlFor="jobType">Private</label>
+                                                </div>
+                                            </Col>
+                                            <Col lg={6} className="d-flex justify-content-end">
+                                                <Button
+                                                    color="primary"
+                                                    className="btn btn-primary sidebarbtn"
+                                                    onClick={() => setVisibleRight(false)}
+                                                >
+                                                    Update
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </Sidebar>
+                            </Col>
+                        </Row>
+                        {/* Sidebar end */}
 
                     </div>
                 </Container>

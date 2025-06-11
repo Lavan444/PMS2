@@ -118,6 +118,60 @@ const KanbanView = () => {
         completedTasks: 13,
       },
     ],
+    readyForQA: [
+      {
+        id: "Proj-109",
+        name: "Performance Testing",
+        project: "Performance Testing",
+        code: "Proj-109",
+        status: "Ready for QA",
+        workType: "Testing",
+        assigned: "Rajesh Kumar",
+        group: "QA Team",
+        dueDate: "30-06-2025",
+        startDate: "01-06-2025",
+        endDate: "15-07-2025",
+        blockers: "",
+        tasks: 10,
+        completedTasks: 10,
+      },
+    ],
+    qaInProgress: [
+      {
+        id: "Proj-111",
+        name: "Security Audit",
+        project: "Security Audit",
+        code: "Proj-111",
+        status: "QA in Progress",
+        workType: "Security",
+        assigned: "Nina Patel",
+        group: "QA Team",
+        dueDate: "15-07-2025",
+        startDate: "16-06-2025",
+        endDate: "31-07-2025",
+        blockers: "Waiting for developer feedback",
+        tasks: 8,
+        completedTasks: 5,
+      },
+    ],
+    blocked: [
+      {
+        id: "Proj-112",
+        name: "API Rate Limiting",
+        project: "API Rate Limiting",
+        code: "Proj-112",
+        status: "Blocked",
+        workType: "Development",
+        assigned: "Sam Wilson",
+        group: "AI Team",
+        dueDate: "20-07-2025",
+        startDate: "01-07-2025",
+        endDate: "31-07-2025",
+        blockers: "Exceeded API call quota",
+        tasks: 5,
+        completedTasks: 2,
+      },
+    ],
     done: [
       {
         id: "Proj-107",
@@ -176,13 +230,16 @@ const KanbanView = () => {
 
   // Expanded columns
   const [expandedColumns, setExpandedColumns] = useState({});
-  const CARDS_TO_SHOW = 4;
+  const CARDS_TO_SHOW = 3; // Limit visible cards to 3
 
   // Column structure
   const columns = [
     { id: "todo", title: "To Do" },
     { id: "inProgress", title: "In Progress" },
     { id: "inReview", title: "In Review" },
+    { id: "readyForQA", title: "Ready for QA" },
+    { id: "qaInProgress", title: "QA in Progress" },
+    { id: "blocked", title: "Blocked" },
     { id: "done", title: "Done" },
   ];
 
@@ -385,7 +442,7 @@ const KanbanView = () => {
   const getVisibleCards = (columnId) => {
     const cards = kanbanData[columnId] || [];
     if (cards.length <= CARDS_TO_SHOW || expandedColumns[columnId]) return cards;
-    return cards.slice(0, CARDS_TO_SHOW);
+    return cards.slice(0, CARDS_TO_SHOW); // Show only the first 3 cards
   };
 
   const hasMoreCards = (columnId) => (kanbanData[columnId]?.length || 0) > CARDS_TO_SHOW;
@@ -407,6 +464,9 @@ const KanbanView = () => {
     { label: "Todo", value: "Todo" },
     { label: "In Progress", value: "In Progress" },
     { label: "In Review", value: "In Review" },
+    { label: "Ready for QA", value: "Ready for QA" },
+    { label: "QA in Progress", value: "QA in Progress" },
+    { label: "Blocked", value: "Blocked" },
     { label: "Done", value: "Done" },
   ];
 
@@ -513,9 +573,18 @@ const KanbanView = () => {
             </Col>
           </Row>
 
-          <Row className="pt-3">
+          <Row className="pt-3" style={{ flex: 1, overflow: 'hidden' }}>
             <Col lg={12}>
-              <div ref={containerRef} className="flex gap-3 overflow-x-auto" style={{ width: '100%' }}>
+              <div
+                ref={containerRef}
+                className="flex gap-3 kanban-scroll-container"
+                style={{
+                  width: '100%',
+                  overflowX: 'auto',
+                  overflowY: 'hidden',
+                  paddingBottom: '16px',
+                }}
+              >
                 {columns.map((column) => (
                   <div
                     key={column.id}
@@ -530,13 +599,17 @@ const KanbanView = () => {
                         <Badge value={kanbanData[column.id]?.length || 0} className="bg-blue-500 text-white mb-2" />
                       </div>
                       <div
-                        className="min-h-40 p-2 rounded"
-                        onDragOver={(e) => onDragOver(e, column.id)}
-                        onDrop={(e) => onDrop(e, column.id)}
-                        style={{ minHeight: '200px', padding: '8px', transition: 'background-color 0.3s ease' }}
+                        className="min-h-40 p-2 rounded kanban-column-content"
+                        style={{
+                          minHeight: '200px',
+                          maxHeight: 'calc(100vh - 200px)',
+                          overflowY: 'auto',
+                          padding: '8px',
+                          transition: 'background-color 0.3s ease',
+                        }}
                       >
                         {renderColumnContent(column.id)}
-                        {hasMoreCards(column.id) && (
+                        {kanbanData[column.id]?.length > CARDS_TO_SHOW && (
                           <div className="text-center mt-2">
                             <Button
                               className="p-button-text p-button-sm"
@@ -633,6 +706,46 @@ const KanbanView = () => {
       </Dialog>
 
       <style jsx>{`
+        .kanban-scroll_container {
+          position: relative;
+          overflow-x: auto;
+          scrollbar-width: thin; /* For Firefox */
+        }
+
+        .kanban-scroll_container::-webkit-scrollbar {
+          height: 8px; /* Horizontal scrollbar height */
+        }
+
+        .kanban-scroll_container::-webkit-scrollbar-thumb {
+          background-color: #f7f7f7; /* Much lighter scrollbar thumb color */
+          border-radius: 4px;
+        }
+
+        .kanban-scroll_container::-webkit-scrollbar-thumb:hover {
+          background-color: #eeeeee; /* Slightly darker on hover */
+        }
+
+        .kanban-scroll_container::-webkit-scrollbar-track {
+          background-color: #fcfcfc; /* Much lighter scrollbar track color */
+        }
+
+        .kanban-column-content::-webkit-scrollbar {
+          width: 8px; /* Vertical scrollbar width for column content */
+        }
+
+        .kanban-column-content::-webkit-scrollbar-thumb {
+          background-color: #d3d3d3; /* Light scrollbar thumb color */
+          border-radius: 4px;
+        }
+
+        .kanban-column-content::-webkit-scrollbar-thumb:hover {
+          background-color: #b0b0b0; /* Slightly darker on hover */
+        }
+
+        .kanban-column-content::-webkit-scrollbar-track {
+          background-color: #f9f9f9; /* Light scrollbar track color */
+        }
+
         .kanban-view {
           min-width: 250px;
         }
@@ -674,16 +787,16 @@ const KanbanView = () => {
           right: 0;
           background: linear-gradient(to left, rgba(59, 130, 246, 0.2), transparent);
         }
-        .p-dialog-custom .p-dialog-header {
+        .p-dialog-custom .p_dialog_header {
           background-color: #007bff;
           color: #fff;
           font-weight: bold;
           text-align: left; /* Align header to the left */
         }
-        .p-dialog-custom .p-dialog-content {
+        .p-dialog-custom .p_dialog_content {
           background-color: #f9f9f9;
         }
-        .p-dialog-custom .p-dialog-footer {
+        .p-dialog-custom .p_dialog_footer {
           background-color: #f1f1f1;
         }
         .bg-light {

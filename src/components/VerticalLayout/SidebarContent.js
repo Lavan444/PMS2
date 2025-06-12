@@ -244,7 +244,7 @@ const SidebarContent = props => {
             <li>
               <Link to="/#" className="has-arrow waves-effect">
               <i className="pi pi-check-square"></i>
-                <span>{props.t("Tasks")}</span>
+                <span>{props.t("Work Type")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
 
@@ -292,7 +292,7 @@ const SidebarContent = props => {
             <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="pi pi-sitemap"></i>
-                <span>{props.t("Candidate Pipeline")}</span>
+                <span>{props.t("Work Type Pipeline")}</span>
               </Link>
               <ul className="sub-menu" aria-expanded="false">
                 <li>

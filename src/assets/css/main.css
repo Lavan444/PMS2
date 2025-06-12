@@ -2927,7 +2927,7 @@ body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a:hover {
 }
 
 .kanban-view {
-  margin-bottom: 60px;
+  /* margin-bottom: 60px; */
 }
 
 .profilebtn .addcus-cassel.p-component {

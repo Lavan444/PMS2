@@ -49,6 +49,22 @@ const KanbanView = () => {
         tasks: 19,
         completedTasks: 10,
       },
+      {
+        id: "Proj-110",
+        name: "Smart Form Autofill",
+        project: "Smart Form Autofill",
+        code: "Proj-110",
+        status: "Done",
+        workType: "Browser Plugin",
+        assigned: "Harika Nair",
+        group: "Frontend",
+        dueDate: "20-07-2025",
+        startDate: "22-01-2025",
+        endDate: "31-10-2025",
+        blockers: "Blocked on browser plugin API",
+        tasks: 22,
+        completedTasks: 16,
+      }
     ],
     inProgress: [
       {
@@ -694,7 +710,19 @@ const KanbanView = () => {
                   <strong>Start Date:</strong>
                   <p className="text-gray-700 ml-4">{selectedCard.startDate}</p>
                 </div>
+                <div className="mb-3">
+                  <i className="pi pi-calendar-minus text-red-500 mr-2"></i>
+                  <strong>End Date:</strong>
+                  <p className="text-gray-700 ml-4">{selectedCard.endDate}</p>
+                </div>
               </div>
+            </div>
+            <div className="mt-4">
+              <i className="pi pi-tasks text-green-500 mr-2"></i>
+              <strong>Tasks:</strong>
+              <p className="text-gray-600 ml-4">
+                {selectedCard.completedTasks} of {selectedCard.tasks} tasks completed
+              </p>
             </div>
             <div className="mt-4">
               <i className="pi pi-exclamation-circle text-red-500 mr-2"></i>

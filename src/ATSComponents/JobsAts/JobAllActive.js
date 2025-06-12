@@ -319,6 +319,46 @@ const JobAllActive = ({ toggleSidebar }) => {
   document.title = "ATS - Dashboard"
 
   const [customers, setCustomers] = useState([])
+  const [teamData, setTeamData] = useState([
+    {
+      name: "Mahesh Kumar Bhoga",
+      description: "Senior Software Engineer",
+      role: "Manager",
+      email: "maheshkumar@example.com",
+      phone: "9876543210",
+    },
+     {
+      name: "Ravi Teja",
+      description: "Business Analyst",
+      role: "BA",
+      email: "raviteja@example.com",
+      phone: "9876543212",
+    },
+    {
+      name: "Lavan Kumar",
+      description: "Frontend Developer",
+      role: "Developer",
+      email: "lavankumar@example.com",
+      phone: "9876543211",
+    },
+    {
+      name: "Teja",
+      description: "Backend Developer",
+      role: "Developer",
+      email: "teja@example.com",
+      phone: "9876543212",
+    },
+    {
+      name: "Ashok",
+      description: "Test Engineer",
+      role: "QA",
+      email: "ashok@example.com",
+      phone: "9876543212",
+    },
+    
+  ]);
+
+  const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
 
   const onGlobalFilterChange = e => {
     const value = e.target.value
@@ -1831,8 +1871,8 @@ const JobAllActive = ({ toggleSidebar }) => {
   }
 
   const columns = [
-    { field: "job_id", header: "Job ID" },
-    { field: "job_title", header: "Job Title" },
+    { field: "job_id", header: "Project Code" },
+    { field: "job_title", header: "Project Name" },
     { field: "job_status", header: "Job Status" },
     { field: "openings", header: "Openings" },
     { field: "hiring_manager", header: "Hiring Manager" },
@@ -2223,23 +2263,20 @@ const JobAllActive = ({ toggleSidebar }) => {
                       scrollable
                       emptyMessage="No records found."
                       selection={selectedJobsData}
-                      onSelectionChange={e => setSelectedJobsData(e.value)}
+                      onSelectionChange={(e) => setSelectedJobsData(e.value)}
                       selectionMode="multiple"
                       filters={filters}
                       filterDisplay="row"
-                      // reorderableRows
                       resizableColumns
                       reorderableColumns
                       columnResizeMode="expand"
                       className="jobsallactive-table"
-                      onContextMenu={e => {
-                        cm.current.show(e.originalEvent) // Show the context menu
-                        setSelectedJob(e.data) // Set the selected job
+                      onContextMenu={(e) => {
+                          cm.current.show(e.originalEvent); // Show the context menu
+                          setSelectedJob(e.data); // Set the selected job
                       }}
                       contextMenuSelection={selectedJob}
-                      onContextMenuSelectionChange={e =>
-                        setSelectedJob(e.value)
-                      }
+                      onContextMenuSelectionChange={(e) => setSelectedJob(e.value)}
                     >
                       <Column
                         selectionMode="multiple"
@@ -2252,6 +2289,18 @@ const JobAllActive = ({ toggleSidebar }) => {
                         frozen
                         filter
                         style={{ minWidth: "8rem" }}
+                        body={(rowData) => (
+                            <span
+                                style={{ cursor: "pointer" }}
+                                className="project-code-hover"
+                                onClick={() => {
+                                    setVisibleViewRight(true); // Show the sidebar
+                                    setSelectedJob(rowData); // Set the selected job data
+                                }}
+                            >
+                                {rowData.job_id}
+                            </span>
+                        )}
                       />
                       <Column
                         field="job_title"
@@ -2437,29 +2486,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       </Col>
                     </Row>
 
-                    <Row className="mb-3">
-                      <Col lg={12}>
-                        <label htmlFor="projectStatus" className="mr-2">
-                          Project Status
-                        </label>
-                        <Select
-                          id="projectStatus"
-                          name="projectStatus"
-                          options={[
-                            { value: "Active", label: "Active" },
-                            { value: "In Active", label: "In Active" },
-                            { value: "On Hold", label: "On Hold" }
-                          ]}
-                          value={{
-                            value: selectedProjectStatus,
-                            label: selectedProjectStatus
-                          }}
-                          onChange={(option) => setSelectedProjectStatus(option.value)}
-                          placeholder="Select status"
-                        />
-                      </Col>
-                    </Row>
-
                     <Row className="mb-2 d-flex justify-content-between align-items-end">
                       <Col lg={6}>
                         <div className="">
@@ -2555,7 +2581,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                       <Col lg={6} className="d-flex justify-content-end">
                         <Button
                           color="primary"
-                          className="btn btn-primary sidebarbtn"
+                          className="btn btn-primary waves-effect waves-light me-2 btn-main"
                           onClick={() => setVisibleRight(false)}
                         >
                           Create
@@ -2879,7 +2905,77 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Row>
               </TabPanel>
 
-
+              <TabPanel header="Team" leftIcon="pi pi-users mr-2">
+                <Row>
+                  <Col lg={12} sm={12}>
+                    <section className="job-datatable-section">
+                      <div className="card1 mt-3 mb-4 actjobsumtable">
+                        <DataTable
+                          responsive
+                          showGridlines
+                          value={teamData}
+                          tableStyle={{
+                            minWidth: "50rem",
+                            borderRadius: "8px",
+                            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                          }}
+                          paginator
+                          rows={5}
+                          rowsPerPageOptions={[5, 10, 25, 50]}
+                          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                          currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                          emptyMessage="No team members found."
+                          selection={selectedTeamMembers}
+                          onSelectionChange={(e) => setSelectedTeamMembers(e.value)}
+                          selectionMode="multiple"
+                          resizableColumns
+                          columnResizeMode="expand"
+                        >
+                          <Column
+                            selectionMode="multiple"
+                            headerStyle={{ width: "3em" }}
+                          />
+                          <Column
+                            field="name"
+                            header="Name"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                          <Column
+                            field="description"
+                            header="Description"
+                            sortable
+                            filter
+                            style={{ minWidth: "15rem" }}
+                          />
+                          <Column
+                            field="role"
+                            header="Role"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                          <Column
+                            field="email"
+                            header="Email"
+                            sortable
+                            filter
+                            style={{ minWidth: "15rem" }}
+                          />
+                          <Column
+                            field="phone"
+                            header="Phone No"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                        </DataTable>
+                      </div>
+                    </section>
+                  </Col>
+                </Row>
+              </TabPanel>
               <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2">
                 <Row>
                   <Col lg={12}>
@@ -4639,11 +4735,11 @@ const JobAllActive = ({ toggleSidebar }) => {
               <Row className="mb-2">
                 <Col xl={6}>
                   <div className="flex flex-column">
-                    <label For="Priority">Project</label>
+                    <label For="Priority">Job Status</label>
                     <Dropdown
                       value={subtypeget}
                       onChange={e => setsubtypeget(e.value)}
-                      options={jobStatusDrop}
+                      options={typeInterview}
                       optionLabel="name"
                       placeholder="Select a Status"
                       className="w-full search-option"
@@ -5575,6 +5671,7 @@ const JobAllActive = ({ toggleSidebar }) => {
           </p>
         </form>
       </Dialog>
+      {/* Interview schedule Other end */}
     </React.Fragment>
   )
 }

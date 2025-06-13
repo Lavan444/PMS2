@@ -735,14 +735,14 @@ const ManagerDashboard = () => {
                 {
                     data: [50, 30, 20], // Example data for completed, incompleted, and all tasks
                     backgroundColor: [
-                        documentStyle.getPropertyValue('--green-500'), // Completed Tasks
-                        documentStyle.getPropertyValue('--red-500'),   // Incompleted Tasks
-                        documentStyle.getPropertyValue('--blue-500')   // All Tasks
+                        '#88c999', // Completed Tasks
+                        '#a8d8ea', // Incompleted Tasks
+                        '#f1948a'  // All Tasks
                     ],
                     hoverBackgroundColor: [
-                        documentStyle.getPropertyValue('--green-400'),
-                        documentStyle.getPropertyValue('--red-400'),
-                        documentStyle.getPropertyValue('--blue-400')
+                        '#88c999', // Completed Tasks
+                        '#a8d8ea', // Incompleted Tasks
+                        '#f1948a'  // All Tasks
                     ]
                 }
             ]
@@ -786,15 +786,15 @@ const ManagerDashboard = () => {
             datasets: [
                 {
                     label: 'Created Tasks',
-                    backgroundColor: '#4caf50', // Green for Created Tasks
-                    borderColor: documentStyle.getPropertyValue('--green-500'),
-                    data: [150, 200, 120, 180, 220] // Example data for Created Tasks
+                    backgroundColor: '#7fdddd', // Updated color for Created Tasks
+                    borderColor: documentStyle.getPropertyValue('--blue-500'),
+                    data: [150, 200, 120, 180, 220]
                 },
                 {
                     label: 'Completed Tasks',
-                    backgroundColor: '#C71585', // Blue for Completed Tasks
-                    borderColor: documentStyle.getPropertyValue('--pink-500'),
-                    data: [100, 150, 80, 130, 200] // Example data for Completed Tasks
+                    backgroundColor: '#88c999', // Updated color for Completed Tasks
+                    borderColor: documentStyle.getPropertyValue('--green-500'),
+                    data: [100, 150, 80, 130, 200]
                 }
             ]
         };

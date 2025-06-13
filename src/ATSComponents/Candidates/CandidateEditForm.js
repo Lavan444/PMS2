@@ -37,8 +37,8 @@ const CandidateEditForm = props => {
     // Document states - consolidated and cleaned up
     const [displayDialog, setDisplayDialog] = useState(false);
     const [documents, setDocuments] = useState([{
-        type: "Aadhar",
-        subject: "Aadhar card",
+        type: "Project Requirements",
+        subject: "Initial project requirements document",
     }]);
     const [selectedDocument, setSelectedDocument] = useState(null);
     const [subject, setSubject] = useState('');
@@ -587,10 +587,10 @@ As the assigned team member, you will be responsible for managing your specific 
                     <div className="page-title-box">
                         <Row className="align-items-center">
                             <Col md={6}>
-                                <h1 className="page-title">Create Task</h1>
+                                <h1 className="page-title">Create Work Type</h1>
                                 <ol className="breadcrumb m-0">
                                     <li className="breadcrumb-item active">
-                                        Add a task with key details for clear tracking and execution. Include a brief description, assign it to the right person, fill in system fields.
+                                        Add a Work Type with key details for clear tracking and execution. Include a brief description, assign it to the right person, fill in system fields.
                                     </li>
                                 </ol>
                             </Col>
@@ -797,7 +797,7 @@ As the assigned team member, you will be responsible for managing your specific 
 
                                                 <Row className="mt-2 align-items-center">
                                                     <Col xl={3}>
-                                                        <label htmlFor="taskCode">Task Code</label>
+                                                        <label htmlFor="taskCode">Code</label>
                                                     </Col>
                                                     <Col xl={9}>
                                                         <InputText
@@ -811,7 +811,7 @@ As the assigned team member, you will be responsible for managing your specific 
 
                                                 <Row className="mt-2 align-items-center">
                                                     <Col xl={3}>
-                                                        <label htmlFor="taskSummary">Task Summary</label>
+                                                        <label htmlFor="taskSummary">Summary</label>
                                                     </Col>
                                                     <Col xl={9}>
                                                         <InputText

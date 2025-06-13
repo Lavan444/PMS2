@@ -55,6 +55,8 @@ import LinkContact2Popup from "ATSComponents/Common/LinkContact2Popup"
 import { useSelector } from "react-redux"
 import TalentScan from "./TalentScan"
 import ImportResume from "./ImportResumeCan"
+import WorkType1 from "ATSComponents/Common/WorkType1"
+import WorkType from "../Common/WorkType";
 
 
 const AllActiveemp = () => {
@@ -3241,7 +3243,7 @@ const AllActiveemp = () => {
                         setVisibleRight(true)
                       }}
                     >
-                      <i className="pi pi-user me-1"></i> Add a Task
+                      <i className="pi pi-user me-1"></i> Add a Work Type
                     </button>
                   )}
                 </span>
@@ -3293,10 +3295,10 @@ const AllActiveemp = () => {
                         onContextMenuSelectionChange={(e) => setSelectedTask(e.value)}
                       >
                         <Column selectionMode="multiple" headerStyle={{ width: '3em' }} />
-                        <Column field="task_code" header="Task Code" sortable filter style={{ minWidth: '10rem' }} />
+                        <Column field="task_code" header="Work Type Code" sortable filter style={{ minWidth: '10rem' }} />
                         <Column field="project_name" header="Project Name" sortable filter style={{ minWidth: '12rem' }} />
                         <Column field="module_name" header="Module Name" sortable filter style={{ minWidth: '12rem' }} />
-                        <Column field="task_name" header="Task Name" sortable filter style={{ minWidth: '12rem' }} />
+                        <Column field="task_name" header="Summary" sortable filter style={{ minWidth: '12rem' }} />
                         {/* <Column field="task_description" header="Task Description" sortable filter style={{ minWidth: '14rem' }} /> */}
                         <Column field="created_by" header="Created By" sortable filter style={{ minWidth: '10rem' }} />
                         <Column field="assigned_by" header="Assigned By" sortable filter style={{ minWidth: '10rem' }} />
@@ -3307,7 +3309,7 @@ const AllActiveemp = () => {
                         <Column field="work_hours" header="Work Hours (in hours)" sortable filter style={{ minWidth: '14rem' }} />
                         <Column field="end_date" header="End Date" sortable filter style={{ minWidth: '10rem' }} />
                         <Column field="actual_end_date" header="Actual End Date" sortable filter style={{ minWidth: '12rem' }} />
-                        <Column field="task_status" header="Task Status" sortable filter style={{ minWidth: '10rem' }} />
+                        <Column field="task_status" header="Status" sortable filter style={{ minWidth: '10rem' }} />
                         <Column field="priority" header="Priority" sortable filter style={{ minWidth: '10rem' }} />
                         <Column field="approval_status" header="Approval Status" sortable filter style={{ minWidth: '12rem' }} />
                       </DataTable>
@@ -3329,14 +3331,14 @@ const AllActiveemp = () => {
                   className="sidebar"
                 >
                   <div className="sidebar-header">
-                    <h3>Create a Task</h3>
+                    <h3>Create a Work Type</h3>
                     <div className="d-flex align-items-center">
-                      {/* <Link to="/candidate-editform">
+                      <Link to="/candidate-editform">
                         <p className="mb-0 text-white">
                           {" "}
                           <i class="fa-regular fa-pen-to-square me-3"></i>{" "}
                         </p>
-                      </Link> */}
+                      </Link>
                       <Button
                         icon="pi pi-times"
                         className="p-button-text close-btn"
@@ -3347,42 +3349,48 @@ const AllActiveemp = () => {
                   <div className="card sidebardetails">
                     <Row className="mb-2">
                       <Col lg={6}>
-                        <label className="mb-0">Task Code</label>
-                        <InputText
-                          placeholder=""
-                          value={taskCode}
-                        />
+                       <div className="p-field">
+                                    <label htmlFor="selectProject" className="block">
+                                       Project
+                                    </label>
+                                    <Dropdown
+                                      id="selectProject"
+                                      value={getSelectedTaskData()?.project_name || 'VitelGlobal SupportStaff Portal - India'}
+                                      options={[
+                                        { label: 'VitelGlobal SupportStaff Portal - India', value: 'VitelGlobal SupportStaff Portal - India' },
+                                        { label: 'PAYG', value: 'PAYG' },
+                                        { label: 'Omani Channel', value: 'Omani Channel' },
+                                        { label: 'Vitel Meet', value: 'Vitel Meet' },
+                                        { label: 'Project Dashboard', value: 'Project Dashboard' },
+                                        { label: 'AI Generator (Proj-101)', value: 'AI Generator (Proj-101)' },
+                                        { label: 'Sales Automation (Proj-102)', value: 'Sales Automation (Proj-102)' },
+                                        { label: 'Security Enhancement (Proj-103)', value: 'Security Enhancement (Proj-103)' },
+                                        { label: 'Payroll System (Proj-104)', value: 'Payroll System (Proj-104)' },
+                                        { label: 'Tax Compliance (Proj-105)', value: 'Tax Compliance (Proj-105)' },
+                                        { label: 'HR Automation (Proj-106)', value: 'HR Automation (Proj-106)' },
+                                        { label: 'HR Automation (Proj-107)', value: 'HR Automation (Proj-107)' },
+                                        { label: 'Performance System (Proj-108)', value: 'Performance System (Proj-108)' },
+                                        { label: 'Project Management (Proj-109)', value: 'Project Management (Proj-109)' },
+                                        { label: 'Communication System (Proj-110)', value: 'Communication System (Proj-110)' },
+                                        { label: 'Document Management (Proj-111)', value: 'Document Management (Proj-111)' }
+                                      ]}
+                                      onChange={(e) => {
+                                        console.log('Project selected:', e.value);
+                                      }}
+                                      placeholder="Select a Project"
+                                      className="w-full bgclr"
+                                      style={{ minHeight: '40px' }}
+                                      panelStyle={{ zIndex: 1000, minWidth: '100%' }}
+                                      itemTemplate={(option) => (
+                                        <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
+                                          {option.label}
+                                        </div>
+                                      )}
+                                    />
+                                  </div>
                       </Col>
                       <Col lg={6}>
-                        <label className="mb-0">Task Name</label>
-                        <InputText
-                          placeholder=""
-                          value={taskName}
-                        />
-                      </Col>
-                    </Row>
-                    <Row className="mb-2">
-                      <Col lg={12}>
-                        <div className="p-field">
-                          <label htmlFor="jobType" className="block">
-                            Task Description
-                          </label>
-                          <InputTextarea
-                            // autoResize
-                            value={taskDesc}
-                            // readOnly
-                            // onChange={e => setDescription(e.target.value)}
-                            rows={3}
-                            cols={40}
-                            placeholder=""
-                            className="w-full "
-                          />
-                        </div>
-                      </Col>
-                    </Row>
-                    <Row className="mb-3">
-                      <Col lg={12}>
-                        <label htmlFor="city" className="mb-0">
+                       <label htmlFor="city" className="mb-1">
                           Select Module
                         </label>
                         <Dropdown
@@ -3396,9 +3404,111 @@ const AllActiveemp = () => {
                         />
                       </Col>
                     </Row>
+                    <Row className="mb-2 mt-3">
+                     
+                       <Col lg={12}>
+                        <label htmlFor="city" className="mb-1">
+                          Summary 
+                        </label>
+                        <InputText
+                          placeholder="Add User Role Feature"
+                          value={taskAssigned}
+                        />
+                      </Col>
+
+                       <Col lg={6} className="mt-2">
+                        <div className="p-field">
+                          <label htmlFor="jobType" className="block">
+                            Work Type
+                          </label>
+
+                         <WorkType />
+
+                          {/* <label htmlFor="jobType" className="block">
+                            Task Description
+                          </label>
+                          <InputTextarea
+                            // autoResize
+                            value={taskDesc}
+                            // readOnly
+                            // onChange={e => setDescription(e.target.value)}
+                            rows={3}
+                            cols={40}
+                            placeholder=""
+                            className="w-full "
+                          /> */}
+                        </div>
+                      </Col>
 
 
-                    <Row className="mb-3">
+                       <Col lg={6} className="mb-2 mt-2">
+                        <label htmlFor="city" className="mb-1">
+                           Status
+                        </label>
+                        <Dropdown
+                          value={selectedTask}
+                          onChange={e => setSelectedTask(e.value)}
+                          options={taskOptions}
+                          optionLabel="name"
+                          placeholder="--select--"
+
+                          className="bgclr"
+                        />
+                      </Col>
+
+                       <Col lg={6} className="mb-2">
+                        <label htmlFor="city" className="mb-0">
+                          Priority
+                        </label>
+                        <Dropdown
+                          value={selectedPriority}
+                          onChange={e => setSelectedPriority(e.value)}
+                          options={priorityOptions}
+                          optionLabel="name"
+                          placeholder="--select--"
+
+                          className="bgclr"
+                        />
+                      </Col>
+
+                      <Col lg={6} className="mb-2">
+                        <label htmlFor="city" className="mb-0">
+                          Assigned to
+                        </label>
+                        <Dropdown
+                          value={selectedMod}
+                          onChange={e => setSelectedMod(e.value)}
+                          options={modOptions}
+                          optionLabel="name"
+                          placeholder="--select--"
+                          // filter
+                          className="bgclr"
+                        />
+                      </Col>
+
+                        <Col lg={6} className="mb-3">
+                        <label htmlFor="city" className="mb-0">
+                          Add Watcher
+                        </label>
+                        <Dropdown
+                          value={selectedAssto}
+                          onChange={e => setSelectedAssto(e.value)}
+                          options={asstoOptions}
+                          optionLabel="name"
+                          placeholder="--select--"
+
+                          className="bgclr"
+                        />
+                      </Col>
+
+                      
+                    </Row>
+                    {/* <Row className="mb-3">
+                      
+                    </Row> */}
+
+
+                    {/* <Row className="mb-3">
                       <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Project
@@ -3422,25 +3532,12 @@ const AllActiveemp = () => {
                           value={taskAssigned}
                         />
                       </Col>
-                    </Row>
+                    </Row> */}
 
 
-                    <Row className="mb-3">
+                    <Row className="mb-2 mt-1">
 
-                      <Col lg={6}>
-                        <label htmlFor="city" className="mb-0">
-                          Add Watcher
-                        </label>
-                        <Dropdown
-                          value={selectedAssto}
-                          onChange={e => setSelectedAssto(e.value)}
-                          options={asstoOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-
-                          className="bgclr"
-                        />
-                      </Col>
+                     
                       <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Work Hours (in hours)
@@ -3450,8 +3547,6 @@ const AllActiveemp = () => {
                         // value={createFirst}
                         />
                       </Col>
-                    </Row>
-                    <Row className="mb-3">
                       <Col lg={6}>
                         <label htmlFor="jobStartDate" className="p-mb-2">Start Date</label>
                         <Calendar
@@ -3464,6 +3559,9 @@ const AllActiveemp = () => {
                           showIcon
                         />
                       </Col>
+                    </Row>
+                    <Row className="mb-3">
+                      
                       <Col lg={6}>
                         <label htmlFor="jobEndDate" className="mr-2">End Date</label>
                         <Calendar
@@ -3476,9 +3574,7 @@ const AllActiveemp = () => {
                           showIcon
                         />
                       </Col>
-                    </Row>
-                    <Row className="mb-3">
-                      <Col lg={6}>
+                       <Col lg={6}>
                         <label htmlFor="jobStartDate" className="p-mb-2">Actual End Date</label>
                         <Calendar
                           id="jobStartDate"
@@ -3490,7 +3586,25 @@ const AllActiveemp = () => {
                           showIcon
                         />
                       </Col>
+                    </Row>
+                    
+                    <Row className="mb-3 mt-2">
+
                       <Col lg={6}>
+                        <label htmlFor="city" className="mb-0">
+                          Work Type Status
+                        </label>
+                        <Dropdown
+                          value={selectedTask}
+                          onChange={e => setSelectedTask(e.value)}
+                          options={taskOptions}
+                          optionLabel="name"
+                          placeholder="--select--"
+
+                          className="bgclr"
+                        />
+                      </Col>
+                       <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Approval Status
                         </label>
@@ -3504,24 +3618,7 @@ const AllActiveemp = () => {
                           className="bgclr"
                         />
                       </Col>
-                    </Row>
-                    <Row className="mb-3">
-
-                      <Col lg={6}>
-                        <label htmlFor="city" className="mb-0">
-                          Task Status
-                        </label>
-                        <Dropdown
-                          value={selectedTask}
-                          onChange={e => setSelectedTask(e.value)}
-                          options={taskOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-
-                          className="bgclr"
-                        />
-                      </Col>
-                      <Col lg={6}>
+                      {/* <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Priority
                         </label>
@@ -3534,11 +3631,12 @@ const AllActiveemp = () => {
 
                           className="bgclr"
                         />
-                      </Col>
+                      </Col> */}
                     </Row>
+                    
 
 
-                    <Row className="mb-3">
+                    <Row className="mb-3 mt-2">
                       <Col lg={12}>
                         <label
                           htmlFor="availabilityDate"
@@ -3915,16 +4013,18 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="taskName" className="block">
-                                      Task Name
-                                    </label>
-                                    <InputText
-                                      id="taskName"
-                                      value={getSelectedTaskData()?.task_name || ''}
-                                      readOnly
-                                      placeholder=""
-                                      className="w-full"
-                                    />
+                                     <label htmlFor="city" className="mb-0">
+                          Select Module
+                        </label>
+                        <Dropdown
+                          value={selectedMod}
+                          onChange={e => setSelectedMod(e.value)}
+                          options={modOptions}
+                          optionLabel="name"
+                          placeholder="--select--"
+                          // filter
+                          className="bgclr"
+                        />
                                   </div>
                                 </Col>
                               </Row>

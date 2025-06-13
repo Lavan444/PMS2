@@ -327,11 +327,18 @@ const JobAllActive = ({ toggleSidebar }) => {
       email: "maheshkumar@example.com",
       phone: "9876543210",
     },
+    {
+      name: "Pavan Kumar",
+      description: "Senior Software Engineer",
+      role: "Team Lead",
+      email: "maheshkumar@example.com",
+      phone: "9876543210",
+    },
      {
       name: "Ravi Teja",
       description: "Business Analyst",
       role: "BA",
-      email: "raviteja@example.com",
+      email: "pavankumar@example.com",
       phone: "9876543212",
     },
     {
@@ -2370,13 +2377,19 @@ const JobAllActive = ({ toggleSidebar }) => {
                   <div className="sidebar-header">
                     <h3>Create a Project</h3>
                     <div className="d-flex align-items-center">
-                      <Button
+                      {/* <Button
                         icon="pi pi-pencil"
                         className="p-button-text edit-btn rounded-2 p-2"
-                        style={{ backgroundColor: '#f0f0f0' }} // Optional: light background
+                        style={{ backgroundColor: '#f0f0f0' }} 
                         title="Edit Project"
                         onClick={() => navigate('/jobs-editform')}
-                      />
+                      /> */}
+                      <Link to="/jobs-editform">
+                                              <p className="mb-0 text-white">
+                                                {" "}
+                                                <i class="fa-regular fa-pen-to-square me-3"></i>{" "}
+                                              </p>
+                                            </Link>
                       <Button
                         icon="pi pi-times"
                         className="p-button-text close-btn"

@@ -3016,14 +3016,33 @@ const ContactsAllActive = () => {
                           </div>
                         </Col>
                         <Col lg={6}>
-                          <div className="p-field">
+                          {/* <div className="p-field">
                             <input
                               type='checkbox'
                               className="me-2"
                               checked
                             />
                             <label htmlFor="jobType">Private</label>
-                          </div>
+                          </div> */}
+
+                          <Row>
+                            <Col lg={6}><div className="p-field">
+                            <input
+                              type='checkbox'
+                              className="me-2"
+                              checked
+                            />
+                            <label htmlFor="jobType">Private</label>
+                          </div></Col>
+                          <Col lg={6}><div className="p-field">
+                            <input
+                              type='checkbox'
+                              className="me-2"
+                              checked
+                            />
+                            <label htmlFor="jobType">Is Employee</label>
+                          </div></Col>
+                          </Row>
                         </Col>
                       </Row>
 

@@ -684,7 +684,7 @@ const SubmitJobtoCandidate = () => {
                 >
                     <Column selectionMode="multiple" style={{ width: "3em" }} />
                     <Column field="name" header="Employee Name" />
-                    <Column field="designation" header="Designation" />
+                    <Column field="designation" header="Role" />
                     <Column field="company" header="Company" />
                 </DataTable>
 
@@ -693,7 +693,8 @@ const SubmitJobtoCandidate = () => {
                     <button
                         type="button"
                         className="btn btn-primary me-2 btn-main"
-                        onClick={handleSave}
+                        // onClick={handleSave}
+                        onClick={() => setJobDetailsVisible(false)}
                     >
                         Ok
                     </button>

@@ -3141,3 +3141,8 @@ ul {
   border: none;
   color: var(--black);
 }
+
+.add-team button{
+  background: linear-gradient(90deg, #0e527d, #1a87cb) !important;
+    border: none !important;
+}

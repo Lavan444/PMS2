@@ -554,7 +554,7 @@ const KanbanView = () => {
                   onChange={(e) => handleFilterChange("workType", e.value)}
                   options={workTypes}
                   optionLabel="name"
-                  placeholder="Work Type"
+                  placeholder="Group"
                   className="w-full md:w-11rem icons-btn bgclr me-1"
                 />
                 <Dropdown

@@ -56,15 +56,10 @@ import { useSelector } from "react-redux"
 import TalentScan from "./TalentScan"
 import ImportResume from "./ImportResumeCan"
 import WorkType1 from "ATSComponents/Common/WorkType1"
-import WorkType from "../Common/WorkType";
-
+import WorkType from "../Common/WorkType"
 
 const AllActiveemp = () => {
-
-  const { first, rows, } = useSelector(
-    state => state.calendar.pagination
-  )
-
+  const { first, rows } = useSelector(state => state.calendar.pagination)
 
   const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6bnVsbCwiZW1haWwiOiJzdXBlcmFkbWluQGV4YW1wbGUuY29tIiwicm9sZXMiOlsiU3VwZXJ1c2VyIFJvbGUiXSwicGVybWlzc2lvbnMiOlsibWFuYWdlX3VzZXJzIiwibWFuYWdlX3JvbGVzIiwibWFuYWdlX3Blcm1pc3Npb25zIiwibWFuYWdlX3JvbGVfdG9fZW1wbG95ZWUiXSwiZXhwIjoxNzM3MDIwOTEwLCJpYXQiOjE3MzQ0Mjg5MTB9.E8kanEh13Hf17sceMHgLvcl2SCpn7Bj5XvU5BdnSFV8`
 
@@ -145,11 +140,11 @@ const AllActiveemp = () => {
 
   // helper to open create form and clear fields
   const showCreateForm = () => {
-    setTaskcode("");
-    setTaskname("");
-    setTaskdesc("");
-    setTaskassigned("");
-    setVisibleRight(true);
+    setTaskcode("")
+    setTaskname("")
+    setTaskdesc("")
+    setTaskassigned("")
+    setVisibleRight(true)
   }
   const [visibleViewRight, setVisibleViewRight] = useState(false)
 
@@ -185,7 +180,7 @@ const AllActiveemp = () => {
         id: cond.candidate_id,
       }))
       settypeInterviewcondi(transformedData)
-    } catch (error) { }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -255,7 +250,7 @@ const AllActiveemp = () => {
         const treeData = buildTree(response.data.results)
         setcategoriesitem(treeData)
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const onSubmit = async data => {
@@ -290,7 +285,7 @@ const AllActiveemp = () => {
       )
       getAllActive(pageState.page, pageState.rows)
       setVisibleRight(false)
-    } catch (error) { }
+    } catch (error) {}
   }
   const onSubmitinterview = async data => {
     let req = {}
@@ -371,7 +366,7 @@ const AllActiveemp = () => {
       setsuccessAlertinter(true)
       setSelectedCustomers([])
       setselectedEmployees(0)
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const deleteHandler = async () => {
@@ -383,7 +378,7 @@ const AllActiveemp = () => {
         getAllActive(pageState.page, pageState.rows)
         setSuccessAlert(true)
       })
-      .catch(error => { })
+      .catch(error => {})
   }
 
   const getCandidateIds = () => {
@@ -434,7 +429,7 @@ const AllActiveemp = () => {
         const treeData = buildTreegroup(response.data.results)
         setgroupitem(treeData)
       }
-    } catch (error) { }
+    } catch (error) {}
   }
   const [selectedRow, setSelectedRow] = useState(null)
   const contextMenu = useRef(null)
@@ -490,7 +485,7 @@ const AllActiveemp = () => {
 
         setprimarySkillsvalu(treeData)
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const [city, setCity] = useState("")
@@ -501,85 +496,112 @@ const AllActiveemp = () => {
   const [availabilityDate1, setavailabilityDate1] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("9876543211")
   const [workEmail, setWorkEmail] = useState("lavan9@infosys.com")
-  const [editingRow, setEditingRow] = useState(null);
-  const [editedValue, setEditedValue] = useState({});
+  const [editingRow, setEditingRow] = useState(null)
+  const [editedValue, setEditedValue] = useState({})
   const [documents, setDocuments] = useState([
-{
-    key: "1",
-    data: {
-      id: "1",
-      certificate_name: "Creative Strategy Blueprint",
-      docSubject: "Proposal Document - Visual Identity Plan",
-      created_at: "2023-10-01 10:30 AM",
+    {
+      key: "1",
+      data: {
+        id: "1",
+        certificate_name: "Creative Strategy Blueprint",
+        docSubject: "Proposal Document - Visual Identity Plan",
+        created_at: "2023-10-01 10:30 AM",
+      },
     },
-  },
-  {
-    key: "2",
-    data: {
-      id: "2",
-      certificate_name: "Neural Systems Brief",
-      docSubject: "Technical Overview - Predictive Logic Engine",
-      created_at: "2023-10-02 02:15 PM",
+    {
+      key: "2",
+      data: {
+        id: "2",
+        certificate_name: "Neural Systems Brief",
+        docSubject: "Technical Overview - Predictive Logic Engine",
+        created_at: "2023-10-02 02:15 PM",
+      },
     },
-  },
-  ]);
+  ])
 
   // Start editing a row
-  const handleEdit = (rowKey) => {
-    setEditingRow(rowKey);
-    setEditedValue(documents.find((doc) => doc.key === rowKey)?.data || {});
-  };
+  const handleEdit = rowKey => {
+    setEditingRow(rowKey)
+    setEditedValue(documents.find(doc => doc.key === rowKey)?.data || {})
+  }
 
   // Save the edited data
   const handleSave = () => {
-    setDocuments((prevDocuments) =>
-      prevDocuments.map((doc) =>
+    setDocuments(prevDocuments =>
+      prevDocuments.map(doc =>
         doc.key === editingRow ? { ...doc, data: editedValue } : doc
       )
-    );
-    setEditingRow(null);
-  };
+    )
+    setEditingRow(null)
+  }
 
   // Cancel editing
   const handleCancel = () => {
-    setEditingRow(null);
-  };
+    setEditingRow(null)
+  }
 
   // Delete a row
-  const handleDelete = (rowKey) => {
-    setDocuments((prevDocuments) => prevDocuments.filter((doc) => doc.key !== rowKey));
-  };
+  const handleDelete = rowKey => {
+    setDocuments(prevDocuments =>
+      prevDocuments.filter(doc => doc.key !== rowKey)
+    )
+  }
 
   // Editable input field
   const editableTemplate = (rowData, field) => {
     return editingRow === rowData.key ? (
       <InputText
         value={editedValue[field] || ""}
-        onChange={(e) => setEditedValue({ ...editedValue, [field]: e.target.value })}
+        onChange={e =>
+          setEditedValue({ ...editedValue, [field]: e.target.value })
+        }
         autoFocus
       />
     ) : (
       <span onClick={() => handleEdit(rowData.key)}>{rowData.data[field]}</span>
-    );
-  };
+    )
+  }
 
   // Action buttons
-  const actionTemplate = (rowData) => {
+  const actionTemplate = rowData => {
     return (
       <div className="flex gap-2">
         {editingRow === rowData.key ? (
           <>
-            <Button icon="pi pi-check" rounded outlined className="document-btn" onClick={handleSave} />
-            <Button icon="pi pi-times" rounded outlined className="document-btn" onClick={handleCancel} />
+            <Button
+              icon="pi pi-check"
+              rounded
+              outlined
+              className="document-btn"
+              onClick={handleSave}
+            />
+            <Button
+              icon="pi pi-times"
+              rounded
+              outlined
+              className="document-btn"
+              onClick={handleCancel}
+            />
           </>
         ) : (
-          <Button icon="pi pi-pencil" rounded outlined className="document-btn" onClick={() => handleEdit(rowData.key)} />
+          <Button
+            icon="pi pi-pencil"
+            rounded
+            outlined
+            className="document-btn"
+            onClick={() => handleEdit(rowData.key)}
+          />
         )}
-        <Button icon="pi pi-trash" rounded outlined className="document-btn" onClick={() => handleDelete(rowData.key)} />
+        <Button
+          icon="pi pi-trash"
+          rounded
+          outlined
+          className="document-btn"
+          onClick={() => handleDelete(rowData.key)}
+        />
       </div>
-    );
-  };
-
+    )
+  }
 
   const [description, setDescription] = useState("")
 
@@ -614,7 +636,7 @@ const AllActiveemp = () => {
           setDescription(results.description)
         }, 1000)
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const getdocumentsitems = async candidate_id => {
@@ -639,7 +661,7 @@ const AllActiveemp = () => {
 
         setDocuments(results)
       } // Set documents in the state
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const [addCities, setaddCities] = useState([])
@@ -661,7 +683,7 @@ const AllActiveemp = () => {
         code: city.city_id,
       }))
       setaddCities(transformedData)
-    } catch (error) { }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -695,7 +717,7 @@ const AllActiveemp = () => {
         id: city.job_id,
       }))
       settypeInterviewval(transformedData)
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const getallactivecontacts = async () => {
@@ -713,7 +735,7 @@ const AllActiveemp = () => {
         id: city.contact_id,
       }))
       settypeInterviewcontact(transformedData)
-    } catch (error) { }
+    } catch (error) {}
   }
   const [interviewdroptype, setinterviewdroptype] = useState([])
 
@@ -736,7 +758,7 @@ const AllActiveemp = () => {
       }
 
       setinterviewdroptype(types)
-    } catch (error) { }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -1005,226 +1027,226 @@ const AllActiveemp = () => {
     },
 
     {
-      "id": 11,
-      "Firstname": "Sandeep",
-      "Lastname": "Reddy",
-      "Company": "Tech Mahindra",
-      "JobTitle": "Software Engineer",
-      "PrimarySkills": "Java, Spring Boot",
-      "Email": "sandeep9@techmahindra.com",
-      "MobilePhone": "9876543216",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "15-03-2025",
-      "ResumeAttachment": "Sandeep-1.pdf",
-      "Categories": "Backend Developer",
-      "Groups": "Java",
-      "CreateDate": "20-02-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Harish",
-      "Yearsofexperience": "4"
+      id: 11,
+      Firstname: "Sandeep",
+      Lastname: "Reddy",
+      Company: "Tech Mahindra",
+      JobTitle: "Software Engineer",
+      PrimarySkills: "Java, Spring Boot",
+      Email: "sandeep9@techmahindra.com",
+      MobilePhone: "9876543216",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "15-03-2025",
+      ResumeAttachment: "Sandeep-1.pdf",
+      Categories: "Backend Developer",
+      Groups: "Java",
+      CreateDate: "20-02-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Harish",
+      Yearsofexperience: "4",
     },
     {
-      "id": 12,
-      "Firstname": "Nikhil",
-      "Lastname": "Varma",
-      "Company": "TCS",
-      "JobTitle": "Data Analyst",
-      "PrimarySkills": "SQL, Power BI",
-      "Email": "nikhil9@tcs.com",
-      "MobilePhone": "9876543220",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "10-03-2025",
-      "ResumeAttachment": "Nikhil-1.pdf",
-      "Categories": "Data Analysis",
-      "Groups": "SQL",
-      "CreateDate": "18-02-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Bhavani",
-      "Yearsofexperience": "2"
+      id: 12,
+      Firstname: "Nikhil",
+      Lastname: "Varma",
+      Company: "TCS",
+      JobTitle: "Data Analyst",
+      PrimarySkills: "SQL, Power BI",
+      Email: "nikhil9@tcs.com",
+      MobilePhone: "9876543220",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "10-03-2025",
+      ResumeAttachment: "Nikhil-1.pdf",
+      Categories: "Data Analysis",
+      Groups: "SQL",
+      CreateDate: "18-02-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Bhavani",
+      Yearsofexperience: "2",
     },
     {
-      "id": 13,
-      "Firstname": "Meghana",
-      "Lastname": "Rao",
-      "Company": "IBM",
-      "JobTitle": "Cloud Engineer",
-      "PrimarySkills": "AWS, Kubernetes",
-      "Email": "meghana9@ibm.com",
-      "MobilePhone": "9876543221",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "01-04-2025",
-      "ResumeAttachment": "Meghana-1.pdf",
-      "Categories": "Cloud Computing",
-      "Groups": "AWS",
-      "CreateDate": "22-02-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Giri",
-      "Yearsofexperience": "3"
+      id: 13,
+      Firstname: "Meghana",
+      Lastname: "Rao",
+      Company: "IBM",
+      JobTitle: "Cloud Engineer",
+      PrimarySkills: "AWS, Kubernetes",
+      Email: "meghana9@ibm.com",
+      MobilePhone: "9876543221",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "01-04-2025",
+      ResumeAttachment: "Meghana-1.pdf",
+      Categories: "Cloud Computing",
+      Groups: "AWS",
+      CreateDate: "22-02-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Giri",
+      Yearsofexperience: "3",
     },
     {
-      "id": 14,
-      "Firstname": "Praveen",
-      "Lastname": "Kumar",
-      "Company": "Accenture",
-      "JobTitle": "Business Analyst",
-      "PrimarySkills": "JIRA, Confluence",
-      "Email": "praveen9@accenture.com",
-      "MobilePhone": "9876543222",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "05-03-2025",
-      "ResumeAttachment": "Praveen-1.pdf",
-      "Categories": "Business Analysis",
-      "Groups": "JIRA",
-      "CreateDate": "25-02-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Sai Krishna",
-      "Yearsofexperience": "5"
+      id: 14,
+      Firstname: "Praveen",
+      Lastname: "Kumar",
+      Company: "Accenture",
+      JobTitle: "Business Analyst",
+      PrimarySkills: "JIRA, Confluence",
+      Email: "praveen9@accenture.com",
+      MobilePhone: "9876543222",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "05-03-2025",
+      ResumeAttachment: "Praveen-1.pdf",
+      Categories: "Business Analysis",
+      Groups: "JIRA",
+      CreateDate: "25-02-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Sai Krishna",
+      Yearsofexperience: "5",
     },
     {
-      "id": 15,
-      "Firstname": "Anjali",
-      "Lastname": "Sharma",
-      "Company": "HCL Technologies",
-      "JobTitle": "QA Engineer",
-      "PrimarySkills": "Selenium, JUnit",
-      "Email": "anjali9@hcl.com",
-      "MobilePhone": "9876543223",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "20-03-2025",
-      "ResumeAttachment": "Anjali-1.pdf",
-      "Categories": "Testing",
-      "Groups": "Automation",
-      "CreateDate": "27-02-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Harish",
-      "Yearsofexperience": "4"
+      id: 15,
+      Firstname: "Anjali",
+      Lastname: "Sharma",
+      Company: "HCL Technologies",
+      JobTitle: "QA Engineer",
+      PrimarySkills: "Selenium, JUnit",
+      Email: "anjali9@hcl.com",
+      MobilePhone: "9876543223",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "20-03-2025",
+      ResumeAttachment: "Anjali-1.pdf",
+      Categories: "Testing",
+      Groups: "Automation",
+      CreateDate: "27-02-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Harish",
+      Yearsofexperience: "4",
     },
     {
-      "id": 16,
-      "Firstname": "Rajesh",
-      "Lastname": "Naidu",
-      "Company": "Wipro",
-      "JobTitle": "DevOps Engineer",
-      "PrimarySkills": "Docker, Jenkins",
-      "Email": "rajesh9@wipro.com",
-      "MobilePhone": "9876543224",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "10-04-2025",
-      "ResumeAttachment": "Rajesh-1.pdf",
-      "Categories": "DevOps",
-      "Groups": "CI/CD",
-      "CreateDate": "01-03-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Bhavani",
-      "Yearsofexperience": "6"
+      id: 16,
+      Firstname: "Rajesh",
+      Lastname: "Naidu",
+      Company: "Wipro",
+      JobTitle: "DevOps Engineer",
+      PrimarySkills: "Docker, Jenkins",
+      Email: "rajesh9@wipro.com",
+      MobilePhone: "9876543224",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "10-04-2025",
+      ResumeAttachment: "Rajesh-1.pdf",
+      Categories: "DevOps",
+      Groups: "CI/CD",
+      CreateDate: "01-03-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Bhavani",
+      Yearsofexperience: "6",
     },
     {
-      "id": 17,
-      "Firstname": "Swathi",
-      "Lastname": "Joshi",
-      "Company": "Amazon",
-      "JobTitle": "AI Engineer",
-      "PrimarySkills": "Python, TensorFlow",
-      "Email": "swathi9@amazon.com",
-      "MobilePhone": "9876543225",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "05-04-2025",
-      "ResumeAttachment": "Swathi-1.pdf",
-      "Categories": "AI ML",
-      "Groups": "Deep Learning",
-      "CreateDate": "03-03-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Harish",
-      "Yearsofexperience": "3"
+      id: 17,
+      Firstname: "Swathi",
+      Lastname: "Joshi",
+      Company: "Amazon",
+      JobTitle: "AI Engineer",
+      PrimarySkills: "Python, TensorFlow",
+      Email: "swathi9@amazon.com",
+      MobilePhone: "9876543225",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "05-04-2025",
+      ResumeAttachment: "Swathi-1.pdf",
+      Categories: "AI ML",
+      Groups: "Deep Learning",
+      CreateDate: "03-03-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Harish",
+      Yearsofexperience: "3",
     },
     {
-      "id": 18,
-      "Firstname": "Varun",
-      "Lastname": "Chakravarthy",
-      "Company": "Flipkart",
-      "JobTitle": "Cybersecurity Analyst",
-      "PrimarySkills": "Ethical Hacking, Penetration Testing",
-      "Email": "varun9@flipkart.com",
-      "MobilePhone": "9876543226",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "15-04-2025",
-      "ResumeAttachment": "Varun-1.pdf",
-      "Categories": "Cybersecurity",
-      "Groups": "Security",
-      "CreateDate": "05-03-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Sai Krishna",
-      "Yearsofexperience": "4"
+      id: 18,
+      Firstname: "Varun",
+      Lastname: "Chakravarthy",
+      Company: "Flipkart",
+      JobTitle: "Cybersecurity Analyst",
+      PrimarySkills: "Ethical Hacking, Penetration Testing",
+      Email: "varun9@flipkart.com",
+      MobilePhone: "9876543226",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "15-04-2025",
+      ResumeAttachment: "Varun-1.pdf",
+      Categories: "Cybersecurity",
+      Groups: "Security",
+      CreateDate: "05-03-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Sai Krishna",
+      Yearsofexperience: "4",
     },
     {
-      "id": 19,
-      "Firstname": "Priya",
-      "Lastname": "Deshmukh",
-      "Company": "Google",
-      "JobTitle": "Full Stack Developer",
-      "PrimarySkills": "React, Node.js",
-      "Email": "priya9@google.com",
-      "MobilePhone": "9876543227",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "01-05-2025",
-      "ResumeAttachment": "Priya-1.pdf",
-      "Categories": "Full Stack Development",
-      "Groups": "React",
-      "CreateDate": "07-03-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Harish",
-      "Yearsofexperience": "5"
+      id: 19,
+      Firstname: "Priya",
+      Lastname: "Deshmukh",
+      Company: "Google",
+      JobTitle: "Full Stack Developer",
+      PrimarySkills: "React, Node.js",
+      Email: "priya9@google.com",
+      MobilePhone: "9876543227",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "01-05-2025",
+      ResumeAttachment: "Priya-1.pdf",
+      Categories: "Full Stack Development",
+      Groups: "React",
+      CreateDate: "07-03-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Harish",
+      Yearsofexperience: "5",
     },
     {
-      "id": 20,
-      "Firstname": "Srinivas",
-      "Lastname": "Palle",
-      "Company": "Microsoft",
-      "JobTitle": "System Administrator",
-      "PrimarySkills": "Windows Server, Linux Administration",
-      "Email": "srinivas9@microsoft.com",
-      "MobilePhone": "9876543228",
-      "City": "Hyderabad",
-      "Status": "Active",
-      "EmployeeType": "Full-Time",
-      "Relocation": "Yes",
-      "AvailabilityDate": "10-05-2025",
-      "ResumeAttachment": "Srinivas-1.pdf",
-      "Categories": "IT Support",
-      "Groups": "SysAdmin",
-      "CreateDate": "09-03-2025",
-      "EditDate": "28-02-2025",
-      "CreatedBy": "Giri",
-      "Yearsofexperience": "7"
-    }
-  ]);
+      id: 20,
+      Firstname: "Srinivas",
+      Lastname: "Palle",
+      Company: "Microsoft",
+      JobTitle: "System Administrator",
+      PrimarySkills: "Windows Server, Linux Administration",
+      Email: "srinivas9@microsoft.com",
+      MobilePhone: "9876543228",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "10-05-2025",
+      ResumeAttachment: "Srinivas-1.pdf",
+      Categories: "IT Support",
+      Groups: "SysAdmin",
+      CreateDate: "09-03-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Giri",
+      Yearsofexperience: "7",
+    },
+  ])
   const [selectedCustomers, setSelectedCustomers] = useState([])
 
   const [customers, setCustomers] = useState([])
@@ -1253,96 +1275,134 @@ const AllActiveemp = () => {
   }
 
   // context menu starts
-  const [selectedCandidate, setSelectedCandidate] = useState(null); // State to track the right-clicked candidate
+  const [selectedCandidate, setSelectedCandidate] = useState(null) // State to track the right-clicked candidate
 
-  const cm = useRef(null); // Reference for ContextMenu
+  const cm = useRef(null) // Reference for ContextMenu
 
   // Context menu options
   const menuModel = [
-    { label: 'View', icon: 'pi pi-fw pi-eye', command: () => setVisibleViewRight(true) },
-    { label: 'Edit', icon: 'pi pi-fw pi-pencil', command: () => navigate('/candidate-editform') },
-    { label: 'Archived', icon: 'pi pi-check-circle' },
-    { label: 'Delete', icon: 'pi pi-fw pi-trash', command: () => deleteCandidate(selectedCandidate) },
     {
-      label: 'Email',
-      icon: 'pi pi-envelope',
-      items: [ // Subitems for "Schedule"
+      label: "View",
+      icon: "pi pi-fw pi-eye",
+      command: () => setVisibleViewRight(true),
+    },
+    {
+      label: "Edit",
+      icon: "pi pi-fw pi-pencil",
+      command: () => navigate("/candidate-editform"),
+    },
+    { label: "Archived", icon: "pi pi-check-circle" },
+    {
+      label: "Delete",
+      icon: "pi pi-fw pi-trash",
+      command: () => deleteCandidate(selectedCandidate),
+    },
+    {
+      label: "Email",
+      icon: "pi pi-envelope",
+      items: [
+        // Subitems for "Schedule"
         {
-          label: 'New Email', icon: 'pi pi-calendar-plus',
+          label: "New Email",
+          icon: "pi pi-calendar-plus",
         },
-        { label: 'Selected', icon: 'pi pi-phone', },
-        { label: 'Searched', icon: 'pi pi-users', },
-        { label: 'All', icon: 'pi pi-list', },
+        { label: "Selected", icon: "pi pi-phone" },
+        { label: "Searched", icon: "pi pi-users" },
+        { label: "All", icon: "pi pi-list" },
         {
-          label: 'Jobs', icon: 'pi pi-calendar-clock',
-          items: [ // Subitems for "Schedule"
+          label: "Jobs",
+          icon: "pi pi-calendar-clock",
+          items: [
+            // Subitems for "Schedule"
             {
-              label: 'All', icon: 'pi pi-calendar-plus',
+              label: "All",
+              icon: "pi pi-calendar-plus",
             },
-            { label: 'Selected', icon: 'pi pi-phone' },
-            { label: 'Searched', icon: 'pi pi-users' },
+            { label: "Selected", icon: "pi pi-phone" },
+            { label: "Searched", icon: "pi pi-users" },
           ],
         },
       ],
     },
     {
-      label: 'Schedule', icon: 'pi pi-calendar-clock',
-      items: [ // Subitems for "Schedule"
-        { label: 'Interview', icon: 'pi pi-calendar-plus' },
-        { label: 'Call', icon: 'pi pi-phone' },
-        { label: 'Meeting', icon: 'pi pi-users' },
-        { label: 'Task', icon: 'pi pi-list' },
-        { label: 'Event', icon: 'pi pi-calendar-clock' },
-        { label: 'Other', icon: 'pi pi-ellipsis-h' },
+      label: "Schedule",
+      icon: "pi pi-calendar-clock",
+      items: [
+        // Subitems for "Schedule"
+        { label: "Interview", icon: "pi pi-calendar-plus" },
+        { label: "Call", icon: "pi pi-phone" },
+        { label: "Meeting", icon: "pi pi-users" },
+        { label: "Task", icon: "pi pi-list" },
+        { label: "Event", icon: "pi pi-calendar-clock" },
+        { label: "Other", icon: "pi pi-ellipsis-h" },
       ],
     },
-    { label: 'Candidate Notes', icon: 'pi pi-clipboard' },
-    { label: 'Clear Search', icon: 'pi pi-filter-slash', command: () => handleClearSearchCandidates() },
+    { label: "Candidate Notes", icon: "pi pi-clipboard" },
     {
-      label: 'Submit',
-      icon: 'pi pi-send',
-      items: [ // Subitems for "More"
-        { label: 'Submit Candidate to Job', icon: 'pi pi-user-plus' },
-        { label: 'Submit Candidate to Contact', icon: 'pi pi-user-plus' },
+      label: "Clear Search",
+      icon: "pi pi-filter-slash",
+      command: () => handleClearSearchCandidates(),
+    },
+    {
+      label: "Submit",
+      icon: "pi pi-send",
+      items: [
+        // Subitems for "More"
+        { label: "Submit Candidate to Job", icon: "pi pi-user-plus" },
+        { label: "Submit Candidate to Contact", icon: "pi pi-user-plus" },
       ],
     },
     {
-      label: 'More',
-      icon: 'pi pi-ellipsis-h',
-      items: [ // Subitems for "More"
+      label: "More",
+      icon: "pi pi-ellipsis-h",
+      items: [
+        // Subitems for "More"
         {
-          label: 'Link Jobs', icon: 'pi pi-link',
-          items: [ // Subitems for "Link Jobs"
-            { label: 'Received', icon: 'pi pi-link' },
-            { label: 'Potential', icon: 'pi pi-sync' },
-            { label: 'Submitted', icon: 'pi pi-link' },
+          label: "Link Jobs",
+          icon: "pi pi-link",
+          items: [
+            // Subitems for "Link Jobs"
+            { label: "Received", icon: "pi pi-link" },
+            { label: "Potential", icon: "pi pi-sync" },
+            { label: "Submitted", icon: "pi pi-link" },
           ],
         },
-        { label: 'Change Status', icon: 'pi pi-link' },
-        { label: 'Merge', icon: 'pi pi-sync' },
+        { label: "Change Status", icon: "pi pi-link" },
+        { label: "Merge", icon: "pi pi-sync" },
       ],
     },
-
-  ];
+  ]
 
   // Function to handle viewing a candidate
-  const viewCandidate = (candidate) => {
-    toast.current.show({ severity: 'info', summary: 'Candidate Selected', detail: `${candidate.Firstname} ${candidate.Lastname}` });
-  };
+  const viewCandidate = candidate => {
+    toast.current.show({
+      severity: "info",
+      summary: "Candidate Selected",
+      detail: `${candidate.Firstname} ${candidate.Lastname}`,
+    })
+  }
 
   // Function to handle editing a candidate
-  const editCandidate = (candidate) => {
-    toast.current.show({ severity: 'success', summary: 'Edit Candidate', detail: `Editing ${candidate.Firstname} ${candidate.Lastname}` });
+  const editCandidate = candidate => {
+    toast.current.show({
+      severity: "success",
+      summary: "Edit Candidate",
+      detail: `Editing ${candidate.Firstname} ${candidate.Lastname}`,
+    })
     // Add your edit logic here
-  };
+  }
 
   // Function to handle deleting a candidate
-  const deleteCandidate = (candidate) => {
-    let _candidates = [...candidateData];
-    _candidates = _candidates.filter((c) => c.id !== candidate.id);
-    setCandidateData(_candidates); // Update the candidate data state
-    toast.current.show({ severity: 'error', summary: 'Candidate Deleted', detail: `Deleted ${candidate.Firstname} ${candidate.Lastname}` });
-  };
+  const deleteCandidate = candidate => {
+    let _candidates = [...candidateData]
+    _candidates = _candidates.filter(c => c.id !== candidate.id)
+    setCandidateData(_candidates) // Update the candidate data state
+    toast.current.show({
+      severity: "error",
+      summary: "Candidate Deleted",
+      detail: `Deleted ${candidate.Firstname} ${candidate.Lastname}`,
+    })
+  }
 
   // context menu ends
 
@@ -1411,19 +1471,19 @@ const AllActiveemp = () => {
     { name: "Active", value: "Active" },
     { name: "Inactive", value: "Inactive" },
     { name: "Pending", value: "Pending" },
-    { name: "Completed", value: "Completed" }
+    { name: "Completed", value: "Completed" },
   ]
   const uniqueCategories = [
     { name: "Frontend", value: "Frontend" },
     { name: "SEO", value: "SEO" },
     { name: "Content Writing", value: "Content Writing" },
-    { name: "AI ML", value: "AI ML" }
+    { name: "AI ML", value: "AI ML" },
   ]
   const filteredGroups = [
     { name: "React", value: "React" },
     { name: "Blog Writing", value: "Blog Writing" },
     { name: "Machine Learning", value: "Machine Learning" },
-    { name: "On Page SEO", value: "On Page SEO" }
+    { name: "On Page SEO", value: "On Page SEO" },
   ]
 
   const statusofdrop = options => (
@@ -1682,7 +1742,7 @@ const AllActiveemp = () => {
       date_time: "03-01-2025 13:00",
       user_id: "11223",
     },
-  ];
+  ]
 
   const [selectedActivities, setSelectedActivities] = useState([])
 
@@ -1741,9 +1801,7 @@ const AllActiveemp = () => {
       date_time: "03-01-2025 13:00",
       user_id: "11223",
     },
-  ];
-
-
+  ]
 
   const [selectedHistory, setSelectedHistory] = useState([])
 
@@ -2385,7 +2443,10 @@ const AllActiveemp = () => {
       Email: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
       MobilePhone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
       Company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-      Yearsofexperience: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+      Yearsofexperience: {
+        value: null,
+        matchMode: FilterMatchMode.STARTS_WITH,
+      },
       City: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
       Status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
       AvailabilityDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -2398,7 +2459,6 @@ const AllActiveemp = () => {
       EditDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
       CreateDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     })
-
   }
 
   // clear search ends
@@ -2429,11 +2489,10 @@ const AllActiveemp = () => {
     { name: "Delhi", code: "DEL" },
   ]
   // Change initial values to empty
-  const [taskCode, setTaskcode] = useState("");
-  const [taskName, setTaskname] = useState("");
-  const [taskDesc, setTaskdesc] = useState("");
-  const [taskAssigned, setTaskassigned] = useState("");
-
+  const [taskCode, setTaskcode] = useState("")
+  const [taskName, setTaskname] = useState("")
+  const [taskDesc, setTaskdesc] = useState("")
+  const [taskAssigned, setTaskassigned] = useState("")
 
   const [selectedMod, setSelectedMod] = useState(null)
 
@@ -2461,8 +2520,8 @@ const AllActiveemp = () => {
     { name: "Venkata laxmi", code: "BLR" },
     { name: "Mahesh N", code: "BLR" },
   ]
-  const [jobStartDate, setJobStartDate] = useState(null);
-  const [jobEndDate, setJobEndDate] = useState(null);
+  const [jobStartDate, setJobStartDate] = useState(null)
+  const [jobEndDate, setJobEndDate] = useState(null)
 
   const [selectedTask, setSelectedTask] = useState(null)
 
@@ -2845,7 +2904,9 @@ const AllActiveemp = () => {
   const [createJobTitle, setCreateJobTitle] = useState("Web Developer")
   const [createCompany, setCreateCompany] = useState("Infosys Limited")
   const [createDate, setCreateDate] = useState("28-02-2025")
-  const [notes1, setNotes1] = useState("Lavankumar Kalvala is a Frontend Developer at Infosys Limited, skilled in JavaScript and React. He is currently active and available for work from 20-02-2025. With 2 years of experience, he is open to relocation and belongs to the Frontend category (React group).")
+  const [notes1, setNotes1] = useState(
+    "Lavankumar Kalvala is a Frontend Developer at Infosys Limited, skilled in JavaScript and React. He is currently active and available for work from 20-02-2025. With 2 years of experience, he is open to relocation and belongs to the Frontend category (React group)."
+  )
 
   // import resume
   const toast = useRef(null)
@@ -2944,7 +3005,7 @@ const AllActiveemp = () => {
       actual_end_date: "02-05-2025",
       task_status: "Completed",
       priority: "High",
-      approval_status: "Approved"
+      approval_status: "Approved",
     },
     {
       task_code: "Task-102",
@@ -2963,7 +3024,7 @@ const AllActiveemp = () => {
       actual_end_date: "08-05-2025",
       task_status: "In Progress",
       priority: "Medium",
-      approval_status: "Pending"
+      approval_status: "Pending",
     },
     {
       task_code: "Task-103",
@@ -2982,7 +3043,7 @@ const AllActiveemp = () => {
       actual_end_date: "03-05-2025",
       task_status: "Completed",
       priority: "High",
-      approval_status: "Approved"
+      approval_status: "Approved",
     },
     {
       task_code: "Task-104",
@@ -2990,7 +3051,8 @@ const AllActiveemp = () => {
       project_manager: "Rakesh Kumar",
       module_name: "Payroll Management",
       task_name: "Integrate PF Calculation",
-      task_description: "Add logic to calculate Provident Fund based on salary slabs.",
+      task_description:
+        "Add logic to calculate Provident Fund based on salary slabs.",
       created_by: "Anita Reddy",
       assigned_by: "Rakesh Kumar",
       assigned_to: "Sanjay Mishra",
@@ -3001,7 +3063,7 @@ const AllActiveemp = () => {
       actual_end_date: "06-05-2025",
       task_status: "Completed",
       priority: "Medium",
-      approval_status: "Approved"
+      approval_status: "Approved",
     },
     {
       task_code: "Task-105",
@@ -3009,7 +3071,8 @@ const AllActiveemp = () => {
       project_manager: "Neha Jain",
       module_name: "E-Invoice Integration",
       task_name: "Connect with GSTN APIs",
-      task_description: "Establish API connectivity with the GST Network for invoice validation.",
+      task_description:
+        "Establish API connectivity with the GST Network for invoice validation.",
       created_by: "Suresh Babu",
       assigned_by: "Neha Jain",
       assigned_to: "Rajeev Menon",
@@ -3020,7 +3083,7 @@ const AllActiveemp = () => {
       actual_end_date: "",
       task_status: "In Progress",
       priority: "High",
-      approval_status: "Pending"
+      approval_status: "Pending",
     },
     {
       task_code: "Task-106",
@@ -3028,7 +3091,8 @@ const AllActiveemp = () => {
       project_manager: "Vikas Patil",
       module_name: "Attendance Tracking",
       task_name: "Add Biometric Sync",
-      task_description: "Implement sync between biometric device and central attendance module.",
+      task_description:
+        "Implement sync between biometric device and central attendance module.",
       created_by: "Harsha Shetty",
       assigned_by: "Vikas Patil",
       assigned_to: "Nikhil Kapoor",
@@ -3039,7 +3103,7 @@ const AllActiveemp = () => {
       actual_end_date: "02-05-2025",
       task_status: "Completed",
       priority: "Low",
-      approval_status: "Approved"
+      approval_status: "Approved",
     },
     {
       task_code: "Task-107",
@@ -3047,7 +3111,8 @@ const AllActiveemp = () => {
       project_manager: "Manoj Bhatt",
       module_name: "Leave Management",
       task_name: "Bug Fix - Overlapping Leaves",
-      task_description: "Fix the bug where multiple overlapping leaves are allowed.",
+      task_description:
+        "Fix the bug where multiple overlapping leaves are allowed.",
       created_by: "Deepika Saini",
       assigned_by: "Manoj Bhatt",
       assigned_to: "Alok Yadav",
@@ -3058,7 +3123,7 @@ const AllActiveemp = () => {
       actual_end_date: "",
       task_status: "Not Started",
       priority: "Medium",
-      approval_status: "Pending"
+      approval_status: "Pending",
     },
     {
       task_code: "Task-108",
@@ -3066,7 +3131,8 @@ const AllActiveemp = () => {
       project_manager: "Karthik Rao",
       module_name: "Performance Evaluation",
       task_name: "Add Employee Self-Review",
-      task_description: "Develop form for employees to submit self-evaluation before appraisals.",
+      task_description:
+        "Develop form for employees to submit self-evaluation before appraisals.",
       created_by: "Anjali Menon",
       assigned_by: "Karthik Rao",
       assigned_to: "Tarun Singh",
@@ -3077,7 +3143,7 @@ const AllActiveemp = () => {
       actual_end_date: "03-05-2025",
       task_status: "Completed",
       priority: "High",
-      approval_status: "Approved"
+      approval_status: "Approved",
     },
     {
       task_code: "Task-109",
@@ -3096,7 +3162,7 @@ const AllActiveemp = () => {
       actual_end_date: "",
       task_status: "In Progress",
       priority: "High",
-      approval_status: "Pending"
+      approval_status: "Pending",
     },
     {
       task_code: "Task-110",
@@ -3115,7 +3181,7 @@ const AllActiveemp = () => {
       actual_end_date: "05-05-2025",
       task_status: "Completed",
       priority: "Medium",
-      approval_status: "Approved"
+      approval_status: "Approved",
     },
     {
       task_code: "Task-111",
@@ -3134,25 +3200,24 @@ const AllActiveemp = () => {
       actual_end_date: "04-05-2025",
       task_status: "Completed",
       priority: "Low",
-      approval_status: "Approved"
-    }
-  ]);
+      approval_status: "Approved",
+    },
+  ])
 
-  const [selectedTasksData, setSelectedTasksData] = useState([]);
+  const [selectedTasksData, setSelectedTasksData] = useState([])
 
   // Select a task and show details
-  const viewTaskDetails = (task) => {
-    setSelectedTasksData([task]);
-    setTaskDetailsVisible(true);
-  };
+  const viewTaskDetails = task => {
+    setSelectedTasksData([task])
+    setTaskDetailsVisible(true)
+  }
 
   // return first selected or context‐menu‐selected task
   const getSelectedTaskData = () => {
-    return selectedTasksData.length ? selectedTasksData[0] : selectedTask;
+    return selectedTasksData.length ? selectedTasksData[0] : selectedTask
   }
 
   // const [selectedTask, setSelectedTask] = useState(null);
-
 
   // task datatable ends
 
@@ -3247,11 +3312,7 @@ const AllActiveemp = () => {
                     </button>
                   )}
                 </span>
-
-
               </Col>
-
-
             </Row>
             {/* Action items end */}
 
@@ -3264,10 +3325,13 @@ const AllActiveemp = () => {
                     <Toast ref={toast} />
 
                     {/* ContextMenu for right-click actions */}
-                    <ContextMenu model={menuModel} ref={cm} onHide={() => setSelectedCandidate(null)} />
+                    <ContextMenu
+                      model={menuModel}
+                      ref={cm}
+                      onHide={() => setSelectedCandidate(null)}
+                    />
 
                     <div className="card1 mt-4 mb-4 actjobsumtable">
-
                       <DataTable
                         ref={dt}
                         value={tasksData}
@@ -3279,7 +3343,7 @@ const AllActiveemp = () => {
                         scrollable
                         emptyMessage="No records found."
                         selection={selectedTasksData}
-                        onSelectionChange={(e) => setSelectedTasksData(e.value)}
+                        onSelectionChange={e => setSelectedTasksData(e.value)}
                         selectionMode="multiple"
                         filters={filters}
                         filterDisplay="row"
@@ -3287,33 +3351,145 @@ const AllActiveemp = () => {
                         resizableColumns
                         reorderableColumns
                         columnResizeMode="expand"
-                        onContextMenu={(e) => {
-                          cm.current.show(e.originalEvent);
-                          setSelectedTask(e.data);
+                        onContextMenu={e => {
+                          cm.current.show(e.originalEvent)
+                          setSelectedTask(e.data)
                         }}
                         contextMenuSelection={selectedTask}
-                        onContextMenuSelectionChange={(e) => setSelectedTask(e.value)}
+                        onContextMenuSelectionChange={e =>
+                          setSelectedTask(e.value)
+                        }
                       >
-                        <Column selectionMode="multiple" headerStyle={{ width: '3em' }} />
-                        <Column field="task_code" header="Work Type Code" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="project_name" header="Project Name" sortable filter style={{ minWidth: '12rem' }} />
-                        <Column field="module_name" header="Module Name" sortable filter style={{ minWidth: '12rem' }} />
-                        <Column field="task_name" header="Summary" sortable filter style={{ minWidth: '12rem' }} />
+                        <Column
+                          selectionMode="multiple"
+                          headerStyle={{ width: "3em" }}
+                        />
+                        <Column
+                          field="task_code"
+                          header="Work Type Code"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                          body={rowData => (
+                            <span
+                              style={{ cursor: "pointer" }}
+                              className="project-code-hover"
+                              onClick={() => {
+                                setVisibleViewRight(true) // Show the sidebar
+                                setSelectedTask(rowData) // Set the selected job data
+                              }}
+                            >
+                              {rowData.task_code}
+                            </span>
+                          )}
+                        />
+                        <Column
+                          field="project_name"
+                          header="Project Name"
+                          sortable
+                          filter
+                          style={{ minWidth: "12rem" }}
+                        />
+                        <Column
+                          field="module_name"
+                          header="Module Name"
+                          sortable
+                          filter
+                          style={{ minWidth: "12rem" }}
+                        />
+                        <Column
+                          field="task_name"
+                          header="Summary"
+                          sortable
+                          filter
+                          style={{ minWidth: "12rem" }}
+                        />
                         {/* <Column field="task_description" header="Task Description" sortable filter style={{ minWidth: '14rem' }} /> */}
-                        <Column field="created_by" header="Created By" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="assigned_by" header="Assigned By" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="assigned_to" header="Assigned To" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="project_manager" header="Project Manager" sortable filter style={{ minWidth: '12rem' }} />
-                        <Column field="watchers" header="Watchers" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="start_date" header="Start Date" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="work_hours" header="Work Hours (in hours)" sortable filter style={{ minWidth: '14rem' }} />
-                        <Column field="end_date" header="End Date" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="actual_end_date" header="Actual End Date" sortable filter style={{ minWidth: '12rem' }} />
-                        <Column field="task_status" header="Status" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="priority" header="Priority" sortable filter style={{ minWidth: '10rem' }} />
-                        <Column field="approval_status" header="Approval Status" sortable filter style={{ minWidth: '12rem' }} />
+                        <Column
+                          field="created_by"
+                          header="Created By"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="assigned_by"
+                          header="Assigned By"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="assigned_to"
+                          header="Assigned To"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="project_manager"
+                          header="Project Manager"
+                          sortable
+                          filter
+                          style={{ minWidth: "12rem" }}
+                        />
+                        <Column
+                          field="watchers"
+                          header="Watchers"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="start_date"
+                          header="Start Date"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="work_hours"
+                          header="Work Hours (in hours)"
+                          sortable
+                          filter
+                          style={{ minWidth: "14rem" }}
+                        />
+                        <Column
+                          field="end_date"
+                          header="End Date"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="actual_end_date"
+                          header="Actual End Date"
+                          sortable
+                          filter
+                          style={{ minWidth: "12rem" }}
+                        />
+                        <Column
+                          field="task_status"
+                          header="Status"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="priority"
+                          header="Priority"
+                          sortable
+                          filter
+                          style={{ minWidth: "10rem" }}
+                        />
+                        <Column
+                          field="approval_status"
+                          header="Approval Status"
+                          sortable
+                          filter
+                          style={{ minWidth: "12rem" }}
+                        />
                       </DataTable>
-
                     </div>
                   </section>
                 </React.Fragment>
@@ -3349,48 +3525,102 @@ const AllActiveemp = () => {
                   <div className="card sidebardetails">
                     <Row className="mb-2">
                       <Col lg={6}>
-                       <div className="p-field">
-                                    <label htmlFor="selectProject" className="block">
-                                       Project
-                                    </label>
-                                    <Dropdown
-                                      id="selectProject"
-                                      value={getSelectedTaskData()?.project_name || 'VitelGlobal SupportStaff Portal - India'}
-                                      options={[
-                                        { label: 'VitelGlobal SupportStaff Portal - India', value: 'VitelGlobal SupportStaff Portal - India' },
-                                        { label: 'PAYG', value: 'PAYG' },
-                                        { label: 'Omani Channel', value: 'Omani Channel' },
-                                        { label: 'Vitel Meet', value: 'Vitel Meet' },
-                                        { label: 'Project Dashboard', value: 'Project Dashboard' },
-                                        { label: 'AI Generator (Proj-101)', value: 'AI Generator (Proj-101)' },
-                                        { label: 'Sales Automation (Proj-102)', value: 'Sales Automation (Proj-102)' },
-                                        { label: 'Security Enhancement (Proj-103)', value: 'Security Enhancement (Proj-103)' },
-                                        { label: 'Payroll System (Proj-104)', value: 'Payroll System (Proj-104)' },
-                                        { label: 'Tax Compliance (Proj-105)', value: 'Tax Compliance (Proj-105)' },
-                                        { label: 'HR Automation (Proj-106)', value: 'HR Automation (Proj-106)' },
-                                        { label: 'HR Automation (Proj-107)', value: 'HR Automation (Proj-107)' },
-                                        { label: 'Performance System (Proj-108)', value: 'Performance System (Proj-108)' },
-                                        { label: 'Project Management (Proj-109)', value: 'Project Management (Proj-109)' },
-                                        { label: 'Communication System (Proj-110)', value: 'Communication System (Proj-110)' },
-                                        { label: 'Document Management (Proj-111)', value: 'Document Management (Proj-111)' }
-                                      ]}
-                                      onChange={(e) => {
-                                        console.log('Project selected:', e.value);
-                                      }}
-                                      placeholder="Select a Project"
-                                      className="w-full bgclr"
-                                      style={{ minHeight: '40px' }}
-                                      panelStyle={{ zIndex: 1000, minWidth: '100%' }}
-                                      itemTemplate={(option) => (
-                                        <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
-                                          {option.label}
-                                        </div>
-                                      )}
-                                    />
-                                  </div>
+                        <div className="p-field">
+                          <label htmlFor="selectProject" className="block">
+                            Project
+                          </label>
+                          <Dropdown
+                            id="selectProject"
+                            value={
+                              getSelectedTaskData()?.project_name ||
+                              "VitelGlobal SupportStaff Portal - India"
+                            }
+                            options={[
+                              {
+                                label:
+                                  "VitelGlobal SupportStaff Portal - India",
+                                value:
+                                  "VitelGlobal SupportStaff Portal - India",
+                              },
+                              { label: "PAYG", value: "PAYG" },
+                              {
+                                label: "Omani Channel",
+                                value: "Omani Channel",
+                              },
+                              { label: "Vitel Meet", value: "Vitel Meet" },
+                              {
+                                label: "Project Dashboard",
+                                value: "Project Dashboard",
+                              },
+                              {
+                                label: "AI Generator (Proj-101)",
+                                value: "AI Generator (Proj-101)",
+                              },
+                              {
+                                label: "Sales Automation (Proj-102)",
+                                value: "Sales Automation (Proj-102)",
+                              },
+                              {
+                                label: "Security Enhancement (Proj-103)",
+                                value: "Security Enhancement (Proj-103)",
+                              },
+                              {
+                                label: "Payroll System (Proj-104)",
+                                value: "Payroll System (Proj-104)",
+                              },
+                              {
+                                label: "Tax Compliance (Proj-105)",
+                                value: "Tax Compliance (Proj-105)",
+                              },
+                              {
+                                label: "HR Automation (Proj-106)",
+                                value: "HR Automation (Proj-106)",
+                              },
+                              {
+                                label: "HR Automation (Proj-107)",
+                                value: "HR Automation (Proj-107)",
+                              },
+                              {
+                                label: "Performance System (Proj-108)",
+                                value: "Performance System (Proj-108)",
+                              },
+                              {
+                                label: "Project Management (Proj-109)",
+                                value: "Project Management (Proj-109)",
+                              },
+                              {
+                                label: "Communication System (Proj-110)",
+                                value: "Communication System (Proj-110)",
+                              },
+                              {
+                                label: "Document Management (Proj-111)",
+                                value: "Document Management (Proj-111)",
+                              },
+                            ]}
+                            onChange={e => {
+                              console.log("Project selected:", e.value)
+                            }}
+                            placeholder="Select a Project"
+                            className="w-full bgclr"
+                            style={{ minHeight: "40px" }}
+                            panelStyle={{ zIndex: 1000, minWidth: "100%" }}
+                            itemTemplate={option => (
+                              <div
+                                style={{
+                                  padding: "8px 12px",
+                                  minHeight: "35px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                              >
+                                {option.label}
+                              </div>
+                            )}
+                          />
+                        </div>
                       </Col>
                       <Col lg={6}>
-                       <label htmlFor="city" className="mb-1">
+                        <label htmlFor="city" className="mb-1">
                           Select Module
                         </label>
                         <Dropdown
@@ -3406,23 +3636,14 @@ const AllActiveemp = () => {
                     </Row>
                     <Row className="mb-2 mt-3">
                      
-                       <Col lg={12}>
-                        <label htmlFor="city" className="mb-1">
-                          Summary 
-                        </label>
-                        <InputText
-                          placeholder="Add User Role Feature"
-                          value={taskAssigned}
-                        />
-                      </Col>
 
-                       <Col lg={6} className="mt-2">
+                      <Col lg={6} className="mt-2">
                         <div className="p-field">
                           <label htmlFor="jobType" className="block">
                             Work Type
                           </label>
 
-                         <WorkType />
+                          <WorkType />
 
                           {/* <label htmlFor="jobType" className="block">
                             Task Description
@@ -3440,10 +3661,19 @@ const AllActiveemp = () => {
                         </div>
                       </Col>
 
+                       <Col lg={12}>
+                        <label htmlFor="city" className="mb-0">
+                          Summary
+                        </label>
+                        <InputText
+                          placeholder="Add User Role Feature"
+                          value={taskAssigned}
+                        />
+                      </Col>
 
-                       <Col lg={6} className="mb-2 mt-2">
+                      <Col lg={6} className="mb-2 mt-2">
                         <label htmlFor="city" className="mb-1">
-                           Status
+                          Status
                         </label>
                         <Dropdown
                           value={selectedTask}
@@ -3451,13 +3681,12 @@ const AllActiveemp = () => {
                           options={taskOptions}
                           optionLabel="name"
                           placeholder="--select--"
-
                           className="bgclr"
                         />
                       </Col>
 
-                       <Col lg={6} className="mb-2">
-                        <label htmlFor="city" className="mb-0">
+                      <Col lg={6} className="mb-2">
+                        <label htmlFor="city" className="mb-0 mt-2">
                           Priority
                         </label>
                         <Dropdown
@@ -3466,8 +3695,7 @@ const AllActiveemp = () => {
                           options={priorityOptions}
                           optionLabel="name"
                           placeholder="--select--"
-
-                          className="bgclr"
+                          className="bgclr mt-1"
                         />
                       </Col>
 
@@ -3486,7 +3714,7 @@ const AllActiveemp = () => {
                         />
                       </Col>
 
-                        <Col lg={6} className="mb-3">
+                      <Col lg={6} className="mb-3">
                         <label htmlFor="city" className="mb-0">
                           Add Watcher
                         </label>
@@ -3496,17 +3724,13 @@ const AllActiveemp = () => {
                           options={asstoOptions}
                           optionLabel="name"
                           placeholder="--select--"
-
                           className="bgclr"
                         />
                       </Col>
-
-                      
                     </Row>
                     {/* <Row className="mb-3">
                       
                     </Row> */}
-
 
                     {/* <Row className="mb-3">
                       <Col lg={6}>
@@ -3534,25 +3758,24 @@ const AllActiveemp = () => {
                       </Col>
                     </Row> */}
 
-
                     <Row className="mb-2 mt-1">
-
-                     
                       <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Work Hours (in hours)
                         </label>
                         <InputText
                           placeholder="4 hours"
-                        // value={createFirst}
+                          // value={createFirst}
                         />
                       </Col>
                       <Col lg={6}>
-                        <label htmlFor="jobStartDate" className="p-mb-2">Start Date</label>
+                        <label htmlFor="jobStartDate" className="p-mb-2">
+                          Start Date
+                        </label>
                         <Calendar
                           id="jobStartDate"
                           value={jobStartDate}
-                          onChange={(e) => setJobStartDate(e.value)}
+                          onChange={e => setJobStartDate(e.value)}
                           dateFormat="dd/mm/yy"
                           placeholder="20/05/2025"
                           className="w-full activejobdrop"
@@ -3561,25 +3784,28 @@ const AllActiveemp = () => {
                       </Col>
                     </Row>
                     <Row className="mb-3">
-                      
                       <Col lg={6}>
-                        <label htmlFor="jobEndDate" className="mr-2">End Date</label>
+                        <label htmlFor="jobEndDate" className="mr-2">
+                          End Date
+                        </label>
                         <Calendar
                           id="jobEndDate"
                           value={jobEndDate}
-                          onChange={(e) => setJobEndDate(e.value)}
+                          onChange={e => setJobEndDate(e.value)}
                           dateFormat="dd/mm/yy"
                           placeholder="26/05/2025"
                           className="w-full activejobdrop"
                           showIcon
                         />
                       </Col>
-                       <Col lg={6}>
-                        <label htmlFor="jobStartDate" className="p-mb-2">Actual End Date</label>
+                      <Col lg={6}>
+                        <label htmlFor="jobStartDate" className="p-mb-2">
+                          Actual End Date
+                        </label>
                         <Calendar
                           id="jobStartDate"
                           value={jobStartDate}
-                          onChange={(e) => setJobStartDate(e.value)}
+                          onChange={e => setJobStartDate(e.value)}
                           dateFormat="dd/mm/yy"
                           placeholder="26/05/2025"
                           className="w-full activejobdrop"
@@ -3587,9 +3813,8 @@ const AllActiveemp = () => {
                         />
                       </Col>
                     </Row>
-                    
-                    <Row className="mb-3 mt-2">
 
+                    <Row className="mb-3 mt-2">
                       <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Work Type Status
@@ -3600,11 +3825,10 @@ const AllActiveemp = () => {
                           options={taskOptions}
                           optionLabel="name"
                           placeholder="--select--"
-
                           className="bgclr"
                         />
                       </Col>
-                       <Col lg={6}>
+                      <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Approval Status
                         </label>
@@ -3614,7 +3838,6 @@ const AllActiveemp = () => {
                           options={statusOptions}
                           optionLabel="name"
                           placeholder="--select--"
-
                           className="bgclr"
                         />
                       </Col>
@@ -3633,8 +3856,6 @@ const AllActiveemp = () => {
                         />
                       </Col> */}
                     </Row>
-                    
-
 
                     <Row className="mb-3 mt-2">
                       <Col lg={12}>
@@ -3770,7 +3991,9 @@ const AllActiveemp = () => {
             >
               <div className="sidebar-header">
                 <h3 className="head">
-                  <i className="pi pi-users"></i> Task - {getSelectedTaskData()?.task_code || ''} - {getSelectedTaskData()?.task_name || ''}
+                  <i className="pi pi-users"></i> Task -{" "}
+                  {getSelectedTaskData()?.task_code || ""} -{" "}
+                  {getSelectedTaskData()?.task_name || ""}
                 </h3>
                 <div className="d-flex align-items-center">
                   <Link to="/candidate-editform">
@@ -3805,45 +4028,123 @@ const AllActiveemp = () => {
                             {/* 1. Project & Assignment */}
                             <Col lg={4} className="label-headsz">
                               <div className="section-header mb-3">
-                                <h4 className="head-h4sz">Project & Assignment</h4>
+                                <h4 className="head-h4sz">
+                                  Project & Assignment
+                                </h4>
                               </div>
 
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="selectProject" className="block">
-                                       Project
+                                    <label
+                                      htmlFor="selectProject"
+                                      className="block"
+                                    >
+                                      Project
                                     </label>
                                     <Dropdown
                                       id="selectProject"
-                                      value={getSelectedTaskData()?.project_name || 'VitelGlobal SupportStaff Portal - India'}
+                                      value={
+                                        getSelectedTaskData()?.project_name ||
+                                        "VitelGlobal SupportStaff Portal - India"
+                                      }
                                       options={[
-                                        { label: 'VitelGlobal SupportStaff Portal - India', value: 'VitelGlobal SupportStaff Portal - India' },
-                                        { label: 'PAYG', value: 'PAYG' },
-                                        { label: 'Omani Channel', value: 'Omani Channel' },
-                                        { label: 'Vitel Meet', value: 'Vitel Meet' },
-                                        { label: 'Project Dashboard', value: 'Project Dashboard' },
-                                        { label: 'AI Generator (Proj-101)', value: 'AI Generator (Proj-101)' },
-                                        { label: 'Sales Automation (Proj-102)', value: 'Sales Automation (Proj-102)' },
-                                        { label: 'Security Enhancement (Proj-103)', value: 'Security Enhancement (Proj-103)' },
-                                        { label: 'Payroll System (Proj-104)', value: 'Payroll System (Proj-104)' },
-                                        { label: 'Tax Compliance (Proj-105)', value: 'Tax Compliance (Proj-105)' },
-                                        { label: 'HR Automation (Proj-106)', value: 'HR Automation (Proj-106)' },
-                                        { label: 'HR Automation (Proj-107)', value: 'HR Automation (Proj-107)' },
-                                        { label: 'Performance System (Proj-108)', value: 'Performance System (Proj-108)' },
-                                        { label: 'Project Management (Proj-109)', value: 'Project Management (Proj-109)' },
-                                        { label: 'Communication System (Proj-110)', value: 'Communication System (Proj-110)' },
-                                        { label: 'Document Management (Proj-111)', value: 'Document Management (Proj-111)' }
+                                        {
+                                          label:
+                                            "VitelGlobal SupportStaff Portal - India",
+                                          value:
+                                            "VitelGlobal SupportStaff Portal - India",
+                                        },
+                                        { label: "PAYG", value: "PAYG" },
+                                        {
+                                          label: "Omani Channel",
+                                          value: "Omani Channel",
+                                        },
+                                        {
+                                          label: "Vitel Meet",
+                                          value: "Vitel Meet",
+                                        },
+                                        {
+                                          label: "Project Dashboard",
+                                          value: "Project Dashboard",
+                                        },
+                                        {
+                                          label: "AI Generator (Proj-101)",
+                                          value: "AI Generator (Proj-101)",
+                                        },
+                                        {
+                                          label: "Sales Automation (Proj-102)",
+                                          value: "Sales Automation (Proj-102)",
+                                        },
+                                        {
+                                          label:
+                                            "Security Enhancement (Proj-103)",
+                                          value:
+                                            "Security Enhancement (Proj-103)",
+                                        },
+                                        {
+                                          label: "Payroll System (Proj-104)",
+                                          value: "Payroll System (Proj-104)",
+                                        },
+                                        {
+                                          label: "Tax Compliance (Proj-105)",
+                                          value: "Tax Compliance (Proj-105)",
+                                        },
+                                        {
+                                          label: "HR Automation (Proj-106)",
+                                          value: "HR Automation (Proj-106)",
+                                        },
+                                        {
+                                          label: "HR Automation (Proj-107)",
+                                          value: "HR Automation (Proj-107)",
+                                        },
+                                        {
+                                          label:
+                                            "Performance System (Proj-108)",
+                                          value:
+                                            "Performance System (Proj-108)",
+                                        },
+                                        {
+                                          label:
+                                            "Project Management (Proj-109)",
+                                          value:
+                                            "Project Management (Proj-109)",
+                                        },
+                                        {
+                                          label:
+                                            "Communication System (Proj-110)",
+                                          value:
+                                            "Communication System (Proj-110)",
+                                        },
+                                        {
+                                          label:
+                                            "Document Management (Proj-111)",
+                                          value:
+                                            "Document Management (Proj-111)",
+                                        },
                                       ]}
-                                      onChange={(e) => {
-                                        console.log('Project selected:', e.value);
+                                      onChange={e => {
+                                        console.log(
+                                          "Project selected:",
+                                          e.value
+                                        )
                                       }}
                                       placeholder="Select a Project"
                                       className="w-full"
-                                      style={{ minHeight: '40px' }}
-                                      panelStyle={{ zIndex: 1000, minWidth: '100%' }}
-                                      itemTemplate={(option) => (
-                                        <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
+                                      style={{ minHeight: "40px" }}
+                                      panelStyle={{
+                                        zIndex: 1000,
+                                        minWidth: "100%",
+                                      }}
+                                      itemTemplate={option => (
+                                        <div
+                                          style={{
+                                            padding: "8px 12px",
+                                            minHeight: "35px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
                                           {option.label}
                                         </div>
                                       )}
@@ -3852,76 +4153,181 @@ const AllActiveemp = () => {
                                 </Col>
                               </Row>
 
-                             <Row className="mb-2">
-  <Col lg={12}>
-    <div className="p-field">
-      <label htmlFor="selectModule" className="block">
-        Module
-      </label>
-      <Dropdown
-        id="selectModule"
-        value={getSelectedTaskData()?.module_name || 'Project Dashboard'}
-        options={[
-          { label: 'User Management', value: 'User Management' },
-          { label: 'Reporting', value: 'Reporting' },
-          { label: 'Authentication', value: 'Authentication' },
-          { label: 'Payroll Management', value: 'Payroll Management' },
-          { label: 'E-Invoice Integration', value: 'E-Invoice Integration' },
-          { label: 'Attendance Tracking', value: 'Attendance Tracking' },
-          { label: 'Leave Management', value: 'Leave Management' },
-          { label: 'Performance Evaluation', value: 'Performance Evaluation' },
-          { label: 'Project Dashboard', value: 'Project Dashboard' },
-          { label: 'Notification Center', value: 'Notification Center' },
-          { label: 'File Management', value: 'File Management' }
-        ]}
-        onChange={(e) => {
-          console.log('Module selected:', e.value);
-        }}
-        placeholder="Select Module"
-        className="w-full"
-        style={{ minHeight: '40px' }}
-        panelStyle={{ zIndex: 1000, minWidth: '100%' }}
-        itemTemplate={(option) => (
-          <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
-            {option.label}
-          </div>
-        )}
-      />
-    </div>
-  </Col>
-</Row>
+                              <Row className="mb-2">
+                                <Col lg={12}>
+                                  <div className="p-field">
+                                    <label
+                                      htmlFor="selectModule"
+                                      className="block"
+                                    >
+                                      Module
+                                    </label>
+                                    <Dropdown
+                                      id="selectModule"
+                                      value={
+                                        getSelectedTaskData()?.module_name ||
+                                        "Project Dashboard"
+                                      }
+                                      options={[
+                                        {
+                                          label: "User Management",
+                                          value: "User Management",
+                                        },
+                                        {
+                                          label: "Reporting",
+                                          value: "Reporting",
+                                        },
+                                        {
+                                          label: "Authentication",
+                                          value: "Authentication",
+                                        },
+                                        {
+                                          label: "Payroll Management",
+                                          value: "Payroll Management",
+                                        },
+                                        {
+                                          label: "E-Invoice Integration",
+                                          value: "E-Invoice Integration",
+                                        },
+                                        {
+                                          label: "Attendance Tracking",
+                                          value: "Attendance Tracking",
+                                        },
+                                        {
+                                          label: "Leave Management",
+                                          value: "Leave Management",
+                                        },
+                                        {
+                                          label: "Performance Evaluation",
+                                          value: "Performance Evaluation",
+                                        },
+                                        {
+                                          label: "Project Dashboard",
+                                          value: "Project Dashboard",
+                                        },
+                                        {
+                                          label: "Notification Center",
+                                          value: "Notification Center",
+                                        },
+                                        {
+                                          label: "File Management",
+                                          value: "File Management",
+                                        },
+                                      ]}
+                                      onChange={e => {
+                                        console.log("Module selected:", e.value)
+                                      }}
+                                      placeholder="Select Module"
+                                      className="w-full"
+                                      style={{ minHeight: "40px" }}
+                                      panelStyle={{
+                                        zIndex: 1000,
+                                        minWidth: "100%",
+                                      }}
+                                      itemTemplate={option => (
+                                        <div
+                                          style={{
+                                            padding: "8px 12px",
+                                            minHeight: "35px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
+                                          {option.label}
+                                        </div>
+                                      )}
+                                    />
+                                  </div>
+                                </Col>
+                              </Row>
 
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="selectProjectManager" className="block">
+                                    <label
+                                      htmlFor="selectProjectManager"
+                                      className="block"
+                                    >
                                       Project Manager
                                     </label>
                                     <Dropdown
                                       id="selectProjectManager"
-                                      value={getSelectedTaskData()?.project_manager || 'Nitin Sharma'}
+                                      value={
+                                        getSelectedTaskData()
+                                          ?.project_manager || "Nitin Sharma"
+                                      }
                                       options={[
-                                        { label: 'Sneha Mehta - Team Lead', value: 'Sneha Mehta' },
-                                        { label: 'Ankit Sinha - Manager', value: 'Ankit Sinha' },
-                                        { label: 'Rahul Nair - Senior Developer', value: 'Rahul Nair' },
-                                        { label: 'Rakesh Kumar - Project Coordinator', value: 'Rakesh Kumar' },
-                                        { label: 'Neha Jain - Scrum Master', value: 'Neha Jain' },
-                                        { label: 'Vikas Patil - Tech Lead', value: 'Vikas Patil' },
-                                        { label: 'Manoj Bhatt - Manager', value: 'Manoj Bhatt' },
-                                        { label: 'Karthik Rao - Team Lead', value: 'Karthik Rao' },
-                                        { label: 'Nitin Sharma - Project Manager', value: 'Nitin Sharma' },
-                                        { label: 'Arun Pillai - Project Manager', value: 'Arun Pillai' },
-                                        { label: 'Devansh Goyal - Tech Lead', value: 'Devansh Goyal' }
+                                        {
+                                          label: "Sneha Mehta - Team Lead",
+                                          value: "Sneha Mehta",
+                                        },
+                                        {
+                                          label: "Ankit Sinha - Manager",
+                                          value: "Ankit Sinha",
+                                        },
+                                        {
+                                          label:
+                                            "Rahul Nair - Senior Developer",
+                                          value: "Rahul Nair",
+                                        },
+                                        {
+                                          label:
+                                            "Rakesh Kumar - Project Coordinator",
+                                          value: "Rakesh Kumar",
+                                        },
+                                        {
+                                          label: "Neha Jain - Scrum Master",
+                                          value: "Neha Jain",
+                                        },
+                                        {
+                                          label: "Vikas Patil - Tech Lead",
+                                          value: "Vikas Patil",
+                                        },
+                                        {
+                                          label: "Manoj Bhatt - Manager",
+                                          value: "Manoj Bhatt",
+                                        },
+                                        {
+                                          label: "Karthik Rao - Team Lead",
+                                          value: "Karthik Rao",
+                                        },
+                                        {
+                                          label:
+                                            "Nitin Sharma - Project Manager",
+                                          value: "Nitin Sharma",
+                                        },
+                                        {
+                                          label:
+                                            "Arun Pillai - Project Manager",
+                                          value: "Arun Pillai",
+                                        },
+                                        {
+                                          label: "Devansh Goyal - Tech Lead",
+                                          value: "Devansh Goyal",
+                                        },
                                       ]}
-                                      onChange={(e) => {
-                                        console.log('Project Manager selected:', e.value);
+                                      onChange={e => {
+                                        console.log(
+                                          "Project Manager selected:",
+                                          e.value
+                                        )
                                       }}
                                       placeholder="Select a Project Manager"
                                       className="w-full"
-                                      style={{ minHeight: '40px' }}
-                                      panelStyle={{ zIndex: 1000, minWidth: '100%' }}
-                                      itemTemplate={(option) => (
-                                        <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
+                                      style={{ minHeight: "40px" }}
+                                      panelStyle={{
+                                        zIndex: 1000,
+                                        minWidth: "100%",
+                                      }}
+                                      itemTemplate={option => (
+                                        <div
+                                          style={{
+                                            padding: "8px 12px",
+                                            minHeight: "35px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
                                           {option.label}
                                         </div>
                                       )}
@@ -3933,50 +4339,159 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="selectWatcher" className="block">
+                                    <label
+                                      htmlFor="selectWatcher"
+                                      className="block"
+                                    >
                                       Watchers
                                     </label>
                                     <Dropdown
                                       id="selectWatcher"
-                                      value={getSelectedTaskData()?.watchers?.split(',')[0]?.trim() || 'Rajashree Banerjee'}
+                                      value={
+                                        getSelectedTaskData()
+                                          ?.watchers?.split(",")[0]
+                                          ?.trim() || "Rajashree Banerjee"
+                                      }
                                       options={[
-                                        { label: 'Rajashree Banerjee - QA Lead', value: 'Rajashree Banerjee' },
-                                        { label: 'Nitin Sharma - Project Manager', value: 'Nitin Sharma' },
-                                        { label: 'Amit Choudhary - Senior Developer', value: 'Amit Choudhary' },
-                                        { label: 'Priya Singh - Business Analyst', value: 'Priya Singh' },
-                                        { label: 'Rohit Kumar - Tech Architect', value: 'Rohit Kumar' },
-                                        { label: 'Neha Gupta - Product Owner', value: 'Neha Gupta' },
-                                        { label: 'Suresh Patel - DevOps Engineer', value: 'Suresh Patel' },
-                                        { label: 'Kavita Sharma - UX Designer', value: 'Kavita Sharma' },
-                                        { label: 'Ravi Sharma - Developer', value: 'Ravi Sharma' },
-                                        { label: 'Sneha Mehta - Team Lead', value: 'Sneha Mehta' },
-                                        { label: 'Ankit Sinha - Manager', value: 'Ankit Sinha' },
-                                        { label: 'Meena Iyer - Developer', value: 'Meena Iyer' },
-                                        { label: 'Rahul Nair - Senior Developer', value: 'Rahul Nair' },
-                                        { label: 'Anita Reddy - Analyst', value: 'Anita Reddy' },
-                                        { label: 'Rakesh Kumar - Project Coordinator', value: 'Rakesh Kumar' },
-                                        { label: 'Suresh Babu - Developer', value: 'Suresh Babu' },
-                                        { label: 'Neha Jain - Scrum Master', value: 'Neha Jain' },
-                                        { label: 'Harsha Shetty - HR Specialist', value: 'Harsha Shetty' },
-                                        { label: 'Vikas Patil - Tech Lead', value: 'Vikas Patil' },
-                                        { label: 'Deepika Saini - Developer', value: 'Deepika Saini' },
-                                        { label: 'Manoj Bhatt - Manager', value: 'Manoj Bhatt' },
-                                        { label: 'Anjali Menon - HR Manager', value: 'Anjali Menon' },
-                                        { label: 'Karthik Rao - Team Lead', value: 'Karthik Rao' },
-                                        { label: 'Pooja Srinivasan - Developer', value: 'Pooja Srinivasan' },
-                                        { label: 'Arun Pillai - Project Manager', value: 'Arun Pillai' },
-                                        { label: 'Sneha Rathi - Developer', value: 'Sneha Rathi' },
-                                        { label: 'Devansh Goyal - Tech Lead', value: 'Devansh Goyal' }
+                                        {
+                                          label: "Rajashree Banerjee - QA Lead",
+                                          value: "Rajashree Banerjee",
+                                        },
+                                        {
+                                          label:
+                                            "Nitin Sharma - Project Manager",
+                                          value: "Nitin Sharma",
+                                        },
+                                        {
+                                          label:
+                                            "Amit Choudhary - Senior Developer",
+                                          value: "Amit Choudhary",
+                                        },
+                                        {
+                                          label:
+                                            "Priya Singh - Business Analyst",
+                                          value: "Priya Singh",
+                                        },
+                                        {
+                                          label: "Rohit Kumar - Tech Architect",
+                                          value: "Rohit Kumar",
+                                        },
+                                        {
+                                          label: "Neha Gupta - Product Owner",
+                                          value: "Neha Gupta",
+                                        },
+                                        {
+                                          label:
+                                            "Suresh Patel - DevOps Engineer",
+                                          value: "Suresh Patel",
+                                        },
+                                        {
+                                          label: "Kavita Sharma - UX Designer",
+                                          value: "Kavita Sharma",
+                                        },
+                                        {
+                                          label: "Ravi Sharma - Developer",
+                                          value: "Ravi Sharma",
+                                        },
+                                        {
+                                          label: "Sneha Mehta - Team Lead",
+                                          value: "Sneha Mehta",
+                                        },
+                                        {
+                                          label: "Ankit Sinha - Manager",
+                                          value: "Ankit Sinha",
+                                        },
+                                        {
+                                          label: "Meena Iyer - Developer",
+                                          value: "Meena Iyer",
+                                        },
+                                        {
+                                          label:
+                                            "Rahul Nair - Senior Developer",
+                                          value: "Rahul Nair",
+                                        },
+                                        {
+                                          label: "Anita Reddy - Analyst",
+                                          value: "Anita Reddy",
+                                        },
+                                        {
+                                          label:
+                                            "Rakesh Kumar - Project Coordinator",
+                                          value: "Rakesh Kumar",
+                                        },
+                                        {
+                                          label: "Suresh Babu - Developer",
+                                          value: "Suresh Babu",
+                                        },
+                                        {
+                                          label: "Neha Jain - Scrum Master",
+                                          value: "Neha Jain",
+                                        },
+                                        {
+                                          label:
+                                            "Harsha Shetty - HR Specialist",
+                                          value: "Harsha Shetty",
+                                        },
+                                        {
+                                          label: "Vikas Patil - Tech Lead",
+                                          value: "Vikas Patil",
+                                        },
+                                        {
+                                          label: "Deepika Saini - Developer",
+                                          value: "Deepika Saini",
+                                        },
+                                        {
+                                          label: "Manoj Bhatt - Manager",
+                                          value: "Manoj Bhatt",
+                                        },
+                                        {
+                                          label: "Anjali Menon - HR Manager",
+                                          value: "Anjali Menon",
+                                        },
+                                        {
+                                          label: "Karthik Rao - Team Lead",
+                                          value: "Karthik Rao",
+                                        },
+                                        {
+                                          label: "Pooja Srinivasan - Developer",
+                                          value: "Pooja Srinivasan",
+                                        },
+                                        {
+                                          label:
+                                            "Arun Pillai - Project Manager",
+                                          value: "Arun Pillai",
+                                        },
+                                        {
+                                          label: "Sneha Rathi - Developer",
+                                          value: "Sneha Rathi",
+                                        },
+                                        {
+                                          label: "Devansh Goyal - Tech Lead",
+                                          value: "Devansh Goyal",
+                                        },
                                       ]}
-                                      onChange={(e) => {
-                                        console.log('Watcher selected:', e.value);
+                                      onChange={e => {
+                                        console.log(
+                                          "Watcher selected:",
+                                          e.value
+                                        )
                                       }}
                                       placeholder="Select Watchers"
                                       className="w-full"
-                                      style={{ minHeight: '40px' }}
-                                      panelStyle={{ zIndex: 1000, minWidth: '100%' }}
-                                      itemTemplate={(option) => (
-                                        <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
+                                      style={{ minHeight: "40px" }}
+                                      panelStyle={{
+                                        zIndex: 1000,
+                                        minWidth: "100%",
+                                      }}
+                                      itemTemplate={option => (
+                                        <div
+                                          style={{
+                                            padding: "8px 12px",
+                                            minHeight: "35px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
                                           {option.label}
                                         </div>
                                       )}
@@ -3984,7 +4499,6 @@ const AllActiveemp = () => {
                                   </div>
                                 </Col>
                               </Row>
-
                             </Col>
 
                             {/* 2. Basic Information */}
@@ -4001,7 +4515,9 @@ const AllActiveemp = () => {
                                     </label>
                                     <InputText
                                       id="taskCode"
-                                      value={getSelectedTaskData()?.task_code || ''}
+                                      value={
+                                        getSelectedTaskData()?.task_code || ""
+                                      }
                                       readOnly
                                       placeholder=""
                                       className="block w-full"
@@ -4013,18 +4529,21 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                     <label htmlFor="city" className="mb-0">
-                          Select Module
-                        </label>
-                        <Dropdown
-                          value={selectedMod}
-                          onChange={e => setSelectedMod(e.value)}
-                          options={modOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-                          // filter
-                          className="bgclr"
-                        />
+                                    <label
+                                      htmlFor="city"
+                                      className="mb-1 w-100"
+                                    >
+                                      Select Module
+                                    </label>
+                                    <Dropdown
+                                      value={selectedMod}
+                                      onChange={e => setSelectedMod(e.value)}
+                                      options={modOptions}
+                                      optionLabel="name"
+                                      placeholder="--select--"
+                                      // filter
+                                      className="bgclr w-100"
+                                    />
                                   </div>
                                 </Col>
                               </Row>
@@ -4032,24 +4551,52 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="selectPriority" className="block">
+                                    <label
+                                      htmlFor="selectPriority"
+                                      className="block"
+                                    >
                                       Priority
                                     </label>
                                     <Dropdown
                                       id="selectPriority"
-                                      value={getSelectedTaskData()?.priority || 'High'}
+                                      value={
+                                        getSelectedTaskData()?.priority ||
+                                        "High"
+                                      }
                                       options={[
-                                        { label: '🟢 Low Priority', value: 'Low' },
-                                        { label: '🟡 Medium Priority', value: 'Medium' },
-                                        { label: '🟠 High Priority', value: 'High' },
-                                        { label: '🔴 Critical Priority', value: 'Critical' }
+                                        {
+                                          label: "🟢 Low Priority",
+                                          value: "Low",
+                                        },
+                                        {
+                                          label: "🟡 Medium Priority",
+                                          value: "Medium",
+                                        },
+                                        {
+                                          label: "🟠 High Priority",
+                                          value: "High",
+                                        },
+                                        {
+                                          label: "🔴 Critical Priority",
+                                          value: "Critical",
+                                        },
                                       ]}
                                       placeholder="Select Priority Level"
                                       className="w-full"
-                                      style={{ minHeight: '40px' }}
-                                      panelStyle={{ zIndex: 1000, minWidth: '100%' }}
-                                      itemTemplate={(option) => (
-                                        <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
+                                      style={{ minHeight: "40px" }}
+                                      panelStyle={{
+                                        zIndex: 1000,
+                                        minWidth: "100%",
+                                      }}
+                                      itemTemplate={option => (
+                                        <div
+                                          style={{
+                                            padding: "8px 12px",
+                                            minHeight: "35px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
                                           {option.label}
                                         </div>
                                       )}
@@ -4061,26 +4608,60 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="selectTaskStatus" className="block">
+                                    <label
+                                      htmlFor="selectTaskStatus"
+                                      className="block"
+                                    >
                                       Task Status
                                     </label>
                                     <Dropdown
                                       id="selectTaskStatus"
-                                      value={getSelectedTaskData()?.task_status || 'In Progress'}
+                                      value={
+                                        getSelectedTaskData()?.task_status ||
+                                        "In Progress"
+                                      }
                                       options={[
-                                        { label: '⚪ Not Started', value: 'Not Started' },
-                                        { label: '🔵 In Progress', value: 'In Progress' },
-                                        { label: '⏸️ On Hold', value: 'On Hold' },
-                                        { label: '🟡 Under Review', value: 'Under Review' },
-                                        { label: '🔄 Testing Phase', value: 'Testing Phase' },
-                                        { label: '✅ Completed', value: 'Completed' }
+                                        {
+                                          label: "⚪ Not Started",
+                                          value: "Not Started",
+                                        },
+                                        {
+                                          label: "🔵 In Progress",
+                                          value: "In Progress",
+                                        },
+                                        {
+                                          label: "⏸️ On Hold",
+                                          value: "On Hold",
+                                        },
+                                        {
+                                          label: "🟡 Under Review",
+                                          value: "Under Review",
+                                        },
+                                        {
+                                          label: "🔄 Testing Phase",
+                                          value: "Testing Phase",
+                                        },
+                                        {
+                                          label: "✅ Completed",
+                                          value: "Completed",
+                                        },
                                       ]}
                                       placeholder="Select Current Status"
                                       className="w-full"
-                                      style={{ minHeight: '40px' }}
-                                      panelStyle={{ zIndex: 1000, minWidth: '100%' }}
-                                      itemTemplate={(option) => (
-                                        <div style={{ padding: '8px 12px', minHeight: '35px', display: 'flex', alignItems: 'center' }}>
+                                      style={{ minHeight: "40px" }}
+                                      panelStyle={{
+                                        zIndex: 1000,
+                                        minWidth: "100%",
+                                      }}
+                                      itemTemplate={option => (
+                                        <div
+                                          style={{
+                                            padding: "8px 12px",
+                                            minHeight: "35px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }}
+                                        >
                                           {option.label}
                                         </div>
                                       )}
@@ -4099,12 +4680,18 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="estimatedWorkHours" className="block">
+                                    <label
+                                      htmlFor="estimatedWorkHours"
+                                      className="block"
+                                    >
                                       Estimated Work Hours
                                     </label>
                                     <InputText
                                       id="estimatedWorkHours"
-                                      value={getSelectedTaskData()?.work_hours || '14'}
+                                      value={
+                                        getSelectedTaskData()?.work_hours ||
+                                        "14"
+                                      }
                                       readOnly
                                       placeholder="Hours"
                                       className="block w-full"
@@ -4116,12 +4703,17 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="startDate" className="block">
+                                    <label
+                                      htmlFor="startDate"
+                                      className="block"
+                                    >
                                       Start Date
                                     </label>
                                     <InputText
                                       id="startDate"
-                                      value={getSelectedTaskData()?.start_date || ''}
+                                      value={
+                                        getSelectedTaskData()?.start_date || ""
+                                      }
                                       readOnly
                                       placeholder=""
                                       className="w-full"
@@ -4138,7 +4730,9 @@ const AllActiveemp = () => {
                                     </label>
                                     <InputText
                                       id="endDate"
-                                      value={getSelectedTaskData()?.end_date || ''}
+                                      value={
+                                        getSelectedTaskData()?.end_date || ""
+                                      }
                                       readOnly
                                       placeholder=""
                                       className="block w-full"
@@ -4150,12 +4744,18 @@ const AllActiveemp = () => {
                               <Row className="mb-2">
                                 <Col lg={12}>
                                   <div className="p-field">
-                                    <label htmlFor="actualEndDate" className="block">
+                                    <label
+                                      htmlFor="actualEndDate"
+                                      className="block"
+                                    >
                                       Actual End Date
                                     </label>
                                     <InputText
                                       id="actualEndDate"
-                                      value={getSelectedTaskData()?.actual_end_date || ''}
+                                      value={
+                                        getSelectedTaskData()
+                                          ?.actual_end_date || ""
+                                      }
                                       readOnly
                                       placeholder=""
                                       className="block w-full"
@@ -4171,12 +4771,18 @@ const AllActiveemp = () => {
                             <Row className="label-headsz">
                               <Col lg={12}>
                                 <div className="p-field">
-                                  <label htmlFor="taskDescription" className="block">
+                                  <label
+                                    htmlFor="taskDescription"
+                                    className="block"
+                                  >
                                     Task Description
                                   </label>
                                   <InputTextarea
                                     id="taskDescription"
-                                    value={getSelectedTaskData()?.task_description || ''}
+                                    value={
+                                      getSelectedTaskData()?.task_description ||
+                                      ""
+                                    }
                                     readOnly
                                     rows={4}
                                     cols={40}
@@ -4188,7 +4794,6 @@ const AllActiveemp = () => {
                             </Row>
                           </div>
                         </AccordionTab>
-
 
                         <AccordionTab
                           header={
@@ -4203,11 +4808,39 @@ const AllActiveemp = () => {
                           <Row>
                             <Col lg={12}>
                               <div className="doc-table">
-                                <TreeTable value={documents} tableStyle={{ minWidth: "50rem" }} dataKey="key">
-                                  <Column field="certificate_name" header="Document Type" body={(rowData) => editableTemplate(rowData, "certificate_name")} />
-                                  <Column field="docSubject" header="Document Subject" body={(rowData) => editableTemplate(rowData, "docSubject")} />
-                                  <Column field="created_at" header="Applied Date & Time" body={(rowData) => editableTemplate(rowData, "created_at")} />
-                                  <Column body={actionTemplate} header="Actions" />
+                                <TreeTable
+                                  value={documents}
+                                  tableStyle={{ minWidth: "50rem" }}
+                                  dataKey="key"
+                                >
+                                  <Column
+                                    field="certificate_name"
+                                    header="Document Type"
+                                    body={rowData =>
+                                      editableTemplate(
+                                        rowData,
+                                        "certificate_name"
+                                      )
+                                    }
+                                  />
+                                  <Column
+                                    field="docSubject"
+                                    header="Document Subject"
+                                    body={rowData =>
+                                      editableTemplate(rowData, "docSubject")
+                                    }
+                                  />
+                                  <Column
+                                    field="created_at"
+                                    header="Applied Date & Time"
+                                    body={rowData =>
+                                      editableTemplate(rowData, "created_at")
+                                    }
+                                  />
+                                  <Column
+                                    body={actionTemplate}
+                                    header="Actions"
+                                  />
                                 </TreeTable>
                               </div>
                             </Col>
@@ -4217,7 +4850,7 @@ const AllActiveemp = () => {
                     </Col>
                   </Row>
                 </TabPanel>
-                <TabPanel header="Design" leftIcon="pi pi-file mr-2">
+                {/* <TabPanel header="Design" leftIcon="pi pi-file mr-2">
                   <Row>
                     <Col lg={12}>
                       <div>
@@ -4228,10 +4861,12 @@ const AllActiveemp = () => {
                                 <div className="d-flex justify-content-between align-items-center">
                                   <div className="d-flex justify-content-between">
                                     <h6 className="me-2">
-                                      Date: <span className="date">16/01/2025</span>
+                                      Date:{" "}
+                                      <span className="date">16/01/2025</span>
                                     </h6>
                                     <h6>
-                                      UserIDs: <span className="date">SrinivasRao</span>
+                                      UserIDs:{" "}
+                                      <span className="date">SrinivasRao</span>
                                     </h6>
                                   </div>
                                   <Button
@@ -4246,21 +4881,29 @@ const AllActiveemp = () => {
                                 </div>
                               </Col>
                             </Row>
-                            <Row className="resumedetails mt-3" id="resume-content">
+                            <Row
+                              className="resumedetails mt-3"
+                              id="resume-content"
+                            >
                               <Col lg={12}>
                                 <div className="contact">
                                   <h1 className="name">Kiran Chandran</h1>
-                                  <p className="role mb-1">Front end developer</p>
+                                  <p className="role mb-1">
+                                    Front end developer
+                                  </p>
                                   <div className="d-flex">
                                     <p className="me-3 contact">
-                                      <i className="pi pi-phone"></i> +91-8309860962
+                                      <i className="pi pi-phone"></i>{" "}
+                                      +91-8309860962
                                     </p>
                                     <p className="me-3 contact">
-                                      <i className="pi pi-envelope"></i> kiranroyal2000@gmail.com
+                                      <i className="pi pi-envelope"></i>{" "}
+                                      kiranroyal2000@gmail.com
                                     </p>
                                     <p className="me-3">
                                       <a href="#">
-                                        <i className="pi pi-linkedin"></i> LinkedIn Profile
+                                        <i className="pi pi-linkedin"></i>{" "}
+                                        LinkedIn Profile
                                       </a>
                                     </p>
                                     <p className="me-3">
@@ -4269,53 +4912,144 @@ const AllActiveemp = () => {
                                   </div>
                                 </div>
                                 <div className="section">
-                                  <h2><strong>Career Objective</strong></h2>
+                                  <h2>
+                                    <strong>Career Objective</strong>
+                                  </h2>
                                   <p>
-                                    Dynamic and detail-oriented Front-End Developer with over 3.1+ years of experience in building and optimizing user-focused web applications using React.js. I am proficient in JavaScript and skilled in leveraging modern web development tools and frameworks including Redux and React Router. Hands-on experience with RESTful APIs, microservices architecture, and cloud services like AWS.
+                                    Dynamic and detail-oriented Front-End
+                                    Developer with over 3.1+ years of experience
+                                    in building and optimizing user-focused web
+                                    applications using React.js. I am proficient
+                                    in JavaScript and skilled in leveraging
+                                    modern web development tools and frameworks
+                                    including Redux and React Router. Hands-on
+                                    experience with RESTful APIs, microservices
+                                    architecture, and cloud services like AWS.
                                   </p>
                                 </div>
                                 <div className="section">
                                   <h2>Skills</h2>
                                   <ul className="skills-list">
-                                    <li><strong>Programming Languages:</strong> JavaScript, Java</li>
-                                    <li><strong>Web Technologies:</strong> HTML, CSS, React.js, Redux, React Router</li>
-                                    <li><strong>Database:</strong> MongoDB</li>
-                                    <li><strong>Testing Tools:</strong> Jest, React Testing Library</li>
-                                    <li><strong>API Integration:</strong> RESTful Services, Postman</li>
-                                    <li><strong>Project Management & Collaboration:</strong> Jira, Rally</li>
-                                    <li><strong>Version Control:</strong> Git</li>
-                                    <li><strong>CI/CD Tools:</strong> Jenkins</li>
-                                    <li><strong>Cloud Services:</strong> Amazon Web Services (AWS)</li>
-                                    <li><strong>Architecture:</strong> Micro-Services</li>
-                                    <li><strong>Content Management:</strong> Adobe Experience Manager (AEM)</li>
-                                    <li><strong>Computer Science Fundamentals:</strong> Data Structures</li>
+                                    <li>
+                                      <strong>Programming Languages:</strong>{" "}
+                                      JavaScript, Java
+                                    </li>
+                                    <li>
+                                      <strong>Web Technologies:</strong> HTML,
+                                      CSS, React.js, Redux, React Router
+                                    </li>
+                                    <li>
+                                      <strong>Database:</strong> MongoDB
+                                    </li>
+                                    <li>
+                                      <strong>Testing Tools:</strong> Jest,
+                                      React Testing Library
+                                    </li>
+                                    <li>
+                                      <strong>API Integration:</strong> RESTful
+                                      Services, Postman
+                                    </li>
+                                    <li>
+                                      <strong>
+                                        Project Management & Collaboration:
+                                      </strong>{" "}
+                                      Jira, Rally
+                                    </li>
+                                    <li>
+                                      <strong>Version Control:</strong> Git
+                                    </li>
+                                    <li>
+                                      <strong>CI/CD Tools:</strong> Jenkins
+                                    </li>
+                                    <li>
+                                      <strong>Cloud Services:</strong> Amazon
+                                      Web Services (AWS)
+                                    </li>
+                                    <li>
+                                      <strong>Architecture:</strong>{" "}
+                                      Micro-Services
+                                    </li>
+                                    <li>
+                                      <strong>Content Management:</strong> Adobe
+                                      Experience Manager (AEM)
+                                    </li>
+                                    <li>
+                                      <strong>
+                                        Computer Science Fundamentals:
+                                      </strong>{" "}
+                                      Data Structures
+                                    </li>
                                   </ul>
                                 </div>
                                 <div className="section mt-3">
                                   <h2>Work Experience</h2>
                                   <h3>LTIMindtree - Front-End Developer</h3>
                                   <p>(Dec 2021 – Present)</p>
-                                  <p><strong>Project:</strong> Adidas - Retail Service Platform (RSP)</p>
-                                  <p><strong>Description:</strong> Developed and optimized user interfaces for an online retail web application, enhancing overall user experience and operational efficiency.</p>
+                                  <p>
+                                    <strong>Project:</strong> Adidas - Retail
+                                    Service Platform (RSP)
+                                  </p>
+                                  <p>
+                                    <strong>Description:</strong> Developed and
+                                    optimized user interfaces for an online
+                                    retail web application, enhancing overall
+                                    user experience and operational efficiency.
+                                  </p>
                                   <h4>Responsibilities:</h4>
                                   <ul className="responsibilities">
-                                    <li>Developed dynamic and responsive front-end components using React.js and JavaScript, significantly improving user engagement.</li>
-                                    <li>Collaborated with back-end developers to integrate RESTful APIs, ensuring seamless data flow between the front-end and the microservices architecture.</li>
-                                    <li>Utilized Redux for state management and React Router for efficient client-side routing.</li>
-                                    <li>Contributed to sprint planning and retrospectives within an Agile framework using JIRA, leading to improved code quality and product scalability.</li>
-                                    <li>Worked with MongoDB for efficient data storage and retrieval.</li>
-                                    <li>Managed version control and code collaboration using Git and streamlined CI/CD processes with Jenkins.</li>
-                                    <li>Engaged in troubleshooting and resolving front-end issues in collaboration with the QA and development teams.</li>
+                                    <li>
+                                      Developed dynamic and responsive front-end
+                                      components using React.js and JavaScript,
+                                      significantly improving user engagement.
+                                    </li>
+                                    <li>
+                                      Collaborated with back-end developers to
+                                      integrate RESTful APIs, ensuring seamless
+                                      data flow between the front-end and the
+                                      microservices architecture.
+                                    </li>
+                                    <li>
+                                      Utilized Redux for state management and
+                                      React Router for efficient client-side
+                                      routing.
+                                    </li>
+                                    <li>
+                                      Contributed to sprint planning and
+                                      retrospectives within an Agile framework
+                                      using JIRA, leading to improved code
+                                      quality and product scalability.
+                                    </li>
+                                    <li>
+                                      Worked with MongoDB for efficient data
+                                      storage and retrieval.
+                                    </li>
+                                    <li>
+                                      Managed version control and code
+                                      collaboration using Git and streamlined
+                                      CI/CD processes with Jenkins.
+                                    </li>
+                                    <li>
+                                      Engaged in troubleshooting and resolving
+                                      front-end issues in collaboration with the
+                                      QA and development teams.
+                                    </li>
                                   </ul>
                                   <p className="mt-2">
-                                    <strong>Technologies Used:</strong> JavaScript, React.js, Redux, React Router, MongoDB, RESTful APIs, Jest, Git, Jenkins, AWS
+                                    <strong>Technologies Used:</strong>{" "}
+                                    JavaScript, React.js, Redux, React Router,
+                                    MongoDB, RESTful APIs, Jest, Git, Jenkins,
+                                    AWS
                                   </p>
                                 </div>
                                 <div className="section">
                                   <h2>Education</h2>
                                   <p>
-                                    Sri Venkateswara College of Engineering & Technology (Chittoor)<br />
-                                    B. Tech in Electrical & Electronics Engineering (EEE) - CGPA: 7.65 - (2018 – 2021)
+                                    Sri Venkateswara College of Engineering &
+                                    Technology (Chittoor)
+                                    <br />
+                                    B. Tech in Electrical & Electronics
+                                    Engineering (EEE) - CGPA: 7.65 - (2018 –
+                                    2021)
                                   </p>
                                 </div>
                               </Col>
@@ -4328,15 +5062,24 @@ const AllActiveemp = () => {
                       </div>
                     </Col>
                   </Row>
-                </TabPanel>
+                </TabPanel> */}
                 <TabPanel header="Pipeline" leftIcon="pi pi-cog mr-2">
                   <Row>
                     <Col lg={12}>
                       <div className="pipelinetabs">
-                        <TabView scrollable style={{ maxWidth: "1200px", overflow: "hidden" }}>
+                        <TabView
+                          scrollable
+                          style={{ maxWidth: "1200px", overflow: "hidden" }}
+                        >
                           <TabPanel
                             header="Received"
-                            rightIcon={<Badge value={receivedJobs.length} severity="success" className="ml-2" />}
+                            rightIcon={
+                              <Badge
+                                value={receivedJobs.length}
+                                severity="success"
+                                className="ml-2"
+                              />
+                            }
                             leftIcon="pi pi-cog mr-1"
                           >
                             <Row>
@@ -4347,7 +5090,12 @@ const AllActiveemp = () => {
                                       value={receivedJobs}
                                       responsiveLayout="scroll"
                                       showGridlines
-                                      tableStyle={{ minWidth: "60rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                                      tableStyle={{
+                                        minWidth: "60rem",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0 2px 5px rgba(0, 0, 0, 0.1)",
+                                      }}
                                       paginator
                                       rows={10}
                                       rowsPerPageOptions={[5, 10, 25]}
@@ -4355,22 +5103,78 @@ const AllActiveemp = () => {
                                       currentPageReportTemplate="{first} to {last} of {totalRecords}"
                                       filters={receivedJobsFilters}
                                       filterDisplay="row"
-                                      globalFilterFields={["status", "jobid", "job_title", "candidate", "contact", "company", "date_time", "user_id"]}
+                                      globalFilterFields={[
+                                        "status",
+                                        "jobid",
+                                        "job_title",
+                                        "candidate",
+                                        "contact",
+                                        "company",
+                                        "date_time",
+                                        "user_id",
+                                      ]}
                                       emptyMessage="No jobs found."
                                       selection={selectedReceivedJobs}
-                                      onSelectionChange={e => setSelectedReceivedJobs(e.value)}
+                                      onSelectionChange={e =>
+                                        setSelectedReceivedJobs(e.value)
+                                      }
                                       selectionMode="multiple"
                                       resizableColumns
                                       columnResizeMode="expand"
                                     >
-                                      <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                      <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="jobid" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="job_title" header="Job Title" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="contact" header="Hiring Manager" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="date_time" header="Date & Time" sortable filter style={{ minWidth: "12rem" }} />
-                                      <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                                      <Column
+                                        selectionMode="multiple"
+                                        headerStyle={{ width: "3em" }}
+                                      />
+                                      <Column
+                                        field="status"
+                                        header="Status"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="jobid"
+                                        header="Job ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="job_title"
+                                        header="Job Title"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="contact"
+                                        header="Hiring Manager"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="company"
+                                        header="Company"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="date_time"
+                                        header="Date & Time"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "12rem" }}
+                                      />
+                                      <Column
+                                        field="user_id"
+                                        header="User ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
                                     </DataTable>
                                   </div>
                                 </section>
@@ -4379,7 +5183,13 @@ const AllActiveemp = () => {
                           </TabPanel>
                           <TabPanel
                             header="Potential"
-                            rightIcon={<Badge value={potentialJobs.length} severity="success" className="ml-2" />}
+                            rightIcon={
+                              <Badge
+                                value={potentialJobs.length}
+                                severity="success"
+                                className="ml-2"
+                              />
+                            }
                             leftIcon="pi pi-cog mr-1"
                           >
                             <Row>
@@ -4390,7 +5200,12 @@ const AllActiveemp = () => {
                                       value={potentialJobs}
                                       responsiveLayout="scroll"
                                       showGridlines
-                                      tableStyle={{ minWidth: "60rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                                      tableStyle={{
+                                        minWidth: "60rem",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0 2px 5px rgba(0, 0, 0, 0.1)",
+                                      }}
                                       paginator
                                       rows={10}
                                       rowsPerPageOptions={[5, 10, 25]}
@@ -4398,22 +5213,78 @@ const AllActiveemp = () => {
                                       currentPageReportTemplate="{first} to {last} of {totalRecords}"
                                       filters={potentialJobsFilters}
                                       filterDisplay="row"
-                                      globalFilterFields={["status", "jobid", "job_title", "candidate", "contact", "company", "date_time", "user_id"]}
+                                      globalFilterFields={[
+                                        "status",
+                                        "jobid",
+                                        "job_title",
+                                        "candidate",
+                                        "contact",
+                                        "company",
+                                        "date_time",
+                                        "user_id",
+                                      ]}
                                       emptyMessage="No potential jobs found."
                                       selection={selectedPotentialJobs}
-                                      onSelectionChange={e => setSelectedPotentialJobs(e.value)}
+                                      onSelectionChange={e =>
+                                        setSelectedPotentialJobs(e.value)
+                                      }
                                       selectionMode="multiple"
                                       resizableColumns
                                       columnResizeMode="expand"
                                     >
-                                      <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                      <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="jobid" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="job_title" header="Job Title" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="contact" header="Contact" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="date_time" header="Date & Time" sortable filter style={{ minWidth: "12rem" }} />
-                                      <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                                      <Column
+                                        selectionMode="multiple"
+                                        headerStyle={{ width: "3em" }}
+                                      />
+                                      <Column
+                                        field="status"
+                                        header="Status"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="jobid"
+                                        header="Job ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="job_title"
+                                        header="Job Title"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="contact"
+                                        header="Contact"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="company"
+                                        header="Company"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="date_time"
+                                        header="Date & Time"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "12rem" }}
+                                      />
+                                      <Column
+                                        field="user_id"
+                                        header="User ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
                                     </DataTable>
                                   </div>
                                 </section>
@@ -4422,7 +5293,13 @@ const AllActiveemp = () => {
                           </TabPanel>
                           <TabPanel
                             header="Submitted"
-                            rightIcon={<Badge value={submittedJobs.length} severity="success" className="ml-2" />}
+                            rightIcon={
+                              <Badge
+                                value={submittedJobs.length}
+                                severity="success"
+                                className="ml-2"
+                              />
+                            }
                             leftIcon="pi pi-cog mr-1"
                           >
                             <Row>
@@ -4433,7 +5310,12 @@ const AllActiveemp = () => {
                                       value={submittedJobs}
                                       responsiveLayout="scroll"
                                       showGridlines
-                                      tableStyle={{ minWidth: "60rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                                      tableStyle={{
+                                        minWidth: "60rem",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0 2px 5px rgba(0, 0, 0, 0.1)",
+                                      }}
                                       paginator
                                       rows={10}
                                       rowsPerPageOptions={[5, 10, 25]}
@@ -4441,22 +5323,78 @@ const AllActiveemp = () => {
                                       currentPageReportTemplate="{first} to {last} of {totalRecords}"
                                       filters={submittedJobsFilters}
                                       filterDisplay="row"
-                                      globalFilterFields={["status", "jobid", "job_title", "candidate", "contact", "company", "date_time", "user_id"]}
+                                      globalFilterFields={[
+                                        "status",
+                                        "jobid",
+                                        "job_title",
+                                        "candidate",
+                                        "contact",
+                                        "company",
+                                        "date_time",
+                                        "user_id",
+                                      ]}
                                       emptyMessage="No submitted jobs found."
                                       selection={selectedSubmittedJobs}
-                                      onSelectionChange={e => setSelectedSubmittedJobs(e.value)}
+                                      onSelectionChange={e =>
+                                        setSelectedSubmittedJobs(e.value)
+                                      }
                                       selectionMode="multiple"
                                       resizableColumns
                                       columnResizeMode="expand"
                                     >
-                                      <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                      <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="jobid" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="job_title" header="Job Title" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="contact" header="Contact" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="date_time" header="Date & Time" sortable filter style={{ minWidth: "12rem" }} />
-                                      <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                                      <Column
+                                        selectionMode="multiple"
+                                        headerStyle={{ width: "3em" }}
+                                      />
+                                      <Column
+                                        field="status"
+                                        header="Status"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="jobid"
+                                        header="Job ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="job_title"
+                                        header="Job Title"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="contact"
+                                        header="Contact"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="company"
+                                        header="Company"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="date_time"
+                                        header="Date & Time"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "12rem" }}
+                                      />
+                                      <Column
+                                        field="user_id"
+                                        header="User ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
                                     </DataTable>
                                   </div>
                                 </section>
@@ -4465,7 +5403,13 @@ const AllActiveemp = () => {
                           </TabPanel>
                           <TabPanel
                             header="Interview"
-                            rightIcon={<Badge value={interviewJobs.length} severity="success" className="ml-2" />}
+                            rightIcon={
+                              <Badge
+                                value={interviewJobs.length}
+                                severity="success"
+                                className="ml-2"
+                              />
+                            }
                             leftIcon="pi pi-cog mr-1"
                           >
                             <Row>
@@ -4476,7 +5420,12 @@ const AllActiveemp = () => {
                                       value={interviewJobs}
                                       responsiveLayout="scroll"
                                       showGridlines
-                                      tableStyle={{ minWidth: "60rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                                      tableStyle={{
+                                        minWidth: "60rem",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0 2px 5px rgba(0, 0, 0, 0.1)",
+                                      }}
                                       paginator
                                       rows={10}
                                       rowsPerPageOptions={[5, 10, 25]}
@@ -4484,22 +5433,78 @@ const AllActiveemp = () => {
                                       currentPageReportTemplate="{first} to {last} of {totalRecords}"
                                       filters={interviewJobsFilters}
                                       filterDisplay="row"
-                                      globalFilterFields={["status", "jobid", "job_title", "candidate", "contact", "company", "date_time", "user_id"]}
+                                      globalFilterFields={[
+                                        "status",
+                                        "jobid",
+                                        "job_title",
+                                        "candidate",
+                                        "contact",
+                                        "company",
+                                        "date_time",
+                                        "user_id",
+                                      ]}
                                       emptyMessage="No interview jobs found."
                                       selection={selectedInterviewJobs}
-                                      onSelectionChange={e => setSelectedInterviewJobs(e.value)}
+                                      onSelectionChange={e =>
+                                        setSelectedInterviewJobs(e.value)
+                                      }
                                       selectionMode="multiple"
                                       resizableColumns
                                       columnResizeMode="expand"
                                     >
-                                      <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                      <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="jobid" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="job_title" header="Job Title" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="contact" header="Contact" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="date_time" header="Date & Time" sortable filter style={{ minWidth: "12rem" }} />
-                                      <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                                      <Column
+                                        selectionMode="multiple"
+                                        headerStyle={{ width: "3em" }}
+                                      />
+                                      <Column
+                                        field="status"
+                                        header="Status"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="jobid"
+                                        header="Job ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="job_title"
+                                        header="Job Title"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="contact"
+                                        header="Contact"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="company"
+                                        header="Company"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="date_time"
+                                        header="Date & Time"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "12rem" }}
+                                      />
+                                      <Column
+                                        field="user_id"
+                                        header="User ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
                                     </DataTable>
                                   </div>
                                 </section>
@@ -4508,7 +5513,13 @@ const AllActiveemp = () => {
                           </TabPanel>
                           <TabPanel
                             header="Offer"
-                            rightIcon={<Badge value={offerJobs.length} severity="success" className="ml-2" />}
+                            rightIcon={
+                              <Badge
+                                value={offerJobs.length}
+                                severity="success"
+                                className="ml-2"
+                              />
+                            }
                             leftIcon="pi pi-cog mr-1"
                           >
                             <Row>
@@ -4519,7 +5530,12 @@ const AllActiveemp = () => {
                                       value={offerJobs}
                                       responsiveLayout="scroll"
                                       showGridlines
-                                      tableStyle={{ minWidth: "60rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                                      tableStyle={{
+                                        minWidth: "60rem",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0 2px 5px rgba(0, 0, 0, 0.1)",
+                                      }}
                                       paginator
                                       rows={10}
                                       rowsPerPageOptions={[5, 10, 25]}
@@ -4527,22 +5543,78 @@ const AllActiveemp = () => {
                                       currentPageReportTemplate="{first} to {last} of {totalRecords}"
                                       filters={offerJobsFilters}
                                       filterDisplay="row"
-                                      globalFilterFields={["status", "jobid", "job_title", "candidate", "contact", "company", "date_time", "user_id"]}
+                                      globalFilterFields={[
+                                        "status",
+                                        "jobid",
+                                        "job_title",
+                                        "candidate",
+                                        "contact",
+                                        "company",
+                                        "date_time",
+                                        "user_id",
+                                      ]}
                                       emptyMessage="No offer jobs found."
                                       selection={selectedOfferJobs}
-                                      onSelectionChange={e => setSelectedOfferJobs(e.value)}
+                                      onSelectionChange={e =>
+                                        setSelectedOfferJobs(e.value)
+                                      }
                                       selectionMode="multiple"
                                       resizableColumns
                                       columnResizeMode="expand"
                                     >
-                                      <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                      <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="jobid" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="job_title" header="Job Title" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="contact" header="Contact" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="date_time" header="Date & Time" sortable filter style={{ minWidth: "12rem" }} />
-                                      <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                                      <Column
+                                        selectionMode="multiple"
+                                        headerStyle={{ width: "3em" }}
+                                      />
+                                      <Column
+                                        field="status"
+                                        header="Status"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="jobid"
+                                        header="Job ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="job_title"
+                                        header="Job Title"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="contact"
+                                        header="Contact"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="company"
+                                        header="Company"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="date_time"
+                                        header="Date & Time"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "12rem" }}
+                                      />
+                                      <Column
+                                        field="user_id"
+                                        header="User ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
                                     </DataTable>
                                   </div>
                                 </section>
@@ -4551,7 +5623,13 @@ const AllActiveemp = () => {
                           </TabPanel>
                           <TabPanel
                             header="Rejected"
-                            rightIcon={<Badge value={rejectedJobs.length} severity="success" className="ml-2" />}
+                            rightIcon={
+                              <Badge
+                                value={rejectedJobs.length}
+                                severity="success"
+                                className="ml-2"
+                              />
+                            }
                             leftIcon="pi pi-cog mr-1"
                           >
                             <Row>
@@ -4562,7 +5640,12 @@ const AllActiveemp = () => {
                                       value={rejectedJobs}
                                       responsiveLayout="scroll"
                                       showGridlines
-                                      tableStyle={{ minWidth: "60rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                                      tableStyle={{
+                                        minWidth: "60rem",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0 2px 5px rgba(0, 0, 0, 0.1)",
+                                      }}
                                       paginator
                                       rows={10}
                                       rowsPerPageOptions={[5, 10, 25]}
@@ -4570,22 +5653,78 @@ const AllActiveemp = () => {
                                       currentPageReportTemplate="{first} to {last} of {totalRecords}"
                                       filters={rejectedJobsFilters}
                                       filterDisplay="row"
-                                      globalFilterFields={["status", "jobid", "job_title", "candidate", "contact", "company", "date_time", "user_id"]}
+                                      globalFilterFields={[
+                                        "status",
+                                        "jobid",
+                                        "job_title",
+                                        "candidate",
+                                        "contact",
+                                        "company",
+                                        "date_time",
+                                        "user_id",
+                                      ]}
                                       emptyMessage="No rejected jobs found."
                                       selection={selectedRejectedJobs}
-                                      onSelectionChange={e => setSelectedRejectedJobs(e.value)}
+                                      onSelectionChange={e =>
+                                        setSelectedRejectedJobs(e.value)
+                                      }
                                       selectionMode="multiple"
                                       resizableColumns
                                       columnResizeMode="expand"
                                     >
-                                      <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                      <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="jobid" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="job_title" header="Job Title" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="contact" header="Contact" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="date_time" header="Date & Time" sortable filter style={{ minWidth: "12rem" }} />
-                                      <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                                      <Column
+                                        selectionMode="multiple"
+                                        headerStyle={{ width: "3em" }}
+                                      />
+                                      <Column
+                                        field="status"
+                                        header="Status"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="jobid"
+                                        header="Job ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="job_title"
+                                        header="Job Title"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="contact"
+                                        header="Contact"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="company"
+                                        header="Company"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="date_time"
+                                        header="Date & Time"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "12rem" }}
+                                      />
+                                      <Column
+                                        field="user_id"
+                                        header="User ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
                                     </DataTable>
                                   </div>
                                 </section>
@@ -4594,7 +5733,13 @@ const AllActiveemp = () => {
                           </TabPanel>
                           <TabPanel
                             header="Placed"
-                            rightIcon={<Badge value={placedJobs.length} severity="success" className="ml-2" />}
+                            rightIcon={
+                              <Badge
+                                value={placedJobs.length}
+                                severity="success"
+                                className="ml-2"
+                              />
+                            }
                             leftIcon="pi pi-cog mr-1"
                           >
                             <Row>
@@ -4605,7 +5750,12 @@ const AllActiveemp = () => {
                                       value={placedJobs}
                                       responsiveLayout="scroll"
                                       showGridlines
-                                      tableStyle={{ minWidth: "60rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                                      tableStyle={{
+                                        minWidth: "60rem",
+                                        borderRadius: "8px",
+                                        boxShadow:
+                                          "0 2px 5px rgba(0, 0, 0, 0.1)",
+                                      }}
                                       paginator
                                       rows={10}
                                       rowsPerPageOptions={[5, 10, 25]}
@@ -4613,22 +5763,78 @@ const AllActiveemp = () => {
                                       currentPageReportTemplate="{first} to {last} of {totalRecords}"
                                       filters={placedJobsFilters}
                                       filterDisplay="row"
-                                      globalFilterFields={["status", "jobid", "job_title", "candidate", "contact", "company", "date_time", "user_id"]}
+                                      globalFilterFields={[
+                                        "status",
+                                        "jobid",
+                                        "job_title",
+                                        "candidate",
+                                        "contact",
+                                        "company",
+                                        "date_time",
+                                        "user_id",
+                                      ]}
                                       emptyMessage="No placed jobs found."
                                       selection={selectedPlacedJobs}
-                                      onSelectionChange={e => setSelectedPlacedJobs(e.value)}
+                                      onSelectionChange={e =>
+                                        setSelectedPlacedJobs(e.value)
+                                      }
                                       selectionMode="multiple"
                                       resizableColumns
                                       columnResizeMode="expand"
                                     >
-                                      <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                                      <Column field="status" header="Status" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="jobid" header="Job ID" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="job_title" header="Job Title" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="contact" header="Contact" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="company" header="Company" sortable filter style={{ minWidth: "10rem" }} />
-                                      <Column field="date_time" header="Date & Time" sortable filter style={{ minWidth: "12rem" }} />
-                                      <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                                      <Column
+                                        selectionMode="multiple"
+                                        headerStyle={{ width: "3em" }}
+                                      />
+                                      <Column
+                                        field="status"
+                                        header="Status"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="jobid"
+                                        header="Job ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="job_title"
+                                        header="Job Title"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="contact"
+                                        header="Contact"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="company"
+                                        header="Company"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
+                                      <Column
+                                        field="date_time"
+                                        header="Date & Time"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "12rem" }}
+                                      />
+                                      <Column
+                                        field="user_id"
+                                        header="User ID"
+                                        sortable
+                                        filter
+                                        style={{ minWidth: "10rem" }}
+                                      />
                                     </DataTable>
                                   </div>
                                 </section>
@@ -4649,7 +5855,11 @@ const AllActiveemp = () => {
                             responsive
                             showGridlines
                             value={activities}
-                            tableStyle={{ minWidth: "50rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                            tableStyle={{
+                              minWidth: "50rem",
+                              borderRadius: "8px",
+                              boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                            }}
                             paginator
                             rows={5}
                             rowsPerPageOptions={[5, 10, 25, 50]}
@@ -4657,21 +5867,69 @@ const AllActiveemp = () => {
                             currentPageReportTemplate="{first} to {last} of {totalRecords}"
                             filters={activitiesFilters}
                             filterDisplay="row"
-                            globalFilterFields={["type", "sub_type", "priority", "subject", "date_time", "user_id"]}
+                            globalFilterFields={[
+                              "type",
+                              "sub_type",
+                              "priority",
+                              "subject",
+                              "date_time",
+                              "user_id",
+                            ]}
                             emptyMessage="No activities found."
                             selection={selectedActivities}
-                            onSelectionChange={e => setSelectedActivities(e.value)}
+                            onSelectionChange={e =>
+                              setSelectedActivities(e.value)
+                            }
                             selectionMode="multiple"
                             resizableColumns
                             columnResizeMode="expand"
                           >
-                            <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                            <Column field="type" header="Type" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="sub_type" header="Sub Type" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="priority" header="Priority" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="subject" header="Subject" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="date_time" header="Date and Time" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                            <Column
+                              selectionMode="multiple"
+                              headerStyle={{ width: "3em" }}
+                            />
+                            <Column
+                              field="type"
+                              header="Type"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="sub_type"
+                              header="Sub Type"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="priority"
+                              header="Priority"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="subject"
+                              header="Subject"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="date_time"
+                              header="Date and Time"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="user_id"
+                              header="User ID"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
                           </DataTable>
                         </div>
                       </section>
@@ -4687,7 +5945,11 @@ const AllActiveemp = () => {
                             responsive
                             showGridlines
                             value={history}
-                            tableStyle={{ minWidth: "50rem", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)" }}
+                            tableStyle={{
+                              minWidth: "50rem",
+                              borderRadius: "8px",
+                              boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                            }}
                             paginator
                             rows={5}
                             rowsPerPageOptions={[5, 10, 25, 50]}
@@ -4695,7 +5957,14 @@ const AllActiveemp = () => {
                             currentPageReportTemplate="{first} to {last} of {totalRecords}"
                             filters={historyFilters}
                             filterDisplay="row"
-                            globalFilterFields={["type", "sub_type", "priority", "subject", "date_time", "user_id"]}
+                            globalFilterFields={[
+                              "type",
+                              "sub_type",
+                              "priority",
+                              "subject",
+                              "date_time",
+                              "user_id",
+                            ]}
                             emptyMessage="No history found."
                             selection={selectedHistory}
                             onSelectionChange={e => setSelectedHistory(e.value)}
@@ -4703,13 +5972,52 @@ const AllActiveemp = () => {
                             resizableColumns
                             columnResizeMode="expand"
                           >
-                            <Column selectionMode="multiple" headerStyle={{ width: "3em" }} />
-                            <Column field="type" header="Type" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="sub_type" header="Sub Type" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="priority" header="Priority" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="subject" header="Subject" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="date_time" header="Date and Time" sortable filter style={{ minWidth: "10rem" }} />
-                            <Column field="user_id" header="User ID" sortable filter style={{ minWidth: "10rem" }} />
+                            <Column
+                              selectionMode="multiple"
+                              headerStyle={{ width: "3em" }}
+                            />
+                            <Column
+                              field="type"
+                              header="Type"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="sub_type"
+                              header="Sub Type"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="priority"
+                              header="Priority"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="subject"
+                              header="Subject"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="date_time"
+                              header="Date and Time"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
+                            <Column
+                              field="user_id"
+                              header="User ID"
+                              sortable
+                              filter
+                              style={{ minWidth: "10rem" }}
+                            />
                           </DataTable>
                         </div>
                       </section>
@@ -4766,11 +6074,19 @@ const AllActiveemp = () => {
                           {candidateNotes.map((note, index) => (
                             <div key={index}>
                               <div className="d-flex mt-0">
-                                <strong className="text-muted me-4">{note.candidateName}</strong>
-                                <strong className="text-muted">{note.timestamp}</strong>
+                                <strong className="text-muted me-4">
+                                  {note.candidateName}
+                                </strong>
+                                <strong className="text-muted">
+                                  {note.timestamp}
+                                </strong>
                               </div>
                               <div className="d-flex justify-content-between mt-2 mb-0">
-                                <div dangerouslySetInnerHTML={{ __html: note.content }} />
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: note.content,
+                                  }}
+                                />
                                 <div>
                                   <Button
                                     icon="pi pi-pencil"
@@ -5232,7 +6548,6 @@ const AllActiveemp = () => {
                   </Col>
 
                   <LinkContactsPopup />
-
                 </Row>
 
                 <Row className="mb-2">
@@ -5509,7 +6824,6 @@ const AllActiveemp = () => {
                       />
                     </div>
                   </Col>
-
 
                   <LinkContactsPopup />
                 </Row>
@@ -5837,7 +7151,6 @@ const AllActiveemp = () => {
                   </Col>
 
                   <LinkContactsPopup />
-
                 </Row>
 
                 <Row className="mb-2">
@@ -6163,7 +7476,6 @@ const AllActiveemp = () => {
                   </Col>
 
                   <LinkContactsPopup />
-
                 </Row>
 
                 <Row className="mb-2">

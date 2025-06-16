@@ -2923,6 +2923,11 @@ const JobAllActive = ({ toggleSidebar }) => {
                   <Col lg={12} sm={12}>
                     <section className="job-datatable-section">
                       <div className="card1 mt-3 mb-4 actjobsumtable">
+                        <div className="add-team mb-3 d-flex justify-content-end align-items-center">
+
+                        <SubmitJobtoCandidate />
+                        </div>
+
                         <DataTable
                           responsive
                           showGridlines
@@ -2989,95 +2994,8 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </Col>
                 </Row>
               </TabPanel>
-              <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2">
-                <Row>
-                  <Col lg={12}>
-                    <section className="job-datatable-section">
-                      <div className="card1 mt-3 mb-4 actjobsumtable">
-                        <DataTable
-                          responsive
-                          showGridlines
-                          value={activities}
-                          tableStyle={{
-                            minWidth: "50rem",
-                            borderRadius: "8px",
-                            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-                          }}
-                          paginator
-                          rows={5}
-                          rowsPerPageOptions={[5, 10, 25, 50]}
-                          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-                          currentPageReportTemplate="{first} to {last} of {totalRecords}"
-                          filters={activitiesFilters}
-                          filterDisplay="row"
-                          globalFilterFields={[
-                            "type",
-                            "sub_type",
-                            "priority",
-                            "subject",
-                            "date_time",
-                            "user_id",
-                          ]}
-                          emptyMessage="No activities found."
-                          selection={selectedActivities}
-                          onSelectionChange={e => setSelectedActivities(e.value)}
-                          selectionMode="multiple"
-                          resizableColumns
-                          columnResizeMode="expand"
-                        >
-                          <Column
-                            selectionMode="multiple"
-                            headerStyle={{ width: "3em" }}
-                          />
-                          <Column
-                            field="type"
-                            header="Type"
-                            sortable
-                            filter
-                            style={{ minWidth: "10rem" }}
-                          />
-                          <Column
-                            field="sub_type"
-                            header="Sub Type"
-                            sortable
-                            filter
-                            style={{ minWidth: "10rem" }}
-                          />
-                          <Column
-                            field="priority"
-                            header="Priority"
-                            sortable
-                            filter
-                            style={{ minWidth: "10rem" }}
-                          />
-                          <Column
-                            field="subject"
-                            header="Subject"
-                            sortable
-                            filter
-                            style={{ minWidth: "10rem" }}
-                          />
-                          <Column
-                            field="date_time"
-                            header="Date and Time"
-                            sortable
-                            filter
-                            style={{ minWidth: "10rem" }}
-                          />
-                          <Column
-                            field="user_id"
-                            header="User ID"
-                            sortable
-                            filter
-                            style={{ minWidth: "10rem" }}
-                          />
-                        </DataTable>
-                      </div>
-                    </section>
-                  </Col>
-                </Row>
-              </TabPanel>
-              <TabPanel header="Work Type" leftIcon="pi pi-check-square mr-2">
+
+               <TabPanel header="Work Type" leftIcon="pi pi-check-square mr-2">
                 <Row>
                   <Col lg={12}>
                     <div className="pipelinetabs">
@@ -3931,6 +3849,97 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </Col>
                 </Row>
               </TabPanel>
+
+
+              <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2">
+                <Row>
+                  <Col lg={12}>
+                    <section className="job-datatable-section">
+                      <div className="card1 mt-3 mb-4 actjobsumtable">
+                        <DataTable
+                          responsive
+                          showGridlines
+                          value={activities}
+                          tableStyle={{
+                            minWidth: "50rem",
+                            borderRadius: "8px",
+                            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                          }}
+                          paginator
+                          rows={5}
+                          rowsPerPageOptions={[5, 10, 25, 50]}
+                          paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                          currentPageReportTemplate="{first} to {last} of {totalRecords}"
+                          filters={activitiesFilters}
+                          filterDisplay="row"
+                          globalFilterFields={[
+                            "type",
+                            "sub_type",
+                            "priority",
+                            "subject",
+                            "date_time",
+                            "user_id",
+                          ]}
+                          emptyMessage="No activities found."
+                          selection={selectedActivities}
+                          onSelectionChange={e => setSelectedActivities(e.value)}
+                          selectionMode="multiple"
+                          resizableColumns
+                          columnResizeMode="expand"
+                        >
+                          <Column
+                            selectionMode="multiple"
+                            headerStyle={{ width: "3em" }}
+                          />
+                          <Column
+                            field="type"
+                            header="Type"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                          <Column
+                            field="sub_type"
+                            header="Sub Type"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                          <Column
+                            field="priority"
+                            header="Priority"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                          <Column
+                            field="subject"
+                            header="Subject"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                          <Column
+                            field="date_time"
+                            header="Date and Time"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                          <Column
+                            field="user_id"
+                            header="User ID"
+                            sortable
+                            filter
+                            style={{ minWidth: "10rem" }}
+                          />
+                        </DataTable>
+                      </div>
+                    </section>
+                  </Col>
+                </Row>
+              </TabPanel>
+             
               <TabPanel header="History" leftIcon="pi pi-clock mr-2">
                 <Row>
                   <Col lg={12} sm={12}>

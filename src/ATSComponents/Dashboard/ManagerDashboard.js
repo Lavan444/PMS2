@@ -1267,7 +1267,7 @@ const ManagerDashboard = () => {
                                 <Card className="h-100">
                                     <p className="smalltitle"> Tasks Completed </p>
                                     <div className="d-flex justify-content-between">
-                                        <h3 className="smallhead">80</h3>
+                                        <h3 className="smallhead">120</h3>
                                         <span><i className="pi pi-arrow-up me-2 success-txt"></i> +70%</span>
                                     </div>
                                 </Card>
@@ -1276,7 +1276,7 @@ const ManagerDashboard = () => {
                                 <Card className="h-100">
                                     <p className="smalltitle"> Tasks Extended </p>
                                     <div className="d-flex justify-content-between">
-                                        <h3 className="smallhead">30</h3>
+                                        <h3 className="smallhead">80</h3>
                                         <span><i className="pi pi-arrow-down me-2 danger-txt"></i> -52%</span>
                                     </div>
                                 </Card>

@@ -69,6 +69,9 @@ const JobAllActive = ({ toggleSidebar }) => {
   const [selectedProjectStatus, setSelectedProjectStatus] = useState("Active"); // default value
   const { first, rows } = useSelector(state => state.calendar.pagination)
 
+  // schedule text editor
+  const [scheduleText, setScheduleText] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -2871,7 +2874,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Row>
               </TabPanel>
 
-              <TabPanel header="Estimates" leftIcon="pi pi-sitemap mr-2">
+              <TabPanel header="Phases of Project" leftIcon="pi pi-sitemap mr-2">
                 <Row>
                   <Col lg={12}>
                     <EstimateTable />
@@ -4353,6 +4356,8 @@ const JobAllActive = ({ toggleSidebar }) => {
                   />
                 </Col>
               </Row>
+
+              
             </div>
 
             <Row className="">
@@ -4603,6 +4608,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                           </div>
                         </Col>
                       </Row>
+                      
                     </Col>
                   </Row>
                 </Col>
@@ -4616,9 +4622,24 @@ const JobAllActive = ({ toggleSidebar }) => {
                   />
                 </Col>
               </Row>
+
+              {popchecked && (
+              <Row>
+                <Col xl={12} className="mt-2">
+                <label className="mb-1">Minutes of Meeting</label>
+                  <div className="schedule-editor">
+                    <Editor
+                      value={scheduleText}
+                      onTextChange={e => setScheduleText(e.htmlValue)}
+                      style={{ height: 'auto' }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            )}
             </div>
 
-            <Row className="">
+            <Row className="mt-3">
               <Col xl={12}>
                 <div className="d-flex justify-content-end">
                   <button
@@ -4879,6 +4900,19 @@ const JobAllActive = ({ toggleSidebar }) => {
                   />
                 </Col>
               </Row>
+              {popchecked && (
+              <Row>
+                <Col xl={12} className="mt-2">
+                  <div className="schedule-editor">
+                    <Editor
+                      value={scheduleText}
+                      onTextChange={e => setScheduleText(e.htmlValue)}
+                      style={{ height: 'auto' }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            )}
             </div>
 
             <Row className="">
@@ -5143,9 +5177,23 @@ const JobAllActive = ({ toggleSidebar }) => {
                   />
                 </Col>
               </Row>
+
+              {popchecked && (
+              <Row>
+                <Col xl={12} className="mt-2">
+                  <div className="schedule-editor">
+                    <Editor
+                      value={scheduleText}
+                      onTextChange={e => setScheduleText(e.htmlValue)}
+                      style={{ height: 'auto' }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            )}
             </div>
 
-            <Row className="">
+            <Row className="mt-3">
               <Col xl={12}>
                 <div className="d-flex justify-content-end">
                   <button
@@ -5406,9 +5454,23 @@ const JobAllActive = ({ toggleSidebar }) => {
                   />
                 </Col>
               </Row>
+
+              {popchecked && (
+              <Row>
+                <Col xl={12} className="mt-2">
+                  <div className="schedule-editor">
+                    <Editor
+                      value={scheduleText}
+                      onTextChange={e => setScheduleText(e.htmlValue)}
+                      style={{ height: 'auto' }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            )}
             </div>
 
-            <Row className="">
+            <Row className="mt-3">
               <Col xl={12}>
                 <div className="d-flex justify-content-end">
                   <button
@@ -5668,9 +5730,22 @@ const JobAllActive = ({ toggleSidebar }) => {
                   />
                 </Col>
               </Row>
+              {popchecked && (
+              <Row>
+                <Col xl={12} className="mt-2">
+                  <div className="schedule-editor">
+                    <Editor
+                      value={scheduleText}
+                      onTextChange={e => setScheduleText(e.htmlValue)}
+                      style={{ height: 'auto' }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            )}
             </div>
 
-            <Row className="">
+            <Row className="mt-3">
               <Col xl={12}>
                 <div className="d-flex justify-content-end">
                   <button

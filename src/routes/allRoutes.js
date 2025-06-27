@@ -101,6 +101,21 @@ import EmailAC from "ATSComponents/Candidates/EmailAC";
 import SubmitCandidatetoJob from "ATSComponents/Candidates/SubmitCandidatetoJob";
 import TalentScan from "ATSComponents/Candidates/TalentScan";
 
+// Time sheet
+
+import TimeSheet from "ATSComponents/TimeSheet/TimeSheet";
+
+// Employee 
+
+import EmployeeAllActive from "ATSComponents/Employee/EmployeesAllActive";
+import EmployeesMyActive from "ATSComponents/Employee/EmployeesMyActive";
+import EmployeesTodoList from "ATSComponents/Employee/EmployeesTodoList";
+import EmployeesAddedByMe from "ATSComponents/Employee/EmployeesAddedByMe";
+import EmployeesOpened from "ATSComponents/Employee/EmployeesOpened";
+import EmployeesArchived from "ATSComponents/Employee/EmployeesArchived";
+import EmployeeEditFrom from "ATSComponents/Employee/EmployeeEditForm";
+
+
 const userRoutes = [
   // Jobs
   { path: "/allactive-jobs", component: <JobAllActive /> },
@@ -204,6 +219,29 @@ const userRoutes = [
   { path: "/submitcandidate-job", component: <SubmitCandidatetoJob /> },
   { path: "/import-resume-candidate", component: <ImportResumeCan /> },
   { path: "/talent-scan", component: <TalentScan /> },
+
+  // Time sheet
+
+  { path: "/timesheet", component: <TimeSheet /> },
+
+  // Employee 
+
+  { path: "/allactive-employees", component: <EmployeeAllActive /> },
+  { path: "/myactive-employees", component: <EmployeesMyActive /> },
+  { path: "/todolist-employees", component: <EmployeesTodoList /> },
+   { path: "/added-employees", component: <EmployeesAddedByMe /> },
+  { path: "/opened-employees", component: <EmployeesOpened /> },
+  { path: "/archived-employees", component: <EmployeesArchived /> },
+  { path: "/employee-edit", component: <EmployeeEditFrom /> },
+
+  // { path: "/candidate-editform", component: <CandidateEditFormExtra /> },
+  // { path: "/uploadresumeform", component: <UploadResumeForm /> },
+  // { path: "/admin-dashboard", component: <AdminDashboard /> },
+ 
+  // { path: "/candidates-activity", component: <CandidatesActivityLog /> },
+  // { path: "/candidates-pool", component: <CandidatesPool /> },
+  // { path: "/candidates-duplicate", component: <CandidatesDuplicate /> },
+  // { path: "/create-candidate", component: <CreateCandidate /> },
 
 
   

@@ -255,7 +255,7 @@ const SidebarContent = props => {
                   <Link to="/myactive-candidates">{props.t("My Active")}</Link>
                 </li>
                 <li>
-                  <Link to="/candidates-tasklist">{props.t("Task List")}</Link>
+                  <Link to="/candidates-tasklist">{props.t("To Do List")}</Link>
                 </li>
                 <li>
                   <Link to="/candidates-added">
@@ -304,6 +304,63 @@ const SidebarContent = props => {
               </ul>
             </li>
 
+            
+            <li>
+              <Link to="/#" className="has-arrow waves-effect">
+              <i className="pi pi-users"></i>
+                <span>{props.t("Employees")}</span>
+              </Link>
+              <ul className="sub-menu" aria-expanded="false">
+
+                <li>
+                  <Link to="/allactive-employees">{props.t("All Active")}</Link>
+                </li>
+                <li>
+                  <Link to="/myactive-employees">{props.t("My Active")}</Link>
+                </li>
+                <li>
+                  <Link to="/todolist-employees">{props.t("To Do List")}</Link>
+                </li>
+                <li>
+                  <Link to="/added-employees">
+                    {props.t("Added by Me")}
+                  </Link>
+                </li><li>
+                  <Link to="/opened-employees">
+                    {props.t("Opened by Me")}
+                  </Link>
+                </li>
+                {/* <li>
+                  <Link to="/candidates-activity">
+                    {props.t("Activity Log")}
+                  </Link>
+                </li> */}
+                <li>
+                  <Link to="/archived-employees">
+                    {props.t("Archived")}
+                  </Link>
+                </li>
+                {/* <li>
+                  <Link to="/candidates-pool">
+                    {props.t("Candidate Pool")}
+                  </Link>
+                </li> */}
+                {/* <li>
+                  <Link to="/candidates-duplicate">
+                    {props.t("Check Duplicate")}
+                  </Link>
+                </li> */}
+              </ul>
+            </li>
+
+             <li>
+              <Link to="/timesheet" className="">
+              <i className="pi pi-clock"></i>
+                <span>{props.t("Time Sheet")}</span>
+              </Link>
+             
+            </li>
+
 
             <li>
               <Link to="/#" className="has-arrow waves-effect">
@@ -322,7 +379,7 @@ const SidebarContent = props => {
                 </li>
 
                 <li>
-                  <Link to="/companies-tasklist">{props.t("Task List")}</Link>
+                  <Link to="/companies-tasklist">{props.t("To Do List")}</Link>
                 </li>
 
                 <li>

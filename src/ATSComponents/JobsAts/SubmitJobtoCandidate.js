@@ -18,6 +18,7 @@ import { ChevronRightIcon } from "primereact/icons/chevronright"
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from "primereact/button";
+import WorkType1 from "ATSComponents/Common/WorkType1";
 
 const SubmitJobtoCandidate = () => {
 
@@ -103,6 +104,8 @@ const SubmitJobtoCandidate = () => {
 
     const [frominputemail, setFrominputemail] = useState(null)
 
+    const [filterValue, setFilterValue] = useState("");
+
 
     // jobs all strats
 
@@ -112,11 +115,11 @@ const SubmitJobtoCandidate = () => {
     const [selectedJobs, setSelectedJobs] = useState([])
     const [jobDescriptions, setJobDescriptions] = useState([])
 
-    const jobs = [
+   const [jobs, setJobs] = useState([
         {
             id: "1",
-            designation: "Frontend Developer",
-            name: "LavanKumar Kalvala",
+            designation: "Senior Software Engineer",
+            name: "Mahesh Kumar Bhoga",
             contactemail: "mahesh@varundigitalmedia.com",
             company: "Varun Digital Media",
             skills: "HTML, CSS, JavaScript, React.js, Node.js",
@@ -126,8 +129,8 @@ const SubmitJobtoCandidate = () => {
         },
         {
             id: "2",
-            designation: "Frontend Developer",
-            name: "Venkata Laxmi Valle",
+            designation: "Software Engineer",
+            name: "Pavan Kumar",
             contactemail: "mahesh@varundigitalmedia.com",
             company: "Varun Digital Media",
             skills: "HTML, CSS, JavaScript, React.js, Node.js",
@@ -137,8 +140,8 @@ const SubmitJobtoCandidate = () => {
         },
         {
             id: "3",
-            designation: "SEO",
-            name: "Bhargavi Sunanda",
+            designation: "Business Analyst",
+            name: "Ravi Teja",
             contactemail: "suresh@varundigitalmedia.com",
             company: "Varun Digital Media",
             skills: "On Page SEO, Off Page SEO",
@@ -148,8 +151,8 @@ const SubmitJobtoCandidate = () => {
         },
         {
             id: "4",
-            designation: "Content Writer",
-            name: "Nagendra Meriga",
+            designation: "Backend Developer",
+            name: "Teja",
             contactemail: "suresh@varundigitalmedia.com",
             company: "Varun Digital Media",
             skills: "Blog Writing, Article Writing",
@@ -159,8 +162,8 @@ const SubmitJobtoCandidate = () => {
         },
         {
             id: "5",
-            designation: "Backend",
-            name: "Saikumar Kunda",
+            designation: "Frontend Developer",
+            name: "Lavan Kumar",
             contactemail: "aman@varundigitalmedia.com",
             company: "Pranathi Software Services",
             skills: "Python, Flask, Django",
@@ -168,7 +171,7 @@ const SubmitJobtoCandidate = () => {
             phno: "8967656341, 9876543210",
             exp: "2 years"
         }
-    ];
+    ]);
 
 
     const filteredJobs = jobs.filter(
@@ -343,6 +346,54 @@ const SubmitJobtoCandidate = () => {
 
     // select contact ends
 
+
+    //------------ candidate designation dropdown like worktype code start -------------
+
+            const [designationOptions, setDesignationOptions] = useState([
+  { label: "Frontend Developer", value: "Frontend Developer" },
+  { label: "Backend", value: "Backend" },
+  { label: "SEO", value: "SEO" },
+  { label: "Content Writer", value: "Content Writer" },
+]);
+
+const designationEditor = (options) => {
+    const isNew = filterValue &&
+        !designationOptions.some(opt =>
+            opt.label.toLowerCase() === filterValue.toLowerCase()
+        );
+
+    const dropdownOptions = isNew
+        ? [
+            ...designationOptions,
+            { label: `Add "${filterValue}"`, value: filterValue, __isNew: true }
+        ]
+        : designationOptions;
+
+    return (
+        <Dropdown
+            value={options.value}
+            options={dropdownOptions}
+            onChange={e => {
+                if (e.originalEvent?.target?.innerText?.startsWith('Add "')) {
+                    setDesignationOptions(prev => [
+                        ...prev,
+                        { label: e.value, value: e.value }
+                    ]);
+                }
+                options.editorCallback(e.value);
+            }}
+            onFilter={e => setFilterValue(e.filter)}
+            filter
+            showClear
+            placeholder="Select or add Designation"
+            className="w-full"
+        />
+    );
+};
+
+    //------- candidate designation dropdown like worktype code end ------
+
+
     // select cc contacts starts
     const [contactDescriptions, setContactDescriptions] = useState([]);
     const [linkContactsVisible1, setLinkContactsVisible1] = useState(false);
@@ -407,6 +458,46 @@ const SubmitJobtoCandidate = () => {
     };
 
     // select cc contact ends
+
+
+    // worktype dropdown start
+
+                const [designationWorkTypes, setDesignationWorkTypes] = useState([
+            { name: 'Manager', color: '#000', id: 'designation-1', statuses: ['Active', 'Inactive'] },
+            { name: 'Team Lead', color: '#000', id: 'designation-2', statuses: ['Active', 'Inactive'] },
+            { name: 'BA', color: '#000', id: 'designation-3', statuses: ['Active', 'Inactive'] },
+            { name: 'Developer', color: '#000', id: 'designation-4', statuses: ['Active', 'Inactive'] },
+            { name: 'QA', color: '#000', id: 'designation-5', statuses: ['Active', 'Inactive'] }
+            ]);
+
+            const designationDropdownWorkTypes = [
+            ...designationWorkTypes,
+            { id: 'divider', disabled: true },
+            { name: 'Add Designation', id: 'create-new-designation' },
+            { name: 'Edit Designation', id: 'edit-selected-designation' }
+            ];
+
+            const [selectedDesignation, setSelectedDesignation] = useState(null);
+            // const handleDesignationWorkTypesChange = (updatedWorkTypes) => setDesignationWorkTypes(updatedWorkTypes);
+            const handleDesignationSelectionChange = (selectedWorkType) => setSelectedDesignation(selectedWorkType);
+
+            const onCellEditComplete = (e) => {
+                const { rowData, newValue, field } = e;
+                // Update the row in jobs array
+                setJobs(prevJobs =>
+                    prevJobs.map(job =>
+                        job.id === rowData.id ? { ...job, [field]: newValue } : job
+                    )
+                );
+            };
+
+            const handleDesignationWorkTypesChange = (updatedWorkTypes) => {
+    setDesignationWorkTypes(updatedWorkTypes);
+    // Optionally update dropdownWorkTypes if needed
+};
+
+    // worktype dropdown end
+
 
     return (
         <React.Fragment>
@@ -641,9 +732,9 @@ const SubmitJobtoCandidate = () => {
                 header="Select Team Members"
                 visible={jobDetailsVisible}
                 onHide={() => setJobDetailsVisible(false)}
-                style={{ width: "40vw" }}
+                style={{ width: "50vw" }}
                 breakpoints={{ "960px": "75vw", "641px": "100vw" }}
-                className="cand-details"
+                className="cand-details Addteam-popup"
             >
                 {/* Search Bar */}
                 <Row>
@@ -672,7 +763,7 @@ const SubmitJobtoCandidate = () => {
                 </Row>
 
                 {/* DataTable */}
-                <DataTable
+               <DataTable
                     value={filteredJobs}
                     paginator
                     rows={5}
@@ -680,12 +771,66 @@ const SubmitJobtoCandidate = () => {
                     onSelectionChange={e => setSelectedJobs(e.value)}
                     dataKey="id"
                     rowsPerPageOptions={[5, 10, 25]}
-                    size="small" // Set size to small
+                    size="small"
+                    editMode="cell" // <-- Change to cell editing
+                    onCellEditComplete={e => {
+                        // Update your jobs array here if you want to persist changes
+                        const { rowData, newValue, field } = e;
+                        rowData[field] = newValue;
+                        // If you want to update the main jobs array, do it here
+                    }}
                 >
                     <Column selectionMode="multiple" style={{ width: "3em" }} />
                     <Column field="name" header="Employee Name" />
-                    <Column field="designation" header="Role" />
-                    <Column field="company" header="Company" />
+                    <Column field="designation" header="Project Role" />
+                    
+                   {/* <Column
+                        field="designation"
+                        header="Designation"
+                        editor={designationEditor}
+                        editable
+                    /> */}
+
+                    
+
+
+                 <Column
+  field="designation"
+  header="Designation"
+  style={{ minWidth: '180px', fontWeight: 'bold' }}
+  body={(rowData, options) => (
+    <WorkType1
+      initialWorkTypes={designationWorkTypes}
+      dropdownWorkTypes={designationDropdownWorkTypes}
+      onWorkTypesChange={() => {}} // No-op: don't update options
+      onSelectionChange={handleDesignationSelectionChange}
+      rowData={rowData}
+      rowIndex={options.rowIndex}
+      mode="display"
+      className="bgclr"
+    />
+  )}
+  editor={(options) => (
+    <WorkType1
+      initialWorkTypes={designationWorkTypes}
+      dropdownWorkTypes={designationDropdownWorkTypes}
+      onWorkTypesChange={() => {}} // No-op: don't update options
+      onSelectionChange={val => options.editorCallback(val.name || val)}
+      rowData={options.rowData}
+      rowIndex={options.rowIndex}
+      mode="edit"
+      editorCallback={options.editorCallback}
+      className="bgclr"
+    />
+  )}
+  onCellEditComplete={onCellEditComplete}
+/>
+
+
+
+<Column field="company" header="Company" />
+                  
+                    {/* Remove the rowEditor column */}
                 </DataTable>
 
                 {/* Actions */}

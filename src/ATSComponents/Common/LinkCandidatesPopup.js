@@ -47,7 +47,7 @@ const LinkCandidatesPopup = () => {
 return<>
                     <Col lg={6}>
                         <div className="field">
-                            <label htmlFor="candidateDetail" className="block mb-0">Link Candidates</label>
+                            <label htmlFor="candidateDetail" className="block mb-0">Link WorkType</label>
                             <div className="d-flex align-items-center" style={{ position: 'relative' }}>
                                 <InputText
                                     id="candidateDetail"

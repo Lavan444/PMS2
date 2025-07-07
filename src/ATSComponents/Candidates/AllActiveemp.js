@@ -123,7 +123,7 @@ const AllActiveemp = () => {
   }
   // action items
 
-  document.title = "ATS | React Admin & Dashboard Template"
+  document.title = "PMS | React Admin & Dashboard Template"
 
   const dt = useRef(null)
 
@@ -147,6 +147,29 @@ const AllActiveemp = () => {
     setVisibleRight(true)
   }
   const [visibleViewRight, setVisibleViewRight] = useState(false)
+
+
+
+
+  // dynamic task or bug information start
+
+//   const handleViewClick = (rowData) => {
+//   let type = "";
+//   if (rowData.task_code && rowData.task_code.startsWith("TASK")) {
+//     type = "task";
+//   } else if (rowData.task_code && rowData.task_code.startsWith("BUG")) {
+//     type = "bug";
+//   }
+//   setViewType(type);
+//   setViewRowData(rowData);
+//   setViewSidebarVisible(true);
+// };
+
+
+
+  // dynamic task or bug information start
+
+
 
   {
     /* Side bar end */
@@ -773,28 +796,49 @@ const AllActiveemp = () => {
 
   // datatable
 
+  // const [filters, setFilters] = useState({
+  //   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  //   id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Firstname: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Lastname: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   JobTitle: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Email: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   MobilePhone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Yearsofexperience: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   City: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   AvailabilityDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Relocation: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Categories: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   Groups: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   ResumeAttachment: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   PrimarySkills: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   CreatedBy: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   EditDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  //   CreateDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  // })
+
   const [filters, setFilters] = useState({
-    global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Firstname: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Lastname: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    JobTitle: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Email: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    MobilePhone: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Yearsofexperience: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    City: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    AvailabilityDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Relocation: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Categories: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    Groups: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    ResumeAttachment: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    PrimarySkills: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    CreatedBy: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    EditDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    CreateDate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  })
+  global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  task_code: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  project_name: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  project_manager: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  module_name: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  task_name: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  task_description: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  created_by: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  assigned_by: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  assigned_to: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  watchers: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  start_date: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  work_hours: { value: null, matchMode: FilterMatchMode.EQUALS },
+  end_date: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  actual_end_date: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  task_status: { value: null, matchMode: FilterMatchMode.EQUALS },
+  priority: { value: null, matchMode: FilterMatchMode.EQUALS },
+  approval_status: { value: null, matchMode: FilterMatchMode.EQUALS },
+});
 
   const [loading, setLoading] = useState(false)
   const [globalFilterValue, setGlobalFilterValue] = useState("")
@@ -2718,6 +2762,8 @@ const AllActiveemp = () => {
     { field: "CreateDate", header: "Create Date" },
     { field: "EditDate", header: "Edit Date" },
     { field: "CreatedBy", header: "Created By" },
+    // Add a column definition for work_hours if needed for dynamic rendering
+    // { field: "work_hours", header: "Work Hours (in hours)" },
   ]
 
   const headerBtn = (
@@ -3046,7 +3092,7 @@ const AllActiveemp = () => {
       approval_status: "Approved",
     },
     {
-      task_code: "Task-104",
+      task_code: "Bug-104",
       project_name: "Payroll System (Proj-104)",
       project_manager: "Rakesh Kumar",
       module_name: "Payroll Management",
@@ -3066,7 +3112,7 @@ const AllActiveemp = () => {
       approval_status: "Approved",
     },
     {
-      task_code: "Task-105",
+      task_code: "Bug-105",
       project_name: "Tax Compliance (Proj-105)",
       project_manager: "Neha Jain",
       module_name: "E-Invoice Integration",
@@ -3080,13 +3126,13 @@ const AllActiveemp = () => {
       start_date: "03-05-2025",
       work_hours: 16,
       end_date: "07-05-2025",
-      actual_end_date: "",
+      actual_end_date: "07-05-2025",
       task_status: "In Progress",
       priority: "High",
       approval_status: "Pending",
     },
     {
-      task_code: "Task-106",
+      task_code: "Bug-106",
       project_name: "HR Automation (Proj-106)",
       project_manager: "Vikas Patil",
       module_name: "Attendance Tracking",
@@ -3120,13 +3166,13 @@ const AllActiveemp = () => {
       start_date: "05-05-2025",
       work_hours: 4,
       end_date: "06-05-2025",
-      actual_end_date: "",
+      actual_end_date: "07-05-2025",
       task_status: "Not Started",
       priority: "Medium",
       approval_status: "Pending",
     },
     {
-      task_code: "Task-108",
+      task_code: "Bug-108",
       project_name: "Performance System (Proj-108)",
       project_manager: "Karthik Rao",
       module_name: "Performance Evaluation",
@@ -3159,13 +3205,13 @@ const AllActiveemp = () => {
       start_date: "06-05-2025",
       work_hours: 14,
       end_date: "09-05-2025",
-      actual_end_date: "",
+      actual_end_date: "07-05-2025",
       task_status: "In Progress",
       priority: "High",
       approval_status: "Pending",
     },
     {
-      task_code: "Task-110",
+      task_code: "Bug-110",
       project_name: "Communication System (Proj-110)",
       project_manager: "Arun Pillai",
       module_name: "Notification Center",
@@ -3221,6 +3267,231 @@ const AllActiveemp = () => {
 
   // task datatable ends
 
+  // module worktype start
+
+  const [selectedModule, setSelectedModule] = useState(null)
+
+  const [moduleWorkTypes, setModuleWorkTypes] = useState([
+    {
+      name: "User Management",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+  ])
+
+  const moduleDropdownWorkTypes = [
+    ...moduleWorkTypes,
+    { id: "divider", disabled: true },
+    { name: "Add Module", id: "create-new-work-type" },
+    { name: "Edit Module", id: "edit-selected-work-type" },
+  ]
+
+  const handleModuleWorkTypesChange = updatedWorkTypes => {
+    setModuleWorkTypes(updatedWorkTypes)
+  }
+
+  const handleModuleSelectionChange = selectedWorkType => {
+    setSelectedModule(selectedWorkType)
+  }
+
+  // module worktype end
+
+  // status work type start
+
+  const [moduleWorkTypes1, setModuleWorkTypes1] = useState([
+    {
+      name: "To do",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "In Progress",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Done",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+  ])
+
+  const moduleDropdownWorkTypes1 = [
+    ...moduleWorkTypes1,
+    { id: "divider", disabled: true },
+    { name: "Add Status", id: "create-new-work-type" },
+    { name: "Edit Status", id: "edit-selected-work-type" },
+  ]
+
+  // status work type end
+
+
+  // Assigned task start
+
+   const [moduleWorkTypes2, setModuleWorkTypes2] = useState([
+    {
+      name: "Mahesh Kumar Bhoga",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Aman Kumar",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    
+  ])
+
+  const moduleDropdownWorkTypes2 = [
+    ...moduleWorkTypes2,
+    { id: "divider", disabled: true },
+    { name: "Add Assigned", id: "create-new-work-type" },
+    { name: "Edit Assigned", id: "edit-selected-work-type" },
+  ]
+
+  // Assigned task end
+
+  // wtachers start
+
+  const [moduleWorkTypes22, setModuleWorkTypes22] = useState([
+    {
+      name: "Mahesh Kumar Bhoga",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Aman Kumar",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    
+  ])
+
+  const moduleDropdownWorkTypes22 = [
+    ...moduleWorkTypes2,
+    { id: "divider", disabled: true },
+    { name: "Add Watchers", id: "create-new-work-type" },
+    { name: "Edit Watchers", id: "edit-selected-work-type" },
+  ]
+
+  // Linked task start
+
+   const [moduleWorkTypes3, setModuleWorkTypes3] = useState([
+    {
+      name: "Blocks",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Is blocked by",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Clones",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Is cloned by",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "duplicates",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+  ])
+  
+   const moduleDropdownWorkTypes3 = [
+    ...moduleWorkTypes3,
+    { id: "divider", disabled: true },
+    { name: "Add Linked", id: "create-new-work-type" },
+    { name: "Edit Linked", id: "edit-selected-work-type" },
+  ]
+
+  // Linked task end
+
+
+  // Linked select items start
+
+   const [moduleWorkTypes4, setModuleWorkTypes4] = useState([
+    {
+      name: "Select work Item",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+   
+  ])
+
+  const moduleDropdownWorkTypes4 = [
+    ...moduleWorkTypes4,
+    { id: "divider", disabled: true },
+    { name: "Add Item", id: "create-new-work-type" },
+    { name: "Edit Item", id: "edit-selected-work-type" },
+  ]
+
+
+  // Linked select items end
+
+
+
+   // Company start
+
+   const [moduleWorkTypes5, setModuleWorkTypes5] = useState([
+    {
+      name: "	AI Generator",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Resume Parser",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Chatbot Assistant",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Image Enhancer AI",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+   
+  ])
+  
+   const moduleDropdownWorkTypes5 = [
+    ...moduleWorkTypes5,
+    { id: "divider", disabled: true },
+    { name: "Add Project", id: "create-new-work-type" },
+    { name: "Edit Project", id: "edit-selected-work-type" },
+  ]
+
+  // Company end
+
+
+
   return (
     <React.Fragment>
       <div className="page-content allact-tabs">
@@ -3248,13 +3519,23 @@ const AllActiveemp = () => {
                           style={{ marginTop: "5px" }}
                         />
 
-                        <button
+                        {/* <button
                           type="button"
                           class="btn btn-secondary icons-btn ms-1 view"
                           onClick={() => setVisibleViewRight(true)}
                         >
                           <i className="pi pi-eye"></i>
-                        </button>
+                        </button> */}
+                        <button
+  type="button"
+  className="btn btn-secondary icons-btn ms-1 view"
+  onClick={() => {
+    setVisibleViewRight(true);
+    // handleViewClick(rowData); 
+  }}
+>
+  <i className="pi pi-eye"></i>
+</button>
 
                         <Tooltip
                           target=".edit"
@@ -3312,41 +3593,38 @@ const AllActiveemp = () => {
                     </button>
                   )}
 
-                   <span className="drop-ac">
-                  <EmailAC />
+                  <span className="drop-ac">
+                    <EmailAC />
 
-                  <CascadeSelect
-                    // value={selectedActSms}
-                    options={actSmsOptions}
-                    optionLabel="name"
-                    optionGroupLabel="name"
-                    optionGroupChildren={["subItems", "subItems"]}
-                    className="md:w-8rem me-1"
-                    breakpoint="767px"
-                    placeholder="SMS"
-                  />
+                    <CascadeSelect
+                      // value={selectedActSms}
+                      options={actSmsOptions}
+                      optionLabel="name"
+                      optionGroupLabel="name"
+                      optionGroupChildren={["subItems", "subItems"]}
+                      className="md:w-8rem me-1"
+                      breakpoint="767px"
+                      placeholder="SMS"
+                    />
 
-                  <CascadeSelect
-                    // value={selectedSchedule}
-                    onChange={handleScheduleChange}
-                    options={actScheduleOptions}
-                    optionLabel="name"
-                    optionGroupLabel="name"
-                    className="md:w-10rem me-1"
-                    optionGroupChildren={["subItems", "subItems"]}
-                    breakpoint="767px"
-                    placeholder="Schedule"
-                  />
+                    <CascadeSelect
+                      // value={selectedSchedule}
+                      onChange={handleScheduleChange}
+                      options={actScheduleOptions}
+                      optionLabel="name"
+                      optionGroupLabel="name"
+                      className="md:w-10rem me-1"
+                      optionGroupChildren={["subItems", "subItems"]}
+                      breakpoint="767px"
+                      placeholder="Schedule"
+                    />
 
-                  <SubmitCandidatetoJob />
+                    <SubmitCandidatetoJob />
 
-                  {selectedCustomers.length > 1 && (
-                    <TalentScan />
-                  )}
+                    {selectedCustomers.length > 1 && <TalentScan />}
 
-                  <LinkJobs />
-
-                </span>
+                    <LinkJobs />
+                  </span>
                 </span>
               </Col>
             </Row>
@@ -3488,7 +3766,7 @@ const AllActiveemp = () => {
                           header="Work Hours (in hours)"
                           sortable
                           filter
-                          style={{ minWidth: "14rem" }}
+                          style={{ minWidth: "14rem", textAlign: "center" }}
                         />
                         <Column
                           field="end_date"
@@ -3565,114 +3843,27 @@ const AllActiveemp = () => {
                           <label htmlFor="selectProject" className="block">
                             Project
                           </label>
-                          <Dropdown
-                            id="selectProject"
-                            value={
-                              getSelectedTaskData()?.project_name ||
-                              "VitelGlobal SupportStaff Portal - India"
-                            }
-                            options={[
-                              {
-                                label:
-                                  "VitelGlobal SupportStaff Portal - India",
-                                value:
-                                  "VitelGlobal SupportStaff Portal - India",
-                              },
-                              { label: "PAYG", value: "PAYG" },
-                              {
-                                label: "Omani Channel",
-                                value: "Omani Channel",
-                              },
-                              { label: "Vitel Meet", value: "Vitel Meet" },
-                              {
-                                label: "Project Dashboard",
-                                value: "Project Dashboard",
-                              },
-                              {
-                                label: "AI Generator (Proj-101)",
-                                value: "AI Generator (Proj-101)",
-                              },
-                              {
-                                label: "Sales Automation (Proj-102)",
-                                value: "Sales Automation (Proj-102)",
-                              },
-                              {
-                                label: "Security Enhancement (Proj-103)",
-                                value: "Security Enhancement (Proj-103)",
-                              },
-                              {
-                                label: "Payroll System (Proj-104)",
-                                value: "Payroll System (Proj-104)",
-                              },
-                              {
-                                label: "Tax Compliance (Proj-105)",
-                                value: "Tax Compliance (Proj-105)",
-                              },
-                              {
-                                label: "HR Automation (Proj-106)",
-                                value: "HR Automation (Proj-106)",
-                              },
-                              {
-                                label: "HR Automation (Proj-107)",
-                                value: "HR Automation (Proj-107)",
-                              },
-                              {
-                                label: "Performance System (Proj-108)",
-                                value: "Performance System (Proj-108)",
-                              },
-                              {
-                                label: "Project Management (Proj-109)",
-                                value: "Project Management (Proj-109)",
-                              },
-                              {
-                                label: "Communication System (Proj-110)",
-                                value: "Communication System (Proj-110)",
-                              },
-                              {
-                                label: "Document Management (Proj-111)",
-                                value: "Document Management (Proj-111)",
-                              },
-                            ]}
-                            onChange={e => {
-                              console.log("Project selected:", e.value)
-                            }}
-                            placeholder="Select a Project"
-                            className="w-full bgclr"
-                            style={{ minHeight: "40px" }}
-                            panelStyle={{ zIndex: 1000, minWidth: "100%" }}
-                            itemTemplate={option => (
-                              <div
-                                style={{
-                                  padding: "8px 12px",
-                                  minHeight: "35px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                }}
-                              >
-                                {option.label}
-                              </div>
-                            )}
-                          />
+                          <WorkType1
+                          initialWorkTypes={moduleWorkTypes5}
+                          dropdownWorkTypes={moduleDropdownWorkTypes5}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
+                        />
                         </div>
                       </Col>
                       <Col lg={6}>
                         <label htmlFor="city" className="mb-1">
                           Select Module
                         </label>
-                        <Dropdown
-                          value={selectedMod}
-                          onChange={e => setSelectedMod(e.value)}
-                          options={modOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-                          // filter
-                          className="bgclr"
+                        <WorkType1
+                          initialWorkTypes={moduleWorkTypes}
+                          dropdownWorkTypes={moduleDropdownWorkTypes}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
                         />
                       </Col>
                     </Row>
                     <Row className="mb-2 mt-3">
-                     
-
                       <Col lg={6} className="mt-2">
                         <div className="p-field">
                           <label htmlFor="jobType" className="block">
@@ -3697,8 +3888,8 @@ const AllActiveemp = () => {
                         </div>
                       </Col>
 
-                       <Col lg={12}>
-                        <label htmlFor="city" className="mb-0">
+                      <Col lg={12}>
+                        <label htmlFor="city" className="mb-1">
                           Summary
                         </label>
                         <InputText
@@ -3711,13 +3902,11 @@ const AllActiveemp = () => {
                         <label htmlFor="city" className="mb-1">
                           Status
                         </label>
-                        <Dropdown
-                          value={selectedTask}
-                          onChange={e => setSelectedTask(e.value)}
-                          options={taskOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-                          className="bgclr"
+                        <WorkType1
+                          initialWorkTypes={moduleWorkTypes1}
+                          dropdownWorkTypes={moduleDropdownWorkTypes1}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
                         />
                       </Col>
 
@@ -3736,31 +3925,26 @@ const AllActiveemp = () => {
                       </Col>
 
                       <Col lg={6} className="mb-2">
-                        <label htmlFor="city" className="mb-0">
+                        <label htmlFor="city" className="mb-1">
                           Assigned to
                         </label>
-                        <Dropdown
-                          value={selectedMod}
-                          onChange={e => setSelectedMod(e.value)}
-                          options={modOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-                          // filter
-                          className="bgclr"
+                        <WorkType1
+                          initialWorkTypes={moduleWorkTypes2}
+                          dropdownWorkTypes={moduleDropdownWorkTypes2}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
                         />
                       </Col>
 
                       <Col lg={6} className="mb-3">
-                        <label htmlFor="city" className="mb-0">
+                        <label htmlFor="city" className="mb-1">
                           Add Watcher
                         </label>
-                        <Dropdown
-                          value={selectedAssto}
-                          onChange={e => setSelectedAssto(e.value)}
-                          options={asstoOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-                          className="bgclr"
+                        <WorkType1
+                          initialWorkTypes={moduleWorkTypes22}
+                          dropdownWorkTypes={moduleDropdownWorkTypes22}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
                         />
                       </Col>
                     </Row>
@@ -3796,7 +3980,7 @@ const AllActiveemp = () => {
 
                     <Row className="mb-2 mt-1">
                       <Col lg={6}>
-                        <label htmlFor="city" className="mb-0">
+                        <label htmlFor="city" className="mb-1">
                           Work Hours (in hours)
                         </label>
                         <InputText
@@ -3855,13 +4039,11 @@ const AllActiveemp = () => {
                         <label htmlFor="city" className="mb-0">
                           Work Type Status
                         </label>
-                        <Dropdown
-                          value={selectedTask}
-                          onChange={e => setSelectedTask(e.value)}
-                          options={taskOptions}
-                          optionLabel="name"
-                          placeholder="--select--"
-                          className="bgclr"
+                       <WorkType1
+                          initialWorkTypes={moduleWorkTypes2}
+                          dropdownWorkTypes={moduleDropdownWorkTypes2}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
                         />
                       </Col>
                       <Col lg={6}>
@@ -3917,6 +4099,39 @@ const AllActiveemp = () => {
                         <small className="text-muted">
                           Eg: (jpeg,png,pdf,jpg)
                         </small>
+                      </Col>
+                    </Row>
+
+                     <Row className="mb-3 mt-1">
+                      <Col lg={6}>
+                        <label
+                          htmlFor="availabilityDate"
+                          className="mb-1 avbdate"
+                        >
+                          Linked WorkType
+                        </label>
+                         <WorkType1
+                          initialWorkTypes={moduleWorkTypes3}
+                          dropdownWorkTypes={moduleDropdownWorkTypes3}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
+                        />
+
+                       
+                      </Col>
+                    </Row>
+                     <Row className="mb-3 mt-0">
+                      <Col lg={6}>
+                       
+                         <WorkType1
+                          initialWorkTypes={moduleWorkTypes4}
+                          dropdownWorkTypes={moduleDropdownWorkTypes4}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
+                          placeholder="Select Work Item"
+                        />
+
+                       
                       </Col>
                     </Row>
 
@@ -4027,7 +4242,7 @@ const AllActiveemp = () => {
             >
               <div className="sidebar-header">
                 <h3 className="head">
-                  <i className="pi pi-users"></i> Task -{" "}
+                  <i className="pi pi-users"></i>{" "}
                   {getSelectedTaskData()?.task_code || ""} -{" "}
                   {getSelectedTaskData()?.task_name || ""}
                 </h3>
@@ -4046,7 +4261,7 @@ const AllActiveemp = () => {
                 </div>
               </div>
               <TabView className="mt-4">
-                <TabPanel header="Task" leftIcon="pi pi-user mr-2">
+                <TabPanel header={getSelectedTaskData()?.task_code?.split('-')[0] || ""} leftIcon="pi pi-user mr-2">
                   <Row>
                     <Col lg={12}>
                       <Accordion activeIndex={0}>
@@ -4054,7 +4269,7 @@ const AllActiveemp = () => {
                           header={
                             <span className="flex align-items-center gap-2 w-full">
                               <span className="white-space-nowrap">
-                                TASK INFORMATION
+                                {getSelectedTaskData()?.task_code?.split('-')[0]?.toUpperCase() || ""}  INFORMATION
                               </span>
                               <Badge value="-" className="ml-auto" />
                             </span>
@@ -4547,7 +4762,7 @@ const AllActiveemp = () => {
                                 <Col lg={12}>
                                   <div className="p-field">
                                     <label htmlFor="taskCode" className="block">
-                                      Task Code
+                                       Code
                                     </label>
                                     <InputText
                                       id="taskCode"
@@ -4648,7 +4863,7 @@ const AllActiveemp = () => {
                                       htmlFor="selectTaskStatus"
                                       className="block"
                                     >
-                                      Task Status
+                                       Status
                                     </label>
                                     <Dropdown
                                       id="selectTaskStatus"
@@ -4811,7 +5026,7 @@ const AllActiveemp = () => {
                                     htmlFor="taskDescription"
                                     className="block"
                                   >
-                                    Task Description
+                                    Description
                                   </label>
                                   <InputTextarea
                                     id="taskDescription"

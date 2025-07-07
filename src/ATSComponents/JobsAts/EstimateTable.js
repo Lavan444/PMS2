@@ -24,73 +24,73 @@ const EstimateTable = () => {
   // ]);
 
    const [phases, setPhases] = useState([
-    {
-      phase: 'Discovery / Initiation',
-      startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-01-14'),
-      deliverables: ['Project charter', 'Goals & scope', 'Stakeholder identification'],
-      responsible: 'Project Manager'
-    },
+    // {
+    //   phase: 'Discovery / Initiation',
+    //   startDate: new Date('2024-01-01'),
+    //   endDate: new Date('2024-01-14'),
+    //   deliverables: ['Project charter', 'Goals & scope', 'Stakeholder identification'],
+    //   responsible: 'Project Manager'
+    // },
     {
       phase: 'Planning / Requirements',
-     startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-01-14'),
+     startDate: new Date('2024-04-01'),
+      endDate: new Date('2024-04-14'),
       deliverables: [
         'Functional & non-functional requirements',
         'User stories / Use cases',
-        'Initial backlog Epic / Story / Task'
+        // 'Initial backlog Epic / Story / Task'
       ],
       responsible: 'Business Analyst'
     },
     {
       phase: 'Design (UI/UX & Architecture)',
-     startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-01-14'),
+     startDate: new Date('2024-04-14'),
+      endDate: new Date('2024-04-28'),
       deliverables: [
         'Wireframes / Mockups',
         'Architecture diagrams',
-        'Design documents Story / Sub-task'
+        // 'Design documents Story / Sub-task'
       ],
       responsible: 'UI/UX Designer'
     },
     {
       phase: 'Development (Iterations / Sprints)',
-      startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-01-14'),
+      startDate: new Date('2024-04-28'),
+      endDate: new Date('2024-05-12'),
       deliverables: [
         'Working features per sprint',
         'Code check-ins',
-        'Unit tests Story / Task / Sub-task / Bug'
+        // 'Unit tests Story / Task / Sub-task / Bug'
       ],
       responsible: 'Software Developer'
     },
     {
       phase: 'Testing (QA & UAT)',
-      startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-01-14'),
+      startDate: new Date('2024-05-12'),
+      endDate: new Date('2024-05-26'),
       deliverables: [
         'Test cases',
         'Test execution',
-        'Bug reports',
-        'UAT sign-off Task / Bug'
+        // 'Bug reports',
+        // 'UAT sign-off Task / Bug'
       ],
       responsible: 'QA Engineer'
     },
     {
       phase: 'Deployment & Go-Live',
-      startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-01-14'),
+      startDate: new Date('2024-05-26'),
+      endDate: new Date('2024-06-09'),
       deliverables: [
         'Deployment plan',
         'Production deployment',
-        'Release notes Task'
+        // 'Release notes Task'
       ],
       responsible: 'DevOps Engineer'
     },
     {
       phase: 'Post-Go-Live Support',
-      startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-01-14'),
+      startDate: new Date('2024-06-09'),
+      endDate: new Date('2024-06-23'),
       deliverables: [
         'Issue monitoring',
         'Patches or fixes'
@@ -386,6 +386,10 @@ const EstimateTable = () => {
             border: none !important;
             box-shadow: none !important;
           }
+          .bold-phase-row {
+            font-weight: bold !important;
+            background: #f5f7fa !important;
+          }
         `}
       </style>
       <div
@@ -400,7 +404,8 @@ const EstimateTable = () => {
           responsiveLayout="scroll"
           className="p-datatable-sm custom-ats-table"
           showGridlines={false}
-          style={{ border: 'none', boxShadow: 'none' }}
+          style={{ border: 'none', boxShadow: 'none', fontFamily:'600' }}
+          rowClassName={rowData => rowData.phase === 'Development (Iterations / Sprints)' ? 'bold-phase-row' : ''}
         >
           <Column field="phase" header="Phase" body={(rowData) => ellipsisBodyTemplate(rowData.phase)} style={{ width: '20%' }}></Column>
           <Column

@@ -202,7 +202,7 @@ const JobsAllactiveemp = () => {
     }
   }
 
-  document.title = "ATS | React Admin & Dashboard Template"
+  document.title = "PMS | React Admin & Dashboard Template"
 
 
   const [customers, setCustomers] = useState([]);

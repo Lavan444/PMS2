@@ -264,7 +264,7 @@ const JobMyActive = () => {
     ])
     const [activeIndex, setActiveIndex] = useState(0);
 
-    document.title = "ATS - Dashboard"
+    document.title = "PMS - Dashboard"
 
 
     const [customers, setCustomers] = useState([]);

@@ -289,7 +289,7 @@ const ContactsArchived = () => {
         }
     }
 
-    document.title = "ATS - Dashboard"
+    document.title = "PMS - Dashboard"
 
 
     const [customers, setCustomers] = useState([]);

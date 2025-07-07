@@ -30,6 +30,7 @@ import {
   changeSidebarType,
 } from "../../store/actions";
 import ReminderPopup from 'ATSComponents/Common/ReminderPopup';
+import CreateShortform from 'ATSComponents/Common/CreateShortform';
 
 const Header = props => {
 
@@ -76,11 +77,11 @@ const Header = props => {
   const handleCandidateSelect = (option) => setCandidateOption(option);
 
   const [formValues, setFormValues] = useState({
-    from: "",
-    to: "",
-    subject: "",
-    hasWords: "",
-    doesntHave: "",
+    from: " ",
+    to: " ",
+    subject: " ",
+    hasWords: " ",
+    doesntHave: " ",
   });
 
   const handleChange = (e) => {
@@ -95,6 +96,7 @@ const Header = props => {
 
   const [search, setsearch] = useState(false);
   const [singlebtn, setSinglebtn] = useState(false);
+  const [showCreateShortform, setShowCreateShortform] = useState(false);
 
 
   console.log('propsprops', props.toggleMenuCallback);
@@ -166,9 +168,9 @@ const Header = props => {
 
   // advance seearch start for making 
 
-  const [inputContains, setInputContains] = useState(""); 
-  const [excludedSearch, setExcludedSearch] = useState(""); 
-  const [exactSearch, setExactSearch] = useState(""); 
+  const [inputContains, setInputContains] = useState("");
+  const [excludedSearch, setExcludedSearch] = useState("");
+  const [exactSearch, setExactSearch] = useState("");
 
   const handleInputContains = (e) => {
     setInputContains(e.target.value); // Update state when user types
@@ -192,6 +194,7 @@ const Header = props => {
             >
               <i className="pi pi-bars fs-6"></i>
             </button>
+
 
             <div className="navbar-brand-box">
               <Link to="/" className="logo logo-dark">
@@ -217,18 +220,18 @@ const Header = props => {
 
             <div className="app-search d-none d-lg-block" >
               <div className="position-relative d-flex align-items-center" style={{ backgroundColor: "#eaf1fb", borderRadius: "30px" }}>
-                <div className="input-wrapper" style={{ position: "relative"}}>
+                <div className="input-wrapper" style={{ position: "relative" }}>
                   <input
                     type="text"
                     className="form-control"
                     placeholder={props.t("Advanced Search") + "..."}
-                    style={{ paddingRight: "40px",width:"600px",  fontFamily: "Roboto, sans-serif", fontSize:"15px" }} 
+                    style={{ paddingRight: "40px", width: "600px", fontFamily: "Roboto, sans-serif", fontSize: "15px" }}
                   />
                   <span
                     style={{
                       position: "absolute",
                       right: "10px",
-                      top:"14px",
+                      top: "14px",
                       cursor: "pointer",
                       display: "flex",
                       alignItems: "center",
@@ -237,7 +240,7 @@ const Header = props => {
                     <i className="pi pi-sliders-h" onClick={() => setAdvansearch(true)}></i>
                   </span>
                 </div>
-              
+
                 <div className="card flex justify-content-center headpop-main">
                   <Dialog
                     className="header-pop"
@@ -250,7 +253,7 @@ const Header = props => {
                   >
                     <div>
                       <Row>
-                       
+
                         <Col xl={12} className="bg-form advan-modal pe-0">
                           <Card className="popoup-clr bg-form">
                             <CardBody>
@@ -291,27 +294,27 @@ const Header = props => {
                                               id="integer"
                                               className="w-full"
                                               placeholder="Contains"
-                                              value={inputContains} 
-                                              onChange={handleInputContains} 
+                                              value={inputContains}
+                                              onChange={handleInputContains}
                                             />
                                           </Col>
                                         </Row>
 
                                         <Row className="mt-2 align-items-center">
                                           <Col xl={12}>
-                                          <InputText
+                                            <InputText
                                               id="contains"
                                               value={excludedSearch}
                                               className="w-full"
                                               placeholder="Excluded"
-                                              onChange={(e) => setExcludedSearch(e.target.value) }
+                                              onChange={(e) => setExcludedSearch(e.target.value)}
                                             />
                                           </Col>
                                         </Row>
 
                                         <Row className="mt-2 align-items-center">
                                           <Col xl={12}>
-                                          <InputText
+                                            <InputText
                                               id="exact"
                                               value={exactSearch}
                                               className="w-full"
@@ -343,7 +346,7 @@ const Header = props => {
                                                           {/* Render dropdown fields */}
                                                           {fields.map(field => (
                                                             <div key={field.id} className="p-field p-grid p-align-center p-mb-2 mt-2">
-                                                          
+
                                                               <button
                                                                 type="button"
                                                                 onClick={() => handleRemoveField(field.id)}
@@ -433,19 +436,62 @@ const Header = props => {
               </div>
             </div>
 
-            <AddMenu/>
+
+
+
+
+            <AddMenu />
+
+            {/* Create Project Button */}
+            {/* <div className="d-flex align-items-center me-3">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => setShowCreateShortform(true)}
+                style={{
+                  backgroundColor: '#3b82f6',
+                  borderColor: '#3b82f6',
+                  color: 'white',
+                  fontSize: '13px',
+                  padding: '8px 16px',
+                  borderRadius: '6px',
+                  fontWeight: '500',
+                  boxShadow: '0 2px 4px rgba(59, 130, 246, 0.2)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = '#2563eb';
+                  e.target.style.transform = 'translateY(-1px)';
+                  e.target.style.boxShadow = '0 4px 8px rgba(59, 130, 246, 0.3)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = '#3b82f6';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 2px 4px rgba(59, 130, 246, 0.2)';
+                }}
+              >
+                <i className="pi pi-plus me-1" style={{ fontSize: '12px' }}></i>
+                Create Project
+              </button>
+            </div> */}
 
           </div>
 
+          {/* <CreateShortform
+            visible={showCreateShortform}
+            onHide={() => setShowCreateShortform(false)}
+          /> */}
 
           <div className="d-flex" >
-      
+
             <HelpMenu />
 
             {/* <NotificationDropdown /> */}
 
             <ProfileMenu />
-          <ReminderPopup/>
+            <ReminderPopup />
+
+
 
 
             <div
@@ -487,9 +533,4 @@ export default connect(mapStatetoProps, {
   showRightSidebarAction,
   toggleLeftmenu,
   changeSidebarType,
-})(withTranslation()(Header));
-
-
-
-
-
+})(withTranslation()(Header));  

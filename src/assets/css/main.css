@@ -3358,7 +3358,7 @@ ul {
 }
 
 .segmented-toggle button.active {
-  background: #ececf1;
+  background: #d3e3fd;
   color: #222;
   font-weight: 700;
   box-shadow: 0 1px 2px rgba(60,60,60,0.03);
@@ -3372,5 +3372,66 @@ ul {
 .timesheet-container .p-dropdown.bgclr{
   border: 1px solid #ececf1 !important;
 }
+
+
+.sidebar-ellipsis {
+  display: inline-block;
+  max-width: 160px; /* Adjust as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.metismenu .has-arrow {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+}
+
+.metismenu .has-arrow .pi {
+  font-size: 1.1em;
+  margin-right: 8px;
+}
+
+.sidebar-ellipsis {
+  display: inline-block;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+/* #sidebar-menu ul li a {
+  font-weight: bold;
+} */
+
+/* Only active sidebar items are bold */
+/* #sidebar-menu ul li a, */
+/* #sidebar-menu ul li span, */
+#sidebar-menu ul li ul.sub-menu li a {  
+  font-weight: 400 !important; /* Normal for all */
+}
+
+/* #sidebar-menu ul li.mm-active > a, */
+/* #sidebar-menu ul li.mm-active > .has-arrow, */
+/* #sidebar-menu ul li.active > a, */
+/* #sidebar-menu ul li.active > .has-arrow, */
+/* #sidebar-menu ul li.mm-active > span, */
+/* #sidebar-menu ul li.active > span, */
+#sidebar-menu ul li ul.sub-menu li.mm-active > a,
+#sidebar-menu ul li ul.sub-menu li.active > a 
+{
+  font-weight: 600 !important; /* Bold only for active */
+  /* color: #393a3f;  */
+}
+
+ .bold-phase-row {
+            font-weight: 600 !important;
+            background: #f5f7fa !important;
+          }
+
+
 
 /* time sheet start */

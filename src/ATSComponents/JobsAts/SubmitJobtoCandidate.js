@@ -118,24 +118,24 @@ const SubmitJobtoCandidate = () => {
    const [jobs, setJobs] = useState([
         {
             id: "1",
-            designation: "Senior Software Engineer",
+            designation: "UI/UX Developer",
             name: "Mahesh Kumar Bhoga",
             contactemail: "mahesh@varundigitalmedia.com",
             company: "Varun Digital Media",
             skills: "HTML, CSS, JavaScript, React.js, Node.js",
             email: "lavan9@infosys.com",
-            phno: "8967656341, 9876543210",
+            phno: "UI/UX Developer",
             exp: "2 years"
         },
         {
             id: "2",
-            designation: "Software Engineer",
+            designation: "Software Developer",
             name: "Pavan Kumar",
-            contactemail: "mahesh@varundigitalmedia.com",
+            contactemail: "pavan@varundigitalmedia.com",
             company: "Varun Digital Media",
             skills: "HTML, CSS, JavaScript, React.js, Node.js",
             email: "venkatalaxmi9@cognizant.com",
-            phno: "8967656341, 9876543210",
+            phno: "Software Developer",
             exp: "2 years"
         },
         {
@@ -146,7 +146,7 @@ const SubmitJobtoCandidate = () => {
             company: "Varun Digital Media",
             skills: "On Page SEO, Off Page SEO",
             email: "bhargavi9@capgemini.com",
-            phno: "8967656341, 9876543210",
+            phno: "Business Analyst",
             exp: "2 years"
         },
         {
@@ -157,7 +157,7 @@ const SubmitJobtoCandidate = () => {
             company: "Varun Digital Media",
             skills: "Blog Writing, Article Writing",
             email: "nagendra9@catechnologies.com",
-            phno: "8967656341, 9876543210",
+            phno: "Backend Developer",
             exp: "2 years"
         },
         {
@@ -168,7 +168,7 @@ const SubmitJobtoCandidate = () => {
             company: "Pranathi Software Services",
             skills: "Python, Flask, Django",
             email: "Saikumar9@l&tmindtre.com",
-            phno: "8967656341, 9876543210",
+            phno: "Frontend Developer",
             exp: "2 years"
         }
     ]);
@@ -782,7 +782,8 @@ const designationEditor = (options) => {
                 >
                     <Column selectionMode="multiple" style={{ width: "3em" }} />
                     <Column field="name" header="Employee Name" />
-                    <Column field="designation" header="Project Role" />
+                    {/* <Column field="designation" header="Designation" /> */}
+                    <Column field="phno" header="Designation" />
                     
                    {/* <Column
                         field="designation"
@@ -794,15 +795,48 @@ const designationEditor = (options) => {
                     
 
 
-                 <Column
+                 {/* <Column
+                    field="designation"
+                    header="Project Role"
+                    style={{ minWidth: '180px', fontWeight: 'bold' }}
+                    body={(rowData, options) => (
+                        <WorkType1
+                        initialWorkTypes={designationWorkTypes}
+                        dropdownWorkTypes={designationDropdownWorkTypes}
+                        onWorkTypesChange={() => {}} // No-op: don't update options
+                        onSelectionChange={handleDesignationSelectionChange}
+                        rowData={rowData}
+                        rowIndex={options.rowIndex}
+                        mode="display"
+                        className="bgclr"
+                        />
+                    )}
+                    editor={(options) => (
+                        <WorkType1
+                        initialWorkTypes={designationWorkTypes}
+                        dropdownWorkTypes={designationDropdownWorkTypes}
+                        onWorkTypesChange={() => {}} // No-op: don't update options
+                        onSelectionChange={val => options.editorCallback(val.name || val)}
+                        rowData={options.rowData}
+                        rowIndex={options.rowIndex}
+                        mode="edit"
+                        editorCallback={options.editorCallback}
+                        className="bgclr"
+                        />
+                    )}
+                    onCellEditComplete={onCellEditComplete}
+                    /> */}
+
+        <Column
   field="designation"
-  header="Designation"
+  header="Project Role"
   style={{ minWidth: '180px', fontWeight: 'bold' }}
   body={(rowData, options) => (
     <WorkType1
       initialWorkTypes={designationWorkTypes}
       dropdownWorkTypes={designationDropdownWorkTypes}
-      onWorkTypesChange={() => {}} // No-op: don't update options
+      value={rowData.designation} // Pass the current row's designation
+      onWorkTypesChange={() => {}}
       onSelectionChange={handleDesignationSelectionChange}
       rowData={rowData}
       rowIndex={options.rowIndex}
@@ -814,7 +848,8 @@ const designationEditor = (options) => {
     <WorkType1
       initialWorkTypes={designationWorkTypes}
       dropdownWorkTypes={designationDropdownWorkTypes}
-      onWorkTypesChange={() => {}} // No-op: don't update options
+      value={options.rowData.designation} // Pass the current row's designation
+      onWorkTypesChange={() => {}}
       onSelectionChange={val => options.editorCallback(val.name || val)}
       rowData={options.rowData}
       rowIndex={options.rowIndex}
@@ -825,8 +860,6 @@ const designationEditor = (options) => {
   )}
   onCellEditComplete={onCellEditComplete}
 />
-
-
 
 <Column field="company" header="Company" />
                   

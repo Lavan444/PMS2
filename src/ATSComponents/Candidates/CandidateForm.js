@@ -3376,7 +3376,7 @@ useEffect(() => {
             <Col lg={6} md={6} xs={12}>
               <p className="d-flex justify-content-start mb-0">
                 {" "}
-                &copy; 2025 Bharat ATS. All rights reserved.
+                &copy; 2025 Bharat PMS. All rights reserved.
               </p>
             </Col>
             <Col lg={6} md={6} xs={12}>

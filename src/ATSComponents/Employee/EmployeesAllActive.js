@@ -129,7 +129,7 @@ const EmployeeAllActive = () => {
   }
   // action items
 
-  document.title = "ATS | React Admin & Dashboard Template"
+  document.title = "PMS | React Admin & Dashboard Template"
 
   const dt = useRef(null)
 
@@ -797,8 +797,30 @@ const EmployeeAllActive = () => {
       CreatedBy: "Harish",
       Yearsofexperience: "2",
     },
-    {
+     {
       id: 2,
+      Firstname: "Ruchitha",
+      Lastname: "Emmadi",
+      Company: "Vitel Global Communications",
+      JobTitle: "Frontend Developer",
+      PrimarySkills: "JavaScript, React",
+      Email: "ruchitha9@tarundigitalmedia.com",
+      MobilePhone: "9876543212",
+      City: "Hyderabad",
+      Status: "Active",
+      EmployeeType: "Full-Time",
+      Relocation: "Yes",
+      AvailabilityDate: "18-02-2025",
+      ResumeAttachment: "Ruchitha-1.pdf",
+      Categories: "Frontend",
+      Groups: "React",
+      CreateDate: "16-02-2025",
+      EditDate: "28-02-2025",
+      CreatedBy: "Bhavani",
+      Yearsofexperience: "1.5",
+    },
+    {
+      id: 3,
       Firstname: "Venkata Laxmi",
       Lastname: "Valle",
       Company: "Pranathis Software Services",
@@ -819,28 +841,7 @@ const EmployeeAllActive = () => {
       CreatedBy: "Harish",
       Yearsofexperience: "2",
     },
-    {
-      id: 3,
-      Firstname: "Bhargavi",
-      Lastname: "Sunanda",
-      Company: "Vitel Global Communications",
-      JobTitle: "SEO",
-      PrimarySkills: "On Page SEO, Off Page SEO",
-      Email: "bhargavi9@capgemini.com",
-      MobilePhone: "9873216550",
-      City: "Hyderabad",
-      Status: "Active",
-      EmployeeType: "Full-Time",
-      Relocation: "Yes",
-      AvailabilityDate: "01-12-2024",
-      ResumeAttachment: "Bhargavi-1.pdf",
-      Categories: "SEO",
-      Groups: "On Page SEO",
-      CreateDate: "01-10-2025",
-      EditDate: "18-11-2025",
-      CreatedBy: "Bhavani",
-      Yearsofexperience: "3",
-    },
+    
     {
       id: 4,
       Firstname: "Nagendra",
@@ -931,26 +932,27 @@ const EmployeeAllActive = () => {
     },
     {
       id: 8,
-      Firstname: "Ruchitha",
-      Lastname: "Emmadi",
+      Firstname: "Bhargavi",
+      Lastname: "Sunanda",
       Company: "Vitel Global Communications",
-      JobTitle: "Frontend Developer",
-      PrimarySkills: "JavaScript, React",
-      Email: "ruchitha9@tarundigitalmedia.com",
-      MobilePhone: "9876543212",
+      JobTitle: "SEO",
+      PrimarySkills: "On Page SEO, Off Page SEO",
+      Email: "bhargavi9@capgemini.com",
+      MobilePhone: "9873216550",
       City: "Hyderabad",
       Status: "Active",
       EmployeeType: "Full-Time",
       Relocation: "Yes",
-      AvailabilityDate: "18-02-2025",
-      ResumeAttachment: "Ruchitha-1.pdf",
-      Categories: "Frontend",
-      Groups: "React",
-      CreateDate: "16-02-2025",
-      EditDate: "28-02-2025",
+      AvailabilityDate: "01-12-2024",
+      ResumeAttachment: "Bhargavi-1.pdf",
+      Categories: "SEO",
+      Groups: "On Page SEO",
+      CreateDate: "01-10-2025",
+      EditDate: "18-11-2025",
       CreatedBy: "Bhavani",
-      Yearsofexperience: "1.5",
+      Yearsofexperience: "3",
     },
+   
     {
       id: 9,
       Firstname: "Chandana",
@@ -3562,10 +3564,12 @@ first={pageState.first}
                         >
                           Availability Date
                         </label>
-                        <Calendar value={createDate}
+                       <div>
+                         <Calendar value={createDate} className="w-100"
                           placeholder="02-04-2025"
                           onChange={e => setCreateDate(e.target.value)}
                           showIcon />
+                       </div>
                         {/* <input
                             type="date"
                             id="availabilityDate"

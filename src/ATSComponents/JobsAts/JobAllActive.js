@@ -66,11 +66,15 @@ import EstimateTable from "./EstimateTable"
 const JobAllActive = ({ toggleSidebar }) => {
   const [PoliciesfilesErrorMessagepan, setPoliciesfilesErrorMessagepan] =
     useState()
-  const [selectedProjectStatus, setSelectedProjectStatus] = useState("Active"); // default value
+  const [selectedProjectStatus, setSelectedProjectStatus] = useState("Active") // default value
   const { first, rows } = useSelector(state => state.calendar.pagination)
 
   // schedule text editor
-  const [scheduleText, setScheduleText] = useState('');
+  const [scheduleText, setScheduleText] = useState("")
+
+  // tab active index view start
+
+  const [activeTabIndex, setActiveTabIndex] = useState(0); // 0 = first tab, 1 = second tab, etc.
 
   const {
     register,
@@ -96,72 +100,68 @@ const JobAllActive = ({ toggleSidebar }) => {
 
   const customWorkTypes1 = [
     {
-      name: 'Discovery / Initiation',
-      color: '#000000',
-      id: 'active1',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: "Discovery / Initiation",
+      color: "#000000",
+      id: "active1",
+      statuses: ["Pending", "Processing", "Completed"],
     },
     {
-      name: 'Planning / Requirements',
-      color: '#000000',
-      id: 'active2',
-      statuses: ['Pending', 'Processing', 'Completed']
-    },
-
-    {
-      name: ' Design',
-      color: '#000000',
-      id: 'active3',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: "Planning / Requirements",
+      color: "#000000",
+      id: "active2",
+      statuses: ["Pending", "Processing", "Completed"],
     },
 
     {
-      name: 'Development',
-      color: '#000000',
-      id: 'active1',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: " Design",
+      color: "#000000",
+      id: "active3",
+      statuses: ["Pending", "Processing", "Completed"],
     },
 
-  ];
-
-
+    {
+      name: "Development",
+      color: "#000000",
+      id: "active1",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+  ]
 
   const customWorkTypes4 = [
     {
-      name: 'BA',
-      color: '#000000',
-      id: 'active1',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: "BA",
+      color: "#000000",
+      id: "active1",
+      statuses: ["Pending", "Processing", "Completed"],
     },
     {
-      name: 'Development',
-      color: '#000000',
-      id: 'active2',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: "Development",
+      color: "#000000",
+      id: "active2",
+      statuses: ["Pending", "Processing", "Completed"],
     },
 
     {
-      name: 'QA',
-      color: '#000000',
-      id: 'active3',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: "QA",
+      color: "#000000",
+      id: "active3",
+      statuses: ["Pending", "Processing", "Completed"],
     },
 
     {
-      name: 'DevOps',
-      color: '#000000',
-      id: 'active1',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: "DevOps",
+      color: "#000000",
+      id: "active1",
+      statuses: ["Pending", "Processing", "Completed"],
     },
 
     {
-      name: 'Design',
-      color: '#000000',
-      id: 'active1',
-      statuses: ['Pending', 'Processing', 'Completed']
+      name: "Design",
+      color: "#000000",
+      id: "active1",
+      statuses: ["Pending", "Processing", "Completed"],
     },
-
-  ];
+  ]
   const selectedEmailTemplate = (option, props) => {
     if (option) {
       return (
@@ -319,56 +319,55 @@ const JobAllActive = ({ toggleSidebar }) => {
   ])
   const [activeIndex, setActiveIndex] = useState(0)
 
-  document.title = "ATS - Dashboard"
+  document.title = "PMS - Dashboard"
 
   const [customers, setCustomers] = useState([])
   const [teamData, setTeamData] = useState([
     {
       name: "Mahesh Kumar Bhoga",
-      description: "Senior Software Engineer",
+      description: "UI/UX Designer",
       role: "Manager",
-      email: "maheshkumar@example.com",
+      email: "maheshkumar@varundigitalmedia.com",
       phone: "9876543210",
     },
     {
       name: "Pavan Kumar",
-      description: "Senior Software Engineer",
+      description: "Software Developer",
       role: "Team Lead",
-      email: "maheshkumar@example.com",
-      phone: "9876543210",
+      email: "pavankumar@varundigitalmedia.com",
+      phone: "9876543214",
     },
-     {
+    {
       name: "Ravi Teja",
       description: "Business Analyst",
       role: "BA",
-      email: "pavankumar@example.com",
+      email: "ravi@varundigitalmedia.com",
       phone: "9876543212",
     },
     {
       name: "Lavan Kumar",
       description: "Frontend Developer",
       role: "Developer",
-      email: "lavankumar@example.com",
+      email: "lavankumar@pranathsoftwareservices.com",
       phone: "9876543211",
     },
     {
       name: "Teja",
       description: "Backend Developer",
       role: "Developer",
-      email: "teja@example.com",
-      phone: "9876543212",
+      email: "teja@varundigitalmedia.com",
+      phone: "9876543219",
     },
     {
       name: "Ashok",
       description: "Test Engineer",
       role: "QA",
-      email: "ashok@example.com",
-      phone: "9876543212",
+      email: "ashok@varundigitalmedia.com",
+      phone: "9876543215",
     },
-    
-  ]);
+  ])
 
-  const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
+  const [selectedTeamMembers, setSelectedTeamMembers] = useState([])
 
   const onGlobalFilterChange = e => {
     const value = e.target.value
@@ -559,7 +558,7 @@ const JobAllActive = ({ toggleSidebar }) => {
         let results = response.data.results
         setCustomers(results)
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const getCompanydata = async () => {
@@ -576,7 +575,7 @@ const JobAllActive = ({ toggleSidebar }) => {
         let results = response.data.results
         setcompamyitem(results)
       }
-    } catch (error) { }
+    } catch (error) {}
   }
   const getHirringmanager = async () => {
     try {
@@ -592,7 +591,7 @@ const JobAllActive = ({ toggleSidebar }) => {
         let results = response.data.results
         sethirringdata(results)
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   const deleteHandler = async () => {
@@ -643,6 +642,8 @@ const JobAllActive = ({ toggleSidebar }) => {
     create_date: { value: null, matchMode: FilterMatchMode.CONTAINS },
     edit_date: { value: null, matchMode: FilterMatchMode.CONTAINS },
     created_by: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    status: { value: null, matchMode: FilterMatchMode.CONTAINS },
+    workplace_type: { value: null, matchMode: FilterMatchMode.CONTAINS },
   })
 
   const [jobsData, setJobsData] = useState([
@@ -656,6 +657,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "9", // Company ID
       job_location: "Hyderabad", // Location of job
       workplace_type: "Due some issues", // Reason for delay
+      status: "To do",
       job_type: "24-05-2025", // Target deployment or review date
       primary_skills: "HTML, CSS, JavaScript", // Required skills
       experience_required: "3 Years", // Experience
@@ -683,6 +685,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "12",
       job_location: "Bangalore",
       workplace_type: "Awaiting data source integration",
+      status: "In progress",
       job_type: "15-06-2025",
       primary_skills: "Python, NLP, Regex",
       experience_required: "2 Years",
@@ -709,6 +712,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "14",
       job_location: "Chennai",
       workplace_type: "Dependency on third-party API",
+      status: "Done",
       job_type: "10-07-2025",
       primary_skills: "React, Node.js, Dialogflow",
       experience_required: "4 Years",
@@ -735,6 +739,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "10",
       job_location: "Mumbai",
       workplace_type: "Awaiting design mockups",
+      status: "To do",
       job_type: "05-08-2025",
       primary_skills: "TensorFlow, OpenCV, Python",
       experience_required: "3 Years",
@@ -761,6 +766,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "11",
       job_location: "Noida",
       workplace_type: "Pending hardware testing",
+      status: "In progress",
       job_type: "12-06-2025",
       primary_skills: "Python, SpeechRecognition, DeepSpeech",
       experience_required: "4 Years",
@@ -788,6 +794,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "8",
       job_location: "Pune",
       workplace_type: "Blocked on analytics integration",
+      status: "In progress",
       job_type: "28-06-2025",
       primary_skills: "Python, Pandas, Scikit-learn",
       experience_required: "2 Years",
@@ -814,6 +821,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "15",
       job_location: "Delhi",
       workplace_type: "Delay in UI feedback",
+      status: "To do",
       job_type: "14-07-2025",
       primary_skills: "JavaScript, Node.js, MongoDB",
       experience_required: "3 Years",
@@ -840,6 +848,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "13",
       job_location: "Ahmedabad",
       workplace_type: "Stalled on test case setup",
+      status: "Done",
       job_type: "25-06-2025",
       primary_skills: "React, Redux, Firebase",
       experience_required: "2 Years",
@@ -866,6 +875,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "10",
       job_location: "Kolkata",
       workplace_type: "Model training delay",
+      status: "In progress",
       job_type: "10-09-2025",
       primary_skills: "Python, Transformers, HuggingFace",
       experience_required: "3 Years",
@@ -892,6 +902,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "16",
       job_location: "Gurgaon",
       workplace_type: "Blocked on browser plugin API",
+      status: "In progress",
       job_type: "20-07-2025",
       primary_skills: "JavaScript, Chrome API, ML",
       experience_required: "3 Years",
@@ -950,10 +961,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       edit_date: { value: null, matchMode: FilterMatchMode.CONTAINS },
       created_by: { value: null, matchMode: FilterMatchMode.CONTAINS },
     })
-
   }
-
-
 
   const dt = useRef(null)
 
@@ -1084,14 +1092,14 @@ const JobAllActive = ({ toggleSidebar }) => {
 
   const [receivedJobsFilters, setReceivedJobsFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-    status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    jobid: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    job_title: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    candidate: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    contact: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    company: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    date_time: { value: null, matchMode: FilterMatchMode.DATE_IS },
-    user_id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    task_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    task_code: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    task_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+     "Estimated Work Hours": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    start_date: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    end_date: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    project_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    assigned_to: { value: null, matchMode: FilterMatchMode.CONTAINS },
   })
 
   const receivedJobs = [
@@ -1115,8 +1123,6 @@ const JobAllActive = ({ toggleSidebar }) => {
       project_name: "Sales Automation (Proj-102)",
       assigned_to: "Kiran Rao",
     },
-
-
   ]
 
   const [selectedReceivedJobs, setSelectedReceivedJobs] = useState([])
@@ -1324,13 +1330,15 @@ const JobAllActive = ({ toggleSidebar }) => {
     task_status: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     task_code: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     task_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    "Estimated Work Hours": { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    "Estimated Work Hours": {
+      value: null,
+      matchMode: FilterMatchMode.STARTS_WITH,
+    },
     start_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
     end_date: { value: null, matchMode: FilterMatchMode.DATE_IS },
     project_name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     assigned_to: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  });
-
+  })
 
   const placedJobs = [
     {
@@ -1538,7 +1546,7 @@ const JobAllActive = ({ toggleSidebar }) => {
         docSubject: [
           "Project charter",
           "Goals & scope",
-          "Stakeholder identification"
+          "Stakeholder identification",
         ],
         created_at: "Jun 20 - July 15 2025",
         responsible: "BA Team",
@@ -1550,15 +1558,15 @@ const JobAllActive = ({ toggleSidebar }) => {
         id: "2",
         certificate_name: "Planning / Requirements",
         docSubject: [
-          "Job Feedback Report for Lavankumar Kalvala - Web Developer"
+          "Job Feedback Report for Lavankumar Kalvala - Web Developer",
         ],
         created_at: "May 20 - Jun 15 2025",
         responsible: "Development Team",
       },
     },
-  ]);
+  ])
 
-  const keyDeliverablesTemplate = (rowData) => {
+  const keyDeliverablesTemplate = rowData => {
     if (Array.isArray(rowData.docSubject)) {
       return (
         <div className="key-deliverables">
@@ -1568,10 +1576,10 @@ const JobAllActive = ({ toggleSidebar }) => {
             </div>
           ))}
         </div>
-      );
+      )
     }
-    return rowData.docSubject;
-  };
+    return rowData.docSubject
+  }
 
   const handleEdit = rowKey => {
     setEditingRow(rowKey)
@@ -1636,7 +1644,6 @@ const JobAllActive = ({ toggleSidebar }) => {
   const [selectedSchedule, setSelectedSchedule] = useState(null)
 
   const actScheduleOptions = [
-
     {
       name: "Call",
       code: "SCH-CA",
@@ -2087,7 +2094,7 @@ const JobAllActive = ({ toggleSidebar }) => {
   const [jobloc, setJobloc] = useState("Hyderabad")
   const [workplace, setWorkplace] = useState("Work From Office")
   const [jobstart, setJobstart] = useState("01-01-2025")
-  const [projectDateRange, setProjectDateRange] = useState(null);
+  const [projectDateRange, setProjectDateRange] = useState(null)
   const [jobend, setJobend] = useState("31-12-2025")
   const [primskills, setPrimskills] = useState("HTML, CSS, Javascript")
   const [categ, setCateg] = useState("Frontend")
@@ -2102,6 +2109,133 @@ const JobAllActive = ({ toggleSidebar }) => {
 
   // input values ends
 
+  // Company work type start
+
+
+  const [selectedModule, setSelectedModule] = useState(null)
+
+  const [moduleWorkTypes, setModuleWorkTypes] = useState([
+    {
+      name: "Pranathi Software Services",
+      color: "#000000",
+      id: "custom-task",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Varun Digital Media",
+      color: "#000000",
+      id: "custom-task1",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Vitel Global Communication",
+      color: "#000000",
+      id: "custom-task2",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "SPG",
+      color: "#000000",
+      id: "custom-task3",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+  ])
+
+  const moduleDropdownWorkTypes = [
+    ...moduleWorkTypes,
+    { id: "divider", disabled: true },
+    { name: "Add Company", id: "create-new-work-type" },
+    { name: "Edit Company", id: "edit-selected-work-type" },
+  ]
+
+  const handleModuleWorkTypesChange = updatedWorkTypes => {
+    setModuleWorkTypes(updatedWorkTypes)
+  }
+
+  const handleModuleSelectionChange = selectedWorkType => {
+    setSelectedModule(selectedWorkType)
+  }
+
+  // Company work type end
+
+
+  // Project Manager start
+
+  const [projectManagerWorkTypes, setProjectManagerWorkTypes] = useState([
+    {
+      name: "Mahesh Kumar Bhoga",
+      color: "#000000",
+      id: "pm-1",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Salmanuddin Sayyad",
+      color: "#000000",
+      id: "pm-2",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+    {
+      name: "Girish Bodepudi",
+      color: "#000000",
+      id: "pm-3",
+      statuses: ["Pending", "Processing", "Completed"],
+    },
+  ])
+
+  const projectManagerDropdownWorkTypes = [
+    ...projectManagerWorkTypes,
+    { id: "divider", disabled: true },
+    { name: "Add Project Manager", id: "create-new-pm" },
+    { name: "Edit Project Manager", id: "edit-selected-pm" },
+  ]
+
+  const handleProjectManagerWorkTypesChange = updatedWorkTypes => {
+    setProjectManagerWorkTypes(updatedWorkTypes)
+  }
+
+  const [selectedProjectManager, setSelectedProjectManager] = useState(null)
+  const handleProjectManagerSelectionChange = selectedWorkType => {
+    setSelectedProjectManager(selectedWorkType)
+  }
+
+  // Project Manager end
+
+
+  // status work type start
+  
+    const [moduleWorkTypes1, setModuleWorkTypes1] = useState([
+      {
+        name: "To do",
+        color: "#000000",
+        id: "custom-task",
+        statuses: ["Pending", "Processing", "Completed"],
+      },
+      {
+        name: "In Progress",
+        color: "#000000",
+        id: "custom-task",
+        statuses: ["Pending", "Processing", "Completed"],
+      },
+      {
+        name: "Done",
+        color: "#000000",
+        id: "custom-task",
+        statuses: ["Pending", "Processing", "Completed"],
+      },
+    ])
+  
+    const moduleDropdownWorkTypes1 = [
+      ...moduleWorkTypes1,
+      { id: "divider", disabled: true },
+      { name: "Add Status", id: "create-new-work-type" },
+      { name: "Edit Status", id: "edit-selected-work-type" },
+    ]
+
+     
+  
+    // status work type end
+
+
   return (
     <React.Fragment>
       <div className="page-content allact-tabs">
@@ -2111,10 +2245,10 @@ const JobAllActive = ({ toggleSidebar }) => {
               <Col xxl={9} xl={12} lg={12} md={12} sm={12}>
                 <span className="addcan-ac">
                   {selectedJobsData.length > 0 ? (
-                    <span className="action-icons me-2">
+                    <span className="action-icons me-0">
                       <button
                         type="button"
-                        className="btn btn-secondary import-res-btn me-1 md:w-8rem"
+                        className="btn btn-secondary import-res-btn me-0 md:w-8rem"
                       >
                         <i className="pi pi-briefcase"></i>{" "}
                         {selectedJobsData.length} Selected
@@ -2194,13 +2328,33 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </span>
 
                 <span className="drop-ac">
-                  <SubmitJobtoCandidate />
+                 
+                 {selectedJobsData.length === 1 && (
+  <div className="d-inline-flex align-items-center">
+    <Button
+      type="button"
+      className="btn btn-secondary import-res-btn me-1 ms-2"
+      label="Phases of Project"
+       onClick={() => setActiveTabIndex(1)} // Use the correct index for your tab
+    />
+    <Button
+      type="button"
+      className="btn btn-secondary import-res-btn me-1"
+      label="WorkType"
+    />
+    
+  </div>
+)}
+
+<SubmitJobtoCandidate  className="me-2"/>
+                 
+                   
                   <CascadeSelect
                     onChange={handleScheduleChange}
                     options={actScheduleOptions}
                     optionLabel="name"
                     optionGroupLabel="name"
-                    className="md:w-10rem me-1"
+                    className="md:w-10rem me-1 ms-2"
                     optionGroupChildren={["subItems", "subItems"]}
                     breakpoint="767px"
                     placeholder="Schedule"
@@ -2273,7 +2427,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                       scrollable
                       emptyMessage="No records found."
                       selection={selectedJobsData}
-                      onSelectionChange={(e) => setSelectedJobsData(e.value)}
+                      onSelectionChange={e => setSelectedJobsData(e.value)}
                       selectionMode="multiple"
                       filters={filters}
                       filterDisplay="row"
@@ -2281,12 +2435,14 @@ const JobAllActive = ({ toggleSidebar }) => {
                       reorderableColumns
                       columnResizeMode="expand"
                       className="jobsallactive-table"
-                      onContextMenu={(e) => {
-                          cm.current.show(e.originalEvent); // Show the context menu
-                          setSelectedJob(e.data); // Set the selected job
+                      onContextMenu={e => {
+                        cm.current.show(e.originalEvent) // Show the context menu
+                        setSelectedJob(e.data) // Set the selected job
                       }}
                       contextMenuSelection={selectedJob}
-                      onContextMenuSelectionChange={(e) => setSelectedJob(e.value)}
+                      onContextMenuSelectionChange={e =>
+                        setSelectedJob(e.value)
+                      }
                     >
                       <Column
                         selectionMode="multiple"
@@ -2299,17 +2455,17 @@ const JobAllActive = ({ toggleSidebar }) => {
                         frozen
                         filter
                         style={{ minWidth: "8rem" }}
-                        body={(rowData) => (
-                            <span
-                                style={{ cursor: "pointer" }}
-                                className="project-code-hover"
-                                onClick={() => {
-                                    setVisibleViewRight(true); // Show the sidebar
-                                    setSelectedJob(rowData); // Set the selected job data
-                                }}
-                            >
-                                {rowData.job_id}
-                            </span>
+                        body={rowData => (
+                          <span
+                            style={{ cursor: "pointer" }}
+                            className="project-code-hover"
+                            onClick={() => {
+                              setVisibleViewRight(true) // Show the sidebar
+                              setSelectedJob(rowData) // Set the selected job data
+                            }}
+                          >
+                            {rowData.job_id}
+                          </span>
                         )}
                       />
                       <Column
@@ -2328,6 +2484,13 @@ const JobAllActive = ({ toggleSidebar }) => {
                       <Column
                         field="workplace_type"
                         header="Reason for Delay"
+                        sortable
+                        filter
+                      />
+
+                      <Column
+                        field="status"
+                        header="Status"
                         sortable
                         filter
                       />
@@ -2388,11 +2551,11 @@ const JobAllActive = ({ toggleSidebar }) => {
                         onClick={() => navigate('/jobs-editform')}
                       /> */}
                       <Link to="/jobs-editform">
-                                              <p className="mb-0 text-white">
-                                                {" "}
-                                                <i class="fa-regular fa-pen-to-square me-3"></i>{" "}
-                                              </p>
-                                            </Link>
+                        <p className="mb-0 text-white">
+                          {" "}
+                          <i class="fa-regular fa-pen-to-square me-3"></i>{" "}
+                        </p>
+                      </Link>
                       <Button
                         icon="pi pi-times"
                         className="p-button-text close-btn"
@@ -2403,7 +2566,6 @@ const JobAllActive = ({ toggleSidebar }) => {
 
                   <div className="card sidebardetails">
                     <Row className="mb-0">
-
                       <Col lg={6}>
                         <div className="field">
                           <label htmlFor="jobId" className="mb-1">
@@ -2435,7 +2597,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
                     <Row className="mb-3">
                       <Col lg={6}>
-                        <div className="p-field">
+                        {/* <div className="p-field">
                           <label htmlFor="hiringManager">Select Company</label>
                           <select
                             className="form-select profileDetailsInput w-full"
@@ -2451,10 +2613,17 @@ const JobAllActive = ({ toggleSidebar }) => {
                               Vitel Global Communications
                             </option>
                           </select>
-                        </div>
+                        </div> */}
+                        <label htmlFor="hiringManager">Company</label>
+                        <WorkType1
+                          initialWorkTypes={moduleWorkTypes}
+                          dropdownWorkTypes={moduleDropdownWorkTypes}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
+                        />
                       </Col>
 
-                      <Col lg={6}>
+                      {/* <Col lg={6}>
                         <div className="p-field">
                           <label htmlFor="hiringManager">Project Manager</label>
                           <select
@@ -2467,6 +2636,22 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <option value="Remote">Salmanuddin Sayyad</option>
                             <option value="Hybrid">Girish Bodepudi</option>
                           </select>
+                        </div>
+                      </Col> */}
+
+                      <Col lg={6}>
+                        <div className="p-field">
+                          <label htmlFor="hiringManager">Project Manager</label>
+                          <WorkType1
+                            initialWorkTypes={projectManagerWorkTypes}
+                            dropdownWorkTypes={projectManagerDropdownWorkTypes}
+                            onWorkTypesChange={
+                              handleProjectManagerWorkTypesChange
+                            }
+                            onSelectionChange={
+                              handleProjectManagerSelectionChange
+                            }
+                          />
                         </div>
                       </Col>
                     </Row>
@@ -2557,7 +2742,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                         </small>
                       </Col>
 
-
                       <Col lg={6}>
                         <div className="p-field mt-3">
                           <label htmlFor="jobType">Categories</label>
@@ -2585,6 +2769,20 @@ const JobAllActive = ({ toggleSidebar }) => {
                           ></TreeSelect>
                         </div>
                       </Col>
+
+                       <Col lg={6}>
+                        <div className="p-field mt-3">
+                          <label htmlFor="jobType">Status</label>
+                          <WorkType1
+                                                initialWorkTypes={moduleWorkTypes1}
+                                                dropdownWorkTypes={moduleDropdownWorkTypes1}
+                                                onWorkTypesChange={handleModuleWorkTypesChange}
+                                                onSelectionChange={handleModuleSelectionChange}
+                                              />
+                        </div>
+                      </Col>
+
+                      
                     </Row>
 
                     <Row className="justify-content-end align-items-end mt-2">
@@ -2640,7 +2838,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                 />
               </div>
             </div>
-            <TabView className="mt-4">
+            <TabView className="mt-4" activeIndex={activeTabIndex} onTabChange={e => setActiveTabIndex(e.index)}>
               <TabPanel header="Project" leftIcon="pi pi-folder mr-2">
                 <Row>
                   <Col lg={12}>
@@ -2874,12 +3072,15 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Row>
               </TabPanel>
 
-              <TabPanel header="Phases of Project" leftIcon="pi pi-sitemap mr-2">
+              <TabPanel
+                header="Phases of Project"
+                leftIcon="pi pi-sitemap mr-2"
+              >
                 <Row>
                   <Col lg={12}>
                     <EstimateTable />
 
-                    <Row className="mt-5">
+                    {/* <Row className="mt-5">
                       <Col lg={12}>
                         <div className="doc-table">
                           <TreeTable
@@ -2890,10 +3091,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                               field="certificate_name"
                               header="Document Type"
                               body={rowData =>
-                                editableTemplate(
-                                  rowData,
-                                  "certificate_name"
-                                )
+                                editableTemplate(rowData, "certificate_name")
                               }
                             />
                             <Column
@@ -2907,16 +3105,12 @@ const JobAllActive = ({ toggleSidebar }) => {
                               field="created_at"
                               header="Applied Date & Time"
                             />
-                            <Column
-                              body={actionTemplate}
-                              header="Actions"
-                            />
+                            <Column body={actionTemplate} header="Actions" />
                           </TreeTable>
                         </div>
                       </Col>
-                    </Row>
-                    <Accordion activeIndex={0}>
-                    </Accordion>
+                    </Row> */}
+                    <Accordion activeIndex={0}></Accordion>
                   </Col>
                 </Row>
               </TabPanel>
@@ -2927,8 +3121,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                     <section className="job-datatable-section">
                       <div className="card1 mt-3 mb-4 actjobsumtable">
                         <div className="add-team mb-3 d-flex justify-content-end align-items-center">
-
-                        <SubmitJobtoCandidate />
+                          <SubmitJobtoCandidate />
                         </div>
 
                         <DataTable
@@ -2947,10 +3140,13 @@ const JobAllActive = ({ toggleSidebar }) => {
                           currentPageReportTemplate="{first} to {last} of {totalRecords}"
                           emptyMessage="No team members found."
                           selection={selectedTeamMembers}
-                          onSelectionChange={(e) => setSelectedTeamMembers(e.value)}
+                          onSelectionChange={e =>
+                            setSelectedTeamMembers(e.value)
+                          }
                           selectionMode="multiple"
                           resizableColumns
                           columnResizeMode="expand"
+                          rowClassName={rowData => rowData.name === 'Mahesh Kumar Bhoga' ? 'bold-phase-row' : ''}
                         >
                           <Column
                             selectionMode="multiple"
@@ -2965,14 +3161,14 @@ const JobAllActive = ({ toggleSidebar }) => {
                           />
                           <Column
                             field="description"
-                            header="Description"
+                            header="Designation"
                             sortable
                             filter
                             style={{ minWidth: "15rem" }}
                           />
                           <Column
                             field="role"
-                            header="Role"
+                            header="Project Role"
                             sortable
                             filter
                             style={{ minWidth: "10rem" }}
@@ -2998,7 +3194,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Row>
               </TabPanel>
 
-               <TabPanel header="Work Type" leftIcon="pi pi-check-square mr-2">
+              <TabPanel header="Work Type" leftIcon="pi pi-check-square mr-2">
                 <Row>
                   <Col lg={12}>
                     <div className="pipelinetabs">
@@ -3021,7 +3217,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-
                                   <DataTable
                                     value={receivedJobs}
                                     responsiveLayout="scroll"
@@ -3139,8 +3334,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-
-
                                   <DataTable
                                     value={potentialJobs.map(job => ({
                                       ...job,
@@ -3263,8 +3456,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-
-
                                   <DataTable
                                     value={submittedJobs}
                                     responsiveLayout="scroll"
@@ -3382,8 +3573,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-
-
                                   <DataTable
                                     value={interviewJobs}
                                     responsiveLayout="scroll"
@@ -3501,8 +3690,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-
-
                                   <DataTable
                                     value={offerJobs}
                                     responsiveLayout="scroll"
@@ -3620,7 +3807,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                             <Col lg={12}>
                               <section className="job-datatable-section">
                                 <div className="card1 mt-3 mb-4 actjobsumtable">
-
                                   <DataTable
                                     value={rejectedJobs.map(job => ({
                                       ...job,
@@ -3840,8 +4026,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                                       style={{ minWidth: "12rem" }}
                                     />
                                   </DataTable>
-
-
                                 </div>
                               </section>
                             </Col>
@@ -3852,7 +4036,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </Col>
                 </Row>
               </TabPanel>
-
 
               <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2">
                 <Row>
@@ -3885,7 +4068,9 @@ const JobAllActive = ({ toggleSidebar }) => {
                           ]}
                           emptyMessage="No activities found."
                           selection={selectedActivities}
-                          onSelectionChange={e => setSelectedActivities(e.value)}
+                          onSelectionChange={e =>
+                            setSelectedActivities(e.value)
+                          }
                           selectionMode="multiple"
                           resizableColumns
                           columnResizeMode="expand"
@@ -3942,7 +4127,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </Col>
                 </Row>
               </TabPanel>
-             
+
               <TabPanel header="History" leftIcon="pi pi-clock mr-2">
                 <Row>
                   <Col lg={12} sm={12}>
@@ -4123,7 +4308,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       </Row>
 
       <Dialog
-        header="Appointment - LavanKumar Kalvala"
+        header="Schedule Interview"
         visible={interviewpop}
         className="interview-popup"
         style={{ width: "50vw" }}
@@ -4356,8 +4541,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                   />
                 </Col>
               </Row>
-
-              
             </div>
 
             <Row className="">
@@ -4387,7 +4570,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
       {/* Interview schedule call start */}
       <Dialog
-        header="Appointment - Lavankumar Kalvala"
+        header="Schedule Call"
         visible={interviewpopCall}
         className="interview-popup"
         style={{ width: "50vw" }}
@@ -4398,7 +4581,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       >
         <form>
           <p className="bg-form">
-            <div className="mb-4">
+            {/* <div className="mb-4"> */}
               <Row className="mb-2">
                 <Col xl={6}>
                   <div className="p-field flex flex-column">
@@ -4430,7 +4613,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
               <Row>
                 <Col xl={6}>
-                  <Row className="mb-2">
+                  <Row className="mb-1">
                     <Col xl={6}>
                       <div className="p-field flex-auto">
                         <label htmlFor="buttondisplay" className="block">
@@ -4494,13 +4677,13 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </Row>
                 </Col>
               </Row>
-            </div>
+            {/* </div> */}
 
-            <div className="mb-4">
-              <Row className="mb-2">
+            {/* <div className="mb-4"> */}
+              <Row className="mb-0">
                 <Col xl={6}>
                   <div className="flex flex-column">
-                    <label For="Priority">Job Status</label>
+                    <label For="Priority">Project Status</label>
                     <Dropdown
                       value={subtypeget}
                       onChange={e => setsubtypeget(e.value)}
@@ -4518,7 +4701,7 @@ const JobAllActive = ({ toggleSidebar }) => {
               <Row className="mb-2">
                 <Col xl={6}>
                   <div className="p-field flex flex-column">
-                    <label For="Candidate">Candidate</label>
+                    <label For="Candidate">WorkTpye</label>
                     <MultiSelect
                       value={condidatevalu}
                       disabled
@@ -4545,7 +4728,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Col>
               </Row>
 
-              <Row className="mb-2 mt-3">
+              <Row className="mb-1 mt-3">
                 <Col xl={12}>
                   <div className="">
                     <InputTextarea
@@ -4559,7 +4742,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </div>
                 </Col>
               </Row>
-            </div>
+            {/* </div> */}
 
             <div>
               <Row className="mb-2">
@@ -4608,7 +4791,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                           </div>
                         </Col>
                       </Row>
-                      
                     </Col>
                   </Row>
                 </Col>
@@ -4624,19 +4806,19 @@ const JobAllActive = ({ toggleSidebar }) => {
               </Row>
 
               {popchecked && (
-              <Row>
-                <Col xl={12} className="mt-2">
-                <label className="mb-1">Minutes of Meeting</label>
-                  <div className="schedule-editor">
-                    <Editor
-                      value={scheduleText}
-                      onTextChange={e => setScheduleText(e.htmlValue)}
-                      style={{ height: 'auto' }}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            )}
+                <Row>
+                  <Col xl={12} className="mt-2">
+                    <label className="mb-1">Minutes of Meeting</label>
+                    <div className="schedule-editor">
+                      <Editor
+                        value={scheduleText}
+                        onTextChange={e => setScheduleText(e.htmlValue)}
+                        style={{ height: "auto" }}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              )}
             </div>
 
             <Row className="mt-3">
@@ -4666,7 +4848,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
       {/* Interview schedule meeting start */}
       <Dialog
-        header="Appointment - Lavankumar Kalvala"
+        header="Schedule Meeting"
         visible={interviewpopMeeting}
         className="interview-popup"
         style={{ width: "50vw" }}
@@ -4790,7 +4972,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                   </div>
                 </Col>
 
-
                 <LinkContactsPopup />
               </Row>
 
@@ -4901,18 +5082,18 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Col>
               </Row>
               {popchecked && (
-              <Row>
-                <Col xl={12} className="mt-2">
-                  <div className="schedule-editor">
-                    <Editor
-                      value={scheduleText}
-                      onTextChange={e => setScheduleText(e.htmlValue)}
-                      style={{ height: 'auto' }}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            )}
+                <Row>
+                  <Col xl={12} className="mt-2">
+                    <div className="schedule-editor">
+                      <Editor
+                        value={scheduleText}
+                        onTextChange={e => setScheduleText(e.htmlValue)}
+                        style={{ height: "auto" }}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              )}
             </div>
 
             <Row className="">
@@ -4942,7 +5123,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
       {/* Interview schedule Task start */}
       <Dialog
-        header="Appointment - Lavankumar Kalvala"
+        header="Schedule Task"
         visible={interviewpopTask}
         className="interview-popup"
         style={{ width: "50vw" }}
@@ -4963,7 +5144,6 @@ const JobAllActive = ({ toggleSidebar }) => {
                       value={intertype1}
                       onChange={e => setintertype1(e.target.value)}
                     />
-
                   </div>
                 </Col>
 
@@ -5179,18 +5359,18 @@ const JobAllActive = ({ toggleSidebar }) => {
               </Row>
 
               {popchecked && (
-              <Row>
-                <Col xl={12} className="mt-2">
-                  <div className="schedule-editor">
-                    <Editor
-                      value={scheduleText}
-                      onTextChange={e => setScheduleText(e.htmlValue)}
-                      style={{ height: 'auto' }}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            )}
+                <Row>
+                  <Col xl={12} className="mt-2">
+                    <div className="schedule-editor">
+                      <Editor
+                        value={scheduleText}
+                        onTextChange={e => setScheduleText(e.htmlValue)}
+                        style={{ height: "auto" }}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              )}
             </div>
 
             <Row className="mt-3">
@@ -5220,7 +5400,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
       {/* Interview schedule Event start */}
       <Dialog
-        header="Appointment - Lavankumar Kalvala"
+        header="Schedule Event"
         visible={interviewpopEvent}
         className="interview-popup"
         style={{ width: "50vw" }}
@@ -5456,18 +5636,18 @@ const JobAllActive = ({ toggleSidebar }) => {
               </Row>
 
               {popchecked && (
-              <Row>
-                <Col xl={12} className="mt-2">
-                  <div className="schedule-editor">
-                    <Editor
-                      value={scheduleText}
-                      onTextChange={e => setScheduleText(e.htmlValue)}
-                      style={{ height: 'auto' }}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            )}
+                <Row>
+                  <Col xl={12} className="mt-2">
+                    <div className="schedule-editor">
+                      <Editor
+                        value={scheduleText}
+                        onTextChange={e => setScheduleText(e.htmlValue)}
+                        style={{ height: "auto" }}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              )}
             </div>
 
             <Row className="mt-3">
@@ -5497,7 +5677,7 @@ const JobAllActive = ({ toggleSidebar }) => {
 
       {/* Interview schedule Other start */}
       <Dialog
-        header="Appointment - Lavankumar Kalvala"
+        header="Schedule"
         visible={interviewpopOther}
         className="interview-popup"
         style={{ width: "50vw" }}
@@ -5731,18 +5911,18 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Col>
               </Row>
               {popchecked && (
-              <Row>
-                <Col xl={12} className="mt-2">
-                  <div className="schedule-editor">
-                    <Editor
-                      value={scheduleText}
-                      onTextChange={e => setScheduleText(e.htmlValue)}
-                      style={{ height: 'auto' }}
-                    />
-                  </div>
-                </Col>
-              </Row>
-            )}
+                <Row>
+                  <Col xl={12} className="mt-2">
+                    <div className="schedule-editor">
+                      <Editor
+                        value={scheduleText}
+                        onTextChange={e => setScheduleText(e.htmlValue)}
+                        style={{ height: "auto" }}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              )}
             </div>
 
             <Row className="mt-3">

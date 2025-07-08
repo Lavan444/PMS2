@@ -15,11 +15,16 @@ import { Toast } from 'primereact/toast';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { confirmDialog } from 'primereact/confirmdialog';
 import { Dialog } from 'primereact/dialog';
+import { Checkbox } from 'primereact/checkbox';
 
 // PrimeReact CSS
 import 'primereact/resources/themes/lara-light-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+
+// Custom Styles
+import '../../styles/custom.css';
+import WorkType from './WorkType';
 
 const CreateShortform = ({ visible = false, onHide = () => { } }) => {
   const [showAllProjectFields, setShowAllProjectFields] = useState(false);
@@ -29,7 +34,23 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [workItems, setWorkItems] = useState([{}]);
   const [projectFiles, setProjectFiles] = useState([]);
+  const [addMoreWorkItems, setAddMoreWorkItems] = useState(false);
   const toast = React.useRef(null);
+
+  // Wizard State Management
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isProjectDetailsComplete, setIsProjectDetailsComplete] = useState(false);
+  const [isWorkTypeComplete, setIsWorkTypeComplete] = useState(false);
+  const [projectDetailsSaved, setProjectDetailsSaved] = useState(false);
+  const [isProjectDetailsExpanded, setIsProjectDetailsExpanded] = useState(true);
+  const [isWorkTypeExpanded, setIsWorkTypeExpanded] = useState(false);
+
+  // Wizard step configuration
+  const wizardSteps = [
+    { id: 1, label: 'Project Details', icon: 'pi pi-file' },
+    { id: 2, label: 'Work Type Details', icon: 'pi pi-check-circle', description: 'Define tasks and deliverables' },
+    { id: 3, label: 'Review & Submit', icon: 'pi pi-flag-fill', description: 'Review and create project' }
+  ];
 
   const [projectData, setProjectData] = useState({
     projectName: 'New Project Initiative',
@@ -100,6 +121,31 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
     { label: 'Testing', value: 'testing' },
     { label: 'Completed', value: 'completed' },
     { label: 'Blocked', value: 'blocked' }
+  ];
+
+  // Company dropdown options
+  const companyOptions = [
+    { label: 'Select company...', value: '' },
+    { label: 'Acme Corporation', value: 'acme-corp' },
+    { label: 'TechSolutions Inc.', value: 'techsolutions-inc' },
+    { label: 'Global Industries', value: 'global-industries' },
+    { label: 'Innovative Systems', value: 'innovative-systems' },
+    { label: 'Digital Dynamics', value: 'digital-dynamics' },
+    { label: 'Future Enterprises', value: 'future-enterprises' },
+    { label: 'Other', value: 'other' }
+  ];
+
+  // Project Manager dropdown options
+  const projectManagerOptions = [
+    { label: 'Select project manager...', value: '' },
+    { label: 'John Smith', value: 'john-smith' },
+    { label: 'Sarah Johnson', value: 'sarah-johnson' },
+    { label: 'Michael Chen', value: 'michael-chen' },
+    { label: 'Emily Davis', value: 'emily-davis' },
+    { label: 'Robert Wilson', value: 'robert-wilson' },
+    { label: 'Lisa Anderson', value: 'lisa-anderson' },
+    { label: 'David Thompson', value: 'david-thompson' },
+    { label: 'Assign Later', value: 'assign-later' }
   ];
 
   const generateAIDescription = async () => {
@@ -208,17 +254,36 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
     }
   };
 
-  const validateForm = () => {
+  const validateProjectDetails = () => {
     if (!projectData.projectName.trim()) {
       toast.current.show({ severity: 'error', summary: 'Validation Error', detail: 'Project Name is required!' });
       return false;
     }
+    return true;
+  };
 
+  const isProjectDetailsValid = () => {
+    return projectData.projectName.trim().length > 0;
+  };
+
+  const validateWorkTypeDetails = () => {
+    // Always validate the first work item's required fields
+    const firstWorkItem = workItems[0];
+    if (!firstWorkItem?.workType?.trim()) {
+      toast.current.show({ severity: 'error', summary: 'Validation Error', detail: 'Work Type is required!' });
+      return false;
+    }
+    if (!firstWorkItem?.summary?.trim()) {
+      toast.current.show({ severity: 'error', summary: 'Validation Error', detail: 'Summary is required!' });
+      return false;
+    }
+
+    // If additional work items are shown, validate them too
     if (showAllWorkItemFields) {
-      for (let i = 0; i < workItems.length; i++) {
+      for (let i = 1; i < workItems.length; i++) {
         const workItem = workItems[i];
-        if (!workItem.title?.trim()) {
-          toast.current.show({ severity: 'error', summary: 'Validation Error', detail: `Work Item ${i + 1}: Title is required!` });
+        if (!workItem.workType?.trim()) {
+          toast.current.show({ severity: 'error', summary: 'Validation Error', detail: `Work Item ${i + 1}: Work Type is required!` });
           return false;
         }
         if (!workItem.summary?.trim()) {
@@ -227,59 +292,216 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
         }
       }
     }
+    return true;
+  };
+
+  const isWorkTypeDetailsValid = () => {
+    // Always validate the first work item's required fields (Work Type and Summary)
+    const firstWorkItem = workItems[0];
+    if (!firstWorkItem?.workType?.trim() || !firstWorkItem?.summary?.trim()) {
+      return false;
+    }
+
+    // If additional work items are shown, validate them too
+    if (showAllWorkItemFields) {
+      for (let i = 1; i < workItems.length; i++) {
+        const workItem = workItems[i];
+        if (!workItem.workType?.trim() || !workItem.summary?.trim()) {
+          return false;
+        }
+      }
+    }
 
     return true;
   };
 
+  const saveProjectDetails = () => {
+    // Auto-save project details
+    setProjectDetailsSaved(true);
+    setIsProjectDetailsComplete(true);
+    toast.current.show({
+      severity: 'success',
+      summary: 'Project Details Saved',
+      detail: 'Project details have been saved successfully',
+      life: 2000
+    });
+  };
+
+  const saveWorkTypeDetails = () => {
+    // Auto-save work type details
+    setIsWorkTypeComplete(true);
+    toast.current.show({
+      severity: 'success',
+      summary: 'Work Type Details Saved',
+      detail: 'Work type details have been saved successfully',
+      life: 2000
+    });
+  };
+
+  const handleNextStep = () => {
+    if (currentStep === 1) {
+      if (!validateProjectDetails()) {
+        return;
+      }
+
+      // Save project details and move to next step
+      saveProjectDetails();
+      setIsProjectDetailsExpanded(false);
+      setIsWorkTypeExpanded(true);
+      setCurrentStep(2);
+
+      // Don't auto-expand work type section - let user choose with Add More button
+
+      // Smooth scroll to Work Type Details section after state updates
+      setTimeout(() => {
+        const workTypeSection = document.querySelector('[data-section="work-type-details"]');
+        if (workTypeSection) {
+          // Add scroll highlight effect
+          workTypeSection.classList.add('scroll-highlight');
+
+          workTypeSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+
+          // Remove highlight effect after animation
+          setTimeout(() => {
+            workTypeSection.classList.remove('scroll-highlight');
+          }, 1500);
+        }
+      }, 300); // Small delay to allow state updates and DOM changes
+
+    } else if (currentStep === 2) {
+      if (!validateWorkTypeDetails()) {
+        return;
+      }
+
+      // Save work type details and move to review
+      saveWorkTypeDetails();
+      setIsWorkTypeExpanded(false);
+      setCurrentStep(3);
+
+      // Smooth scroll to Review section after state updates
+      setTimeout(() => {
+        const reviewSection = document.querySelector('[data-section="review-submit"]');
+        if (reviewSection) {
+          // Add scroll highlight effect
+          reviewSection.classList.add('scroll-highlight');
+
+          reviewSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+          });
+
+          // Remove highlight effect after animation
+          setTimeout(() => {
+            reviewSection.classList.remove('scroll-highlight');
+          }, 1500);
+        }
+      }, 300);
+    }
+  };
+
+  const handlePreviousStep = () => {
+    if (currentStep === 2) {
+      setCurrentStep(1);
+      setIsProjectDetailsExpanded(true);
+      setIsWorkTypeExpanded(false);
+    } else if (currentStep === 3) {
+      setCurrentStep(2);
+      setIsWorkTypeExpanded(true);
+    }
+  };
+
+  const resetWizard = () => {
+    setCurrentStep(1);
+    setIsProjectDetailsComplete(false);
+    setIsWorkTypeComplete(false);
+    setProjectDetailsSaved(false);
+    setIsProjectDetailsExpanded(true);
+    setIsWorkTypeExpanded(false);
+    setShowAllProjectFields(false);
+    setShowAllWorkItemFields(false);
+    setAddMoreWorkItems(false);
+  };
+
   const handleSubmit = () => {
-    if (!validateForm()) {
+    // Final validation
+    if (!validateProjectDetails() || !validateWorkTypeDetails()) {
       return;
     }
 
     console.log('Project Data:', projectData);
     console.log('Project Files:', projectFiles);
     console.log('Work Items:', workItems);
-    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Form submitted successfully! Check console for data.' });
+    toast.current.show({ severity: 'success', summary: 'Success', detail: 'Project created successfully! Check console for data.' });
 
     // Close the modal after successful submission
     setTimeout(() => {
+      resetWizard(); // Reset wizard state
       onHide();
     }, 1500);
   };
 
+  // Reset wizard when modal is closed
+  const handleModalHide = () => {
+    resetWizard();
+    onHide();
+  };
+
   const projectFieldsHeader = (
     <div className="flex align-items-center justify-content-between">
-      <div className="flex align-items-center gap-2">
-        <i className="pi pi-file text-blue-500 text-xl"></i>
+      <div className="flex align-items-center gap-3">
+        <div className={`w-3rem h-3rem border-circle flex align-items-center justify-content-center font-semibold text-sm ${isProjectDetailsComplete ? 'bg-green-100 text-green-600 border-2 border-green-300' :
+          currentStep === 1 ? 'bg-blue-100 text-blue-600 border-2 border-blue-300' :
+            'bg-gray-100 text-gray-500 border-2 border-gray-300'
+          }`}>
+          {isProjectDetailsComplete ? <i className="pi pi-check"></i> : '1'}
+        </div>
         <div>
-          <h3 className="m-0 text-xl font-semibold">Project Details</h3>
+          <h3 className="m-0 text-xl font-semibold flex align-items-center gap-2">
+            Project Details
+            {isProjectDetailsComplete && <i className="pi pi-check-circle text-green-500"></i>}
+          </h3>
           <p className="m-0 text-sm text-500">Basic information about your project</p>
         </div>
       </div>
-      <Button
-        label={showAllProjectFields ? 'Show Less' : 'Add More'}
-        icon={showAllProjectFields ? 'pi pi-chevron-up' : 'pi pi-chevron-down'}
-        onClick={() => setShowAllProjectFields(!showAllProjectFields)}
-        className="p-button-primary"
-      />
+      <div className="flex align-items-center gap-2">
+        {/* Add More button moved to next to Next button */}
+      </div>
     </div>
   );
 
   const workItemsHeader = (
     <div className="flex align-items-center justify-content-between">
-      <div className="flex align-items-center gap-2">
-        <i className="pi pi-check-circle text-green-500 text-xl"></i>
+      <div className="flex align-items-center gap-3">
+        <div className={`w-3rem h-3rem border-circle flex align-items-center justify-content-center font-semibold text-sm ${isWorkTypeComplete ? 'bg-green-100 text-green-600 border-2 border-green-300' :
+          currentStep === 2 ? 'bg-blue-100 text-blue-600 border-2 border-blue-300' :
+            'bg-gray-100 text-gray-500 border-2 border-gray-300'
+          }`}>
+          {isWorkTypeComplete ? <i className="pi pi-check"></i> : '2'}
+        </div>
         <div>
-          <h3 className="m-0 text-xl font-semibold">Work Type Details</h3>
+          <h3 className="m-0 text-xl font-semibold flex align-items-center gap-2">
+            Work Type Details
+            {isWorkTypeComplete && <i className="pi pi-check-circle text-green-500"></i>}
+          </h3>
           <p className="m-0 text-sm text-500">Define tasks and deliverables for your project</p>
         </div>
       </div>
-      <Button
-        label={showAllWorkItemFields ? 'Show Less' : 'Add More'}
-        icon={showAllWorkItemFields ? 'pi pi-chevron-up' : 'pi pi-chevron-down'}
-        onClick={() => setShowAllWorkItemFields(!showAllWorkItemFields)}
-        className="p-button-success"
-      />
+      <div className="flex align-items-center gap-2">
+        {/* Professional minimize button */}
+        {/* {currentStep === 2 && (
+          <Button
+            icon={isWorkTypeExpanded ? 'pi pi-window-minimize' : 'pi pi-window-maximize'}
+            onClick={() => setIsWorkTypeExpanded(!isWorkTypeExpanded)}
+            className="p-button-text p-button-secondary p-button-sm"
+            tooltip={isWorkTypeExpanded ? 'Minimize section' : 'Expand section'}
+          />
+        )} */}
+      </div>
     </div>
   );
 
@@ -293,13 +515,13 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
           <div className="flex align-items-center gap-3">
             <i className="pi pi-briefcase text-2xl text-blue-600"></i>
             <div>
-              <h1 className="text-xl font-bold m-0">Project Details</h1>
-              <p className="text-500 mt-1 mb-0 text-sm">Configure your project details and work type</p>
+              <h1 className="text-xl font-bold m-0">Project Creation Wizard</h1>
+              <p className="text-500 mt-1 mb-0 text-sm">Step {currentStep} of 3 - {wizardSteps.find(step => step.id === currentStep)?.description}</p>
             </div>
           </div>
         }
         visible={visible}
-        onHide={onHide}
+        onHide={handleModalHide}
         style={{
           width: '60vw',
           maxWidth: '100%',
@@ -317,8 +539,44 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
         blockScroll={true}
       >
         <div className="p-4">
+          {/* Wizard Progress Indicator */}
+          <div className="flex align-items-center justify-content-center mb-6 px-4">
+            <div className="flex align-items-center w-full max-w-600 wizard-step-indicator">
+              {wizardSteps.map((step, index) => (
+                <React.Fragment key={step.id}>
+                  <div className="flex flex-column align-items-center">
+                    <div className={`w-3rem h-3rem border-circle flex align-items-center justify-content-center font-semibold text-sm transition-all transition-duration-300 ${step.id < currentStep || (step.id === 1 && isProjectDetailsComplete) || (step.id === 2 && isWorkTypeComplete) ?
+                      'bg-green-100 text-green-600 border-2 border-green-300 wizard-step-completed' :
+                      step.id === currentStep ?
+                        'bg-blue-100 text-blue-600 border-2 border-blue-300 shadow-2 wizard-step-active' :
+                        'bg-gray-100 text-gray-500 border-2 border-gray-300'
+                      }`}>
+                      {(step.id === 1 && isProjectDetailsComplete) || (step.id === 2 && isWorkTypeComplete) || step.id < currentStep ?
+                        <i className="pi pi-check"></i> :
+                        <i className={step.icon}></i>
+                      }
+                    </div>
+                    <p className="text-xs text-center mt-2 font-medium" style={{ minWidth: '80px' }}>
+                      {step.label}
+                    </p>
+                  </div>
+                  {index < wizardSteps.length - 1 && (
+                    <div className={`flex-1 wizard-progress-line mx-3 transition-all transition-duration-300 ${step.id < currentStep || (step.id === 1 && isProjectDetailsComplete) ?
+                      'bg-green-300' : 'bg-gray-300'
+                      }`}></div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
           {/* Project Details Section */}
-          <Panel header={projectFieldsHeader} className="mb-6" toggleable collapsed={false}>
+          <Panel
+            header={projectFieldsHeader}
+            className="mb-6"
+            toggleable
+            collapsed={!isProjectDetailsExpanded}
+            onToggle={(e) => setIsProjectDetailsExpanded(!e.value)}
+          >
             <div className="grid">
               {/* Project Name - Always visible and REQUIRED */}
               <div className="col-12">
@@ -328,63 +586,101 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
                 <InputText
                   value={projectData.projectName}
                   onChange={(e) => handleProjectInputChange('projectName', e.target.value)}
-                  className="w-full"
+                  className={`w-full ${projectData.projectName.trim() ? 'p-inputtext-success' : ''}`}
                   placeholder="Enter project name..."
                 />
                 <small className="text-500">Enter the official name of your project. (Required)</small>
               </div>
 
-              {/* Project File Upload - Always visible */}
-              <div className="col-12 mt-4">
-                <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
-                  <i className="pi pi-upload"></i>
-                  Project Files
-                </label>
-                <FileUpload
-                  mode="basic"
-                  multiple
-                  accept="*/*"
-                  maxFileSize={10000000}
-                  onUpload={onProjectFileUpload}
-                  auto
-                  chooseLabel="Upload Project Files"
-                  className="w-full"
-                />
-
-                {/* Display uploaded project files */}
-                {projectFiles.length > 0 && (
-                  <div className="mt-4">
-                    <p className="text-sm font-medium text-700 mb-2">Uploaded Files:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {projectFiles.map((file) => (
-                        <Tag
-                          key={file.id}
-                          value={`${file.name} (${formatFileSize(file.size)})`}
-                          icon="pi pi-file"
-                          severity="info"
-                          className="cursor-pointer"
-                          onClick={() => removeProjectFile(file.id)}
-                        />
-                      ))}
+              {/* Next Button - Only shown when required fields are completed */}
+              {currentStep === 1 && isProjectDetailsValid() && (
+                <div className="col-12 mt-6">
+                  <div className="flex justify-content-between align-items-center">
+                    <div className="flex align-items-center gap-2 text-600">
+                      <i className="pi pi-check-circle text-green-500"></i>
+                      <span className="text-sm">All required fields completed! Ready to proceed or add more details.</span>
+                    </div>
+                    <div className="flex align-items-center gap-2">
+                      <Button
+                        label={showAllProjectFields ? 'Show Less' : 'Add More'}
+                        icon={showAllProjectFields ? 'pi pi-chevron-up' : 'pi pi-chevron-down'}
+                        onClick={() => setShowAllProjectFields(!showAllProjectFields)}
+                        className="p-button-primary p-button-outlined wizard-button-transition"
+                      />
+                      <Button
+                        label="Next"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        onClick={handleNextStep}
+                        className="p-button-primary p-button-lg wizard-button-transition"
+                        style={{ minWidth: '120px' }}
+                      />
                     </div>
                   </div>
-                )}
-                <small className="text-500">Upload relevant project documents, specifications, or reference materials.</small>
-              </div>
+                </div>
+              )}
+
+              {/* Helper message when required fields are not completed */}
+              {currentStep === 1 && !isProjectDetailsValid() && (
+                <div className="col-12 mt-6">
+                  <div className="flex align-items-center gap-2 text-orange-600 bg-orange-50 border-1 border-orange-200 border-round p-3 validation-message">
+                    <i className="pi pi-exclamation-triangle"></i>
+                    <span className="text-sm">Please complete the required Project Name field to continue.</span>
+                  </div>
+                </div>
+              )}
 
               {/* Additional fields shown when "Add More" is clicked */}
               {showAllProjectFields && (
                 <>
+                  {/* Project File Upload - Now in Add More section */}
+                  <div className="col-12 mt-4">
+                    <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
+                      <i className="pi pi-upload"></i>
+                      Project Files
+                    </label>
+                    <FileUpload
+                      mode="basic"
+                      multiple
+                      accept="*/*"
+                      maxFileSize={10000000}
+                      onUpload={onProjectFileUpload}
+                      auto
+                      chooseLabel="Upload Project Files"
+                      className="w-full"
+                    />
+
+                    {/* Display uploaded project files */}
+                    {projectFiles.length > 0 && (
+                      <div className="mt-4">
+                        <p className="text-sm font-medium text-700 mb-2">Uploaded Files:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {projectFiles.map((file) => (
+                            <Tag
+                              key={file.id}
+                              value={`${file.name} (${formatFileSize(file.size)})`}
+                              icon="pi pi-file"
+                              severity="info"
+                              className="cursor-pointer"
+                              onClick={() => removeProjectFile(file.id)}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    <small className="text-500">Upload relevant project documents, specifications, or reference materials.</small>
+                  </div>
                   <div className="col-12 md:col-6 mt-4">
                     <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
                       <i className="pi pi-building"></i>
                       Company
                     </label>
-                    <InputText
+                    <Dropdown
                       value={projectData.company}
-                      onChange={(e) => handleProjectInputChange('company', e.target.value)}
+                      onChange={(e) => handleProjectInputChange('company', e.value)}
+                      options={companyOptions}
                       className="w-full"
-                      placeholder="Company name..."
+                      placeholder="Select company..."
                     />
                     <small className="text-500">Company or client this project is for.</small>
                   </div>
@@ -394,11 +690,12 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
                       <i className="pi pi-user"></i>
                       Project Manager
                     </label>
-                    <InputText
+                    <Dropdown
                       value={projectData.projectManager}
-                      onChange={(e) => handleProjectInputChange('projectManager', e.target.value)}
+                      onChange={(e) => handleProjectInputChange('projectManager', e.value)}
+                      options={projectManagerOptions}
                       className="w-full"
-                      placeholder="Manager name..."
+                      placeholder="Select project manager..."
                     />
                     <small className="text-500">Person responsible for managing this project.</small>
                   </div>
@@ -478,237 +775,499 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
                     />
                     <small className="text-500">Brief summary of the project scope.</small>
                   </div>
+
+                  {/* Next Button at bottom of Add More section - Only when valid */}
+                  {isProjectDetailsValid() && (
+                    <div className="col-12 mt-6">
+                      <div className="flex justify-content-between align-items-center">
+                        <Button
+                          label={showAllProjectFields ? 'Show Less' : 'Add More'}
+                          icon={showAllProjectFields ? 'pi pi-chevron-up' : 'pi pi-chevron-down'}
+                          onClick={() => setShowAllProjectFields(!showAllProjectFields)}
+                          className="p-button-primary p-button-outlined wizard-button-transition"
+                        />
+                        <Button
+                          label="Next - Continue to Work Type Details"
+                          icon="pi pi-arrow-right"
+                          iconPos="right"
+                          onClick={handleNextStep}
+                          className="p-button-primary p-button-lg wizard-button-transition"
+                          style={{ minWidth: '280px' }}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
             </div>
           </Panel>
 
           {/* Work Item Details Section */}
-          <Panel header={workItemsHeader} className="mb-6" toggleable collapsed={!showAllWorkItemFields}>
-            {showAllWorkItemFields && (
-              <div>
-                {workItems.map((workItem, index) => (
-                  <Card key={index} className="mb-4 border-1 border-200">
-                    <div className="flex justify-content-between align-items-center mb-4">
-                      <div className="flex align-items-center gap-2">
-                        <div className="w-2rem h-2rem bg-blue-100 text-blue-600 border-circle flex align-items-center justify-content-center font-semibold text-sm">
-                          {index + 1}
-                        </div>
-                        <h4 className="m-0 font-medium">Work Type Name {index + 1}</h4>
-                      </div>
-                      {workItems.length > 1 && (
-                        <Button
-                          icon="pi pi-times"
-                          onClick={() => removeWorkItem(index)}
-                          className="p-button-danger p-button-text p-button-sm"
-                          tooltip="Remove work item"
-                        />
-                      )}
-                    </div>
+          <Panel
+            header={workItemsHeader}
+            className="mb-6"
+            toggleable
+            collapsed={!isWorkTypeExpanded}
+            onToggle={(e) => setIsWorkTypeExpanded(!e.value)}
+            data-section="work-type-details"
+          >
+            <div className="grid">
+              {/* Work Type - Always visible and REQUIRED */}
+              <div className="col-12">
+                <label className="block text-sm font-medium text-700 mb-2">
+                  Work Type <span className="text-red-500">*</span>
+                </label>
+                {/* <Dropdown
+                  value={workItems[0]?.workType || ''}
+                  onChange={(e) => handleWorkItemChange(0, 'workType', e.value)}
+                  options={workTypeOptions}
+                  className={`w-full ${workItems[0]?.workType?.trim() ? 'p-inputtext-success' : ''}`}
+                  placeholder="Select work type..."
+                /> */}
+ 
+                <WorkType />
 
-                    <div className="grid">
-                      {/* Work Item Title - REQUIRED */}
-                      <div className="col-12">
-                        <label className="block text-sm font-medium text-700 mb-2">
-                          Work Type Title <span className="text-red-500">*</span>
-                        </label>
-                        <InputText
-                          value={workItem.title || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'title', e.target.value)}
-                          className="w-full"
-                          placeholder="Enter work type title..."
-                        />
-                        <small className="text-500">Clear, descriptive name for this work item. (Required)</small>
-                      </div>
+                
+                <small className="text-500">Category or type of work to be performed. (Required)</small>
+              </div>
 
-                      {/* Summary - REQUIRED */}
-                      <div className="col-12 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2">
-                          Summary <span className="text-red-500">*</span>
-                        </label>
-                        <InputTextarea
-                          rows={2}
-                          value={workItem.summary || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'summary', e.target.value)}
-                          className="w-full"
-                          placeholder="Brief summary of the work type..."
-                        />
-                        <small className="text-500">Concise overview of what this work type entails. (Required)</small>
-                      </div>
-
-                      {/* Work Item File Upload */}
-                      <div className="col-12 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
-                          <i className="pi pi-upload"></i>
-                          Work Type Files
-                        </label>
-                        <FileUpload
-                          mode="basic"
-                          multiple
-                          accept="*/*"
-                          maxFileSize={10000000}
-                          onUpload={(e) => onWorkItemFileUpload(index, e)}
-                          auto
-                          chooseLabel="Upload Files"
-                          className="w-full"
-                        />
-
-                        {/* Display uploaded work item files */}
-                        {workItem.files && workItem.files.length > 0 && (
-                          <div className="mt-3">
-                            <p className="text-sm font-medium text-700 mb-2">Uploaded Files:</p>
-                            <div className="flex flex-wrap gap-2">
-                              {workItem.files.map((file) => (
-                                <Tag
-                                  key={file.id}
-                                  value={`${file.name} (${formatFileSize(file.size)})`}
-                                  icon="pi pi-file"
-                                  severity="success"
-                                  className="cursor-pointer"
-                                  onClick={() => removeWorkItemFile(index, file.id)}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        <small className="text-500">Upload documents, designs, or reference materials for this work type.</small>
-                      </div>
-
-                      <div className="col-12 md:col-6 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2">Project</label>
-                        <Dropdown
-                          value={workItem.project || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'project', e.value)}
-                          options={projectOptions}
-                          className="w-full"
-                          placeholder="Select project..."
-                        />
-                        <small className="text-500">Which project or phase this work type belongs to.</small>
-                      </div>
-
-                      <div className="col-12 md:col-6 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2">Select Module</label>
-                        <Dropdown
-                          value={workItem.module || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'module', e.value)}
-                          options={moduleOptions}
-                          className="w-full"
-                          placeholder="Select module..."
-                        />
-                        <small className="text-500">Technical module or component this work relates to.</small>
-                      </div>
-
-                      <div className="col-12 md:col-6 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
-                          <i className="pi pi-user"></i>
-                          Assigned To
-                        </label>
-                        <Dropdown
-                          value={workItem.assignedTo || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'assignedTo', e.value)}
-                          options={assigneeOptions}
-                          className="w-full"
-                          placeholder="Select assignee..."
-                        />
-                        <small className="text-500">Team member responsible for completing this work.</small>
-                      </div>
-
-                      <div className="col-12 md:col-6 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
-                          <i className="pi pi-eye"></i>
-                          Add Watcher
-                        </label>
-                        <Dropdown
-                          value={workItem.watcher || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'watcher', e.value)}
-                          options={watcherOptions}
-                          className="w-full"
-                          placeholder="Select watcher..."
-                        />
-                        <small className="text-500">Person who will receive notifications about this work type.</small>
-                      </div>
-
-                      <div className="col-12 md:col-6 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2">Work Type</label>
-                        <Dropdown
-                          value={workItem.workType || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'workType', e.value)}
-                          options={workTypeOptions}
-                          className="w-full"
-                          placeholder="Select work type..."
-                        />
-                        <small className="text-500">Category or type of work to be performed.</small>
-                      </div>
-
-                      <div className="col-12 md:col-6 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2">Work Type Status</label>
-                        <Dropdown
-                          value={workItem.status || ''}
-                          onChange={(e) => handleWorkItemChange(index, 'status', e.value)}
-                          options={statusOptions}
-                          className="w-full"
-                          placeholder="Select status..."
-                        />
-                        <small className="text-500">Current progress status of this work type.</small>
-                      </div>
-
-                      <div className="col-12 mt-3">
-                        <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
-                          <i className="pi pi-clock"></i>
-                          Work Hours
-                        </label>
-                        <InputNumber
-                          value={workItem.workHours || 0}
-                          onValueChange={(e) => handleWorkItemChange(index, 'workHours', e.value)}
-                          className="w-full"
-                          min={0}
-                          step={0.5}
-                          placeholder="0"
-                          suffix=" hours"
-                        />
-                        <small className="text-500">Estimated time required to complete this work type.</small>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-
-                <Button
-                  label="Add Another Work Item"
-                  icon="pi pi-plus"
-                  onClick={addWorkItem}
-                  className="w-full p-button-outlined p-button-success"
+              {/* Summary - Always visible and REQUIRED */}
+              <div className="col-12 mt-3">
+                <label className="block text-sm font-medium text-700 mb-2">
+                  Summary <span className="text-red-500">*</span>
+                </label>
+                <InputTextarea
+                  rows={2}
+                  value={workItems[0]?.summary || ''}
+                  onChange={(e) => handleWorkItemChange(0, 'summary', e.target.value)}
+                  className={`w-full ${workItems[0]?.summary?.trim() ? 'p-inputtext-success' : ''}`}
+                  placeholder="Brief summary of the work type..."
                 />
+                <small className="text-500">Concise overview of what this work type entails. (Required)</small>
               </div>
-            )}
 
-            {!showAllWorkItemFields && (
-              <div className="text-center py-8 text-500">
-                <i className="pi pi-check-circle text-6xl mb-3 opacity-50"></i>
-                <p>Click "Add More" to configure work Type for your project</p>
-              </div>
-            )}
+
+
+              {/* Next Button - Only shown when required fields are completed */}
+              {currentStep === 2 && isWorkTypeDetailsValid() && (
+                <div className="col-12 mt-6">
+                  <div className="flex justify-content-between align-items-center">
+                    <div className="flex align-items-center gap-2 text-600">
+                      <i className="pi pi-check-circle text-green-500"></i>
+                      <span className="text-sm">All required fields completed! Ready to proceed or add more details.</span>
+                    </div>
+                    <div className="flex align-items-center gap-2">
+                      <Button
+                        label={showAllWorkItemFields ? 'Show Less' : 'Add More'}
+                        icon={showAllWorkItemFields ? 'pi pi-chevron-up' : 'pi pi-chevron-down'}
+                        onClick={() => setShowAllWorkItemFields(!showAllWorkItemFields)}
+                        className="p-button-success p-button-outlined wizard-button-transition"
+                      />
+                      <Button
+                        label="Next"
+                        icon="pi pi-arrow-right"
+                        iconPos="right"
+                        onClick={handleNextStep}
+                        className="p-button-success p-button-lg wizard-button-transition"
+                        style={{ minWidth: '120px' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Helper message when required fields are not completed */}
+              {currentStep === 2 && !isWorkTypeDetailsValid() && (
+                <div className="col-12 mt-6">
+                  <div className="flex align-items-center gap-2 text-orange-600 bg-orange-50 border-1 border-orange-200 border-round p-3 validation-message">
+                    <i className="pi pi-exclamation-triangle"></i>
+                    <span className="text-sm">Please complete the required Work Type and Summary fields to continue.</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Additional fields shown when "Add More" is clicked */}
+              {showAllWorkItemFields && (
+                <>
+                  {/* Description for first work item */}
+                  <div className="col-12 mt-4">
+                    <label className="block text-sm font-medium text-700 mb-2">
+                      Description
+                    </label>
+                    <InputTextarea
+                      rows={3}
+                      value={workItems[0]?.description || ''}
+                      onChange={(e) => handleWorkItemChange(0, 'description', e.target.value)}
+                      className="w-full"
+                      placeholder="Detailed description of the work item..."
+                    />
+                    <small className="text-500">Provide a detailed description of what this work item involves.</small>
+                  </div>
+
+                  <div className="col-12 md:col-6 mt-4">
+                    <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
+                      <i className="pi pi-user"></i>
+                      Assigned To
+                    </label>
+                    <Dropdown
+                      value={workItems[0]?.assignedTo || ''}
+                      onChange={(e) => handleWorkItemChange(0, 'assignedTo', e.value)}
+                      options={assigneeOptions}
+                      className="w-full"
+                      placeholder="Select assignee..."
+                    />
+                    <small className="text-500">Team member responsible for completing this work.</small>
+                  </div>
+
+                  <div className="col-12 md:col-6 mt-4">
+                    <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
+                      <i className="pi pi-clock"></i>
+                      Work Hours
+                    </label>
+                    <InputNumber
+                      value={workItems[0]?.workHours || 0}
+                      onValueChange={(e) => handleWorkItemChange(0, 'workHours', e.value)}
+                      className="w-full"
+                      min={0}
+                      step={0.5}
+                      placeholder="0"
+                      suffix=" hours"
+                    />
+                    <small className="text-500">Estimated time required to complete this work type.</small>
+                  </div>
+
+                  {/* Work Type Status */}
+                  <div className="col-12 mt-4">
+                    <label className="block text-sm font-medium text-700 mb-2">Work Type Status</label>
+                    <Dropdown
+                      value={workItems[0]?.status || ''}
+                      onChange={(e) => handleWorkItemChange(0, 'status', e.value)}
+                      options={statusOptions}
+                      className="w-full"
+                      placeholder="Select status..."
+                    />
+                    <small className="text-500">Current progress status of this work type.</small>
+                  </div>
+
+                  {/* Additional Work Items Section with Checkbox Control */}
+                  <div className="col-12 mt-6">
+                    <Divider align="center">
+                      <span className="text-600 font-medium">Additional Work Items</span>
+                    </Divider>
+
+                    {/* Add More Work Items Checkbox - Professional positioning within section */}
+                    <div className="bg-blue-50 border-1 border-blue-200 border-round p-4 mt-3">
+                      <div className="flex align-items-center gap-3">
+                        <Checkbox
+                          inputId="addMoreWorkItems"
+                          checked={addMoreWorkItems}
+                          onChange={(e) => {
+                            setAddMoreWorkItems(e.checked);
+                            if (e.checked && workItems.length === 1) {
+                              addWorkItem(); // Automatically add first additional work item when checkbox is checked
+                            }
+                          }}
+                          className="mr-2"
+                        />
+                        <label htmlFor="addMoreWorkItems" className="text-sm font-medium cursor-pointer flex align-items-center gap-2">
+                          <i className="pi pi-plus-circle text-blue-600"></i>
+                          Add More Work Items to Project
+                        </label>
+                      </div>
+                      <small className="text-600 ml-7 block mt-1">
+                        Check this to add additional work items to your project. Each work item can have its own timeline, assignee, and requirements.
+                      </small>
+                    </div>
+                  </div>
+
+                  {/* Additional work items list - Only show when checkbox is checked */}
+                  {addMoreWorkItems && workItems.length > 1 && (
+                    <>
+                      {workItems.slice(1).map((workItem, index) => (
+                        <div key={index + 1} className="col-12 mt-4">
+                          <Card className="border-1 border-200">
+                            <div className="flex justify-content-between align-items-center mb-4">
+                              <div className="flex align-items-center gap-2">
+                                <div className="w-2rem h-2rem bg-blue-100 text-blue-600 border-circle flex align-items-center justify-content-center font-semibold text-sm">
+                                  {index + 2}
+                                </div>
+                                <h4 className="m-0 font-medium">Work Item {index + 2}</h4>
+                              </div>
+                              <Button
+                                icon="pi pi-times"
+                                onClick={() => removeWorkItem(index + 1)}
+                                className="p-button-danger p-button-text p-button-sm"
+                                tooltip="Remove work item"
+                              />
+                            </div>
+
+                            <div className="grid">
+                              {/* Work Type - REQUIRED for additional items */}
+                              <div className="col-12">
+                                <label className="block text-sm font-medium text-700 mb-2">
+                                  Work Type <span className="text-red-500">*</span>
+                                </label>
+                                <Dropdown
+                                  value={workItem.workType || ''}
+                                  onChange={(e) => handleWorkItemChange(index + 1, 'workType', e.value)}
+                                  options={workTypeOptions}
+                                  className={`w-full ${workItem.workType?.trim() ? 'p-inputtext-success' : ''}`}
+                                  placeholder="Select work type..."
+                                />
+                                <small className="text-500">Category or type of work to be performed. (Required)</small>
+                              </div>
+
+                              {/* Summary - REQUIRED for additional items */}
+                              <div className="col-12 mt-3">
+                                <label className="block text-sm font-medium text-700 mb-2">
+                                  Summary <span className="text-red-500">*</span>
+                                </label>
+                                <InputTextarea
+                                  rows={2}
+                                  value={workItem.summary || ''}
+                                  onChange={(e) => handleWorkItemChange(index + 1, 'summary', e.target.value)}
+                                  className={`w-full ${workItem.summary?.trim() ? 'p-inputtext-success' : ''}`}
+                                  placeholder="Brief summary of the work type..."
+                                />
+                                <small className="text-500">Concise overview of what this work type entails. (Required)</small>
+                              </div>
+
+                              {/* Description */}
+                              <div className="col-12 mt-3">
+                                <label className="block text-sm font-medium text-700 mb-2">
+                                  Description
+                                </label>
+                                <InputTextarea
+                                  rows={3}
+                                  value={workItem.description || ''}
+                                  onChange={(e) => handleWorkItemChange(index + 1, 'description', e.target.value)}
+                                  className="w-full"
+                                  placeholder="Detailed description of the work item..."
+                                />
+                                <small className="text-500">Provide a detailed description of what this work item involves.</small>
+                              </div>
+
+                              <div className="col-12 md:col-6 mt-3">
+                                <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
+                                  <i className="pi pi-user"></i>
+                                  Assigned To
+                                </label>
+                                <Dropdown
+                                  value={workItem.assignedTo || ''}
+                                  onChange={(e) => handleWorkItemChange(index + 1, 'assignedTo', e.value)}
+                                  options={assigneeOptions}
+                                  className="w-full"
+                                  placeholder="Select assignee..."
+                                />
+                                <small className="text-500">Team member responsible for completing this work.</small>
+                              </div>
+
+                              <div className="col-12 md:col-6 mt-3">
+                                <label className="block text-sm font-medium text-700 mb-2 flex align-items-center gap-2">
+                                  <i className="pi pi-clock"></i>
+                                  Work Hours
+                                </label>
+                                <InputNumber
+                                  value={workItem.workHours || 0}
+                                  onValueChange={(e) => handleWorkItemChange(index + 1, 'workHours', e.value)}
+                                  className="w-full"
+                                  min={0}
+                                  step={0.5}
+                                  placeholder="0"
+                                  suffix=" hours"
+                                />
+                                <small className="text-500">Estimated time required to complete this work type.</small>
+                              </div>
+
+                              {/* Work Type Status */}
+                              <div className="col-12 mt-3">
+                                <label className="block text-sm font-medium text-700 mb-2">Work Type Status</label>
+                                <Dropdown
+                                  value={workItem.status || ''}
+                                  onChange={(e) => handleWorkItemChange(index + 1, 'status', e.value)}
+                                  options={statusOptions}
+                                  className="w-full"
+                                  placeholder="Select status..."
+                                />
+                                <small className="text-500">Current progress status of this work type.</small>
+                              </div>
+                            </div>
+                          </Card>
+                        </div>
+                      ))}
+                    </>
+                  )}
+
+                  {/* Add More Work Items Button - Only show when checkbox is checked and user wants to add more */}
+                  {addMoreWorkItems && (
+                    <div className="col-12 mt-4">
+                      <Button
+                        label="Add Another Work Item"
+                        icon="pi pi-plus"
+                        onClick={addWorkItem}
+                        className="w-full p-button-outlined p-button-success"
+                        tooltip="Add one more work item to this project"
+                      />
+                    </div>
+                  )}
+
+                  {/* Next Button at bottom of Add More section - Only when valid */}
+                  {isWorkTypeDetailsValid() && (
+                    <div className="col-12 mt-6">
+                      <div className="flex justify-content-between align-items-center">
+                        <Button
+                          label={showAllWorkItemFields ? 'Show Less' : 'Add More'}
+                          icon={showAllWorkItemFields ? 'pi pi-chevron-up' : 'pi pi-chevron-down'}
+                          onClick={() => setShowAllWorkItemFields(!showAllWorkItemFields)}
+                          className="p-button-success p-button-outlined wizard-button-transition"
+                        />
+                        <Button
+                          label="Next - Review Project"
+                          icon="pi pi-arrow-right"
+                          iconPos="right"
+                          onClick={handleNextStep}
+                          className="p-button-success p-button-lg wizard-button-transition"
+                          style={{ minWidth: '200px' }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </Panel>
 
-          {/* Submit Button */}
-          <Divider />
-          <div className="flex justify-content-between pt-4">
-            <Button
-              label="Cancel"
-              icon="pi pi-times"
-              onClick={onHide}
-              className="p-button-text p-button-secondary"
-            />
-            <Button
-              label="Create Project"
-              icon="pi pi-check"
-              onClick={() => {
-                onHide();
-                handleSubmit();
-              }}
-              
-              className="p-button-lg"
-            />
-          </div>
+          {/* Review & Submit Section */}
+          {currentStep === 3 && (
+            <Panel
+              header={
+                <div className="flex align-items-center gap-3">
+                  <div className="w-3rem h-3rem bg-blue-100 text-blue-600 border-circle flex align-items-center justify-content-center font-semibold text-sm border-2 border-blue-300">
+                    <i className="pi pi-flag-fill"></i>
+                  </div>
+                  <div>
+                    <h3 className="m-0 text-xl font-semibold">Review & Submit</h3>
+                    <p className="m-0 text-sm text-500">Review your project details before creation</p>
+                  </div>
+                </div>
+              }
+              className="mb-6 wizard-success-slide"
+              data-section="review-submit"
+            >
+              <div className="grid">
+                <div className="col-12">
+                  <div className="project-summary-section p-4 mb-4">
+                    <h4 className="text-lg font-semibold mb-3 flex align-items-center gap-2">
+                      <i className="pi pi-file text-blue-500"></i>
+                      Project Summary
+                    </h4>
+                    <div className="grid">
+                      <div className="col-12 md:col-6">
+                        <p className="mb-2"><strong>Project Name:</strong> {projectData.projectName}</p>
+                        {projectData.company && <p className="mb-2"><strong>Company:</strong> {projectData.company}</p>}
+                        {projectData.projectManager && <p className="mb-2"><strong>Project Manager:</strong> {projectData.projectManager}</p>}
+                      </div>
+                      <div className="col-12 md:col-6">
+                        {projectData.startDate && <p className="mb-2"><strong>Start Date:</strong> {projectData.startDate.toLocaleDateString()}</p>}
+                        {projectData.endDate && <p className="mb-2"><strong>End Date:</strong> {projectData.endDate.toLocaleDateString()}</p>}
+                        <p className="mb-2"><strong>Project Files:</strong> {projectFiles.length} file(s) uploaded</p>
+                      </div>
+                      {projectData.projectDescription && (
+                        <div className="col-12">
+                          <p className="mb-2"><strong>Description:</strong></p>
+                          <p className="text-color-secondary line-height-3">{projectData.projectDescription}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {showAllWorkItemFields && workItems.length > 0 && (
+                    <div className="project-summary-section p-4 fade-in-up">
+                      <h4 className="text-lg font-semibold mb-3 flex align-items-center gap-2">
+                        <i className="pi pi-check-circle text-green-500"></i>
+                        Work Items Summary
+                      </h4>
+                      <p className="mb-3"><strong>Total Work Items:</strong> {workItems.length}</p>
+                      {workItems.map((item, index) => (
+                        <div key={index} className="work-item-card bg-white border-round p-3 mb-2">
+                          <div className="flex align-items-center gap-2 mb-2">
+                            <span className="text-sm font-semibold text-blue-600">#{index + 1}</span>
+                            <span className="font-medium">{item.workType || `Work Item ${index + 1}`}</span>
+                          </div>
+                          {item.summary && <p className="text-sm text-color-secondary m-0">{item.summary}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex justify-content-between align-items-center pt-4">
+                <Button
+                  label="Previous"
+                  icon="pi pi-arrow-left"
+                  onClick={handlePreviousStep}
+                  className="p-button-secondary p-button-outlined wizard-button-transition"
+                />
+                <Button
+                  label="Create Project"
+                  icon="pi pi-check"
+                  onClick={handleSubmit}
+                  className="p-button-lg p-button-success wizard-button-transition"
+                />
+              </div>
+            </Panel>
+          )}
+
+          {/* Navigation Buttons for Steps 1 & 2 */}
+          {currentStep < 3 && (
+            <>
+              <Divider />
+              <div className="flex justify-content-between pt-4">
+                <Button
+                  label="Cancel"
+                  icon="pi pi-times"
+                  onClick={handleModalHide}
+                  className="p-button-text p-button-secondary"
+                />
+                <div className="flex gap-2">
+                  {currentStep > 1 && (
+                    <Button
+                      label="Previous"
+                      icon="pi pi-arrow-left"
+                      onClick={handlePreviousStep}
+                      className="p-button-secondary p-button-outlined wizard-button-transition"
+                    />
+                  )}
+                  <Button
+                    label={currentStep === 2 ? "Review" : "Next"}
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    onClick={handleNextStep}
+                    disabled={currentStep === 1 ? !isProjectDetailsValid() : !isWorkTypeDetailsValid()}
+                    className={`p-button-primary wizard-button-transition ${(currentStep === 1 && !isProjectDetailsValid()) || (currentStep === 2 && !isWorkTypeDetailsValid())
+                      ? 'p-button-secondary' : ''
+                      }`}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Cancel button for review step */}
+          {currentStep === 3 && (
+            <>
+              <Divider />
+              <div className="flex justify-content-start pt-4">
+                <Button
+                  label="Cancel"
+                  icon="pi pi-times"
+                  onClick={handleModalHide}
+                  className="p-button-text p-button-secondary"
+                />
+              </div>
+            </>
+          )}
         </div>
       </Dialog>
     </>

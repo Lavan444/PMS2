@@ -723,43 +723,35 @@ const ManagerDashboard = () => {
 
     // candidate source distribution starts
 
-    const [taskdata, setTaskdata] = useState({});
-    const [taskoptions, setTaskoptions] = useState({});
+    const [chartData1, setChartData1] = useState({});
+    const [chartOptions1, setChartOptions1] = useState({});
 
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
-
         const data = {
-            labels: ['Completed Tasks', 'Incompleted Tasks', 'All Tasks'],
+            labels: ['All WorkType','Completed WorkType', 'Incompleted WorkType',],
             datasets: [
-                {
-                    data: [50, 30, 20], // Example data for completed, incompleted, and all tasks
+               {
+                    data: [50, 30, 20], 
                     backgroundColor: [
+                        '#a8d8ea',  // All Tasks
                         '#88c999', // Completed Tasks
-                        '#a8d8ea', // Incompleted Tasks
-                        '#f1948a'  // All Tasks
+                        ' #f1948a', // Incompleted Tasks
                     ],
                     hoverBackgroundColor: [
+                        '#a8d8ea',  // All Tasks
                         '#88c999', // Completed Tasks
-                        '#a8d8ea', // Incompleted Tasks
-                        '#f1948a'  // All Tasks
+                        '#f1948a', // Incompleted Tasks
                     ]
                 }
             ]
         };
-
         const options = {
-            plugins: {
-                legend: {
-                    labels: {
-                        usePointStyle: true
-                    }
-                }
-            }
+            cutout: '60%'
         };
 
-        setTaskdata(data);
-        setTaskoptions(options);
+        setChartData1(data);
+        setChartOptions1(options);
     }, []);
 
     // candidate source distribution ends
@@ -781,20 +773,36 @@ const ManagerDashboard = () => {
                 'Project B',
                 'Project C',
                 'Project D',
-                'Project E'
+                'Project E',
+                'Project F',
+                'Project G',
+                'Project H',
             ],
+
+            //  labels: [
+            //     'AI Generator',
+            //     'Resume Parser',
+            //     'Chatbot Assistant',
+            //     'Image Enhancer AI',
+            //     'Voice to Text Converter',
+            //     'Bug Tracker Tool',
+            //     'Content Summarizer',
+            //     'Smart Form Autofill',
+            // ],
+
+
             datasets: [
                 {
                     label: 'Created Tasks',
-                    backgroundColor: '#7fdddd', // Updated color for Created Tasks
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    data: [150, 200, 120, 180, 220]
+                    backgroundColor: '#88c999', // Updated color for Created Tasks
+                    borderColor: documentStyle.getPropertyValue('#88c999'),
+                    data: [150, 200, 120, 180, 220, 170, 190, 210]
                 },
                 {
                     label: 'Completed Tasks',
-                    backgroundColor: '#88c999', // Updated color for Completed Tasks
-                    borderColor: documentStyle.getPropertyValue('--green-500'),
-                    data: [100, 150, 80, 130, 200]
+                    backgroundColor: '#a8d8ea', // Updated color for Completed Tasks
+                    borderColor: documentStyle.getPropertyValue('#a8d8ea'),
+                    data: [100, 150, 80, 130, 200, 120, 140, 160]
                 }
             ]
         };
@@ -1250,34 +1258,45 @@ const ManagerDashboard = () => {
                                     <p className="smalltitle"> Total Projects </p>
                                     <div className="d-flex justify-content-between">
                                         <h3 className="smallhead">30</h3>
-                                        <span><i className="pi pi-arrow-up me-2 success-txt"></i>+12%</span>
+
+                                        {/* <span><i className="pi pi-arrow-up me-2 success-txt"></i>+12%</span> */}
+                                        <span className="manager-textstyle-grn">
+                                        <span><i className="pi pi-arrow-up me-2 success-txt"></i></span> <span className="success-txt">+12%</span></span>
+
+                                        
                                     </div>
                                 </Card>
                             </Col>
                             <Col lg={3} md={6} className="mb-4">
                                 <Card className="h-100">
-                                    <p className="smalltitle"> Total Tasks </p>
+                                    <p className="smalltitle"> Total WorkType </p>
                                     <div className="d-flex justify-content-between">
                                         <h3 className="smallhead">200</h3>
-                                        <span><i className="pi pi-arrow-down me-2 danger-txt"></i>-40%</span>
+                                        {/* <span><i className="pi pi-arrow-down me-2 danger-txt"></i>-40%</span> */}
+                                         <span className="manager-textstyle-red">
+                                        <span><i className="pi pi-arrow-down me-2 danger-txt"></i></span> <span className="danger-txt">-40%</span></span>
                                     </div>
                                 </Card>
                             </Col>
                             <Col lg={3} md={6} className="mb-4">
                                 <Card className="h-100">
-                                    <p className="smalltitle"> Tasks Completed </p>
+                                    <p className="smalltitle"> WorkType Completed </p>
                                     <div className="d-flex justify-content-between">
                                         <h3 className="smallhead">120</h3>
-                                        <span><i className="pi pi-arrow-up me-2 success-txt"></i> +70%</span>
+                                        {/* <span><i className="pi pi-arrow-up me-2 success-txt"></i> +70%</span> */}
+                                         <span className="manager-textstyle-grn">
+                                        <span><i className="pi pi-arrow-up me-2 success-txt"></i></span> <span className="success-txt">+70%</span></span>
                                     </div>
                                 </Card>
                             </Col>
                             <Col lg={3} md={6} className="mb-4">
                                 <Card className="h-100">
-                                    <p className="smalltitle"> Tasks Extended </p>
+                                    <p className="smalltitle"> WorkType Extended </p>
                                     <div className="d-flex justify-content-between">
                                         <h3 className="smallhead">80</h3>
-                                        <span><i className="pi pi-arrow-down me-2 danger-txt"></i> -52%</span>
+                                        {/* <span><i className="pi pi-arrow-down me-2 danger-txt"></i> -52%</span> */}
+                                         <span className="manager-textstyle-red">
+                                        <span><i className="pi pi-arrow-down me-2 danger-txt"></i></span> <span className="danger-txt">-52%</span></span>
                                     </div>
                                 </Card>
                             </Col>
@@ -1287,15 +1306,15 @@ const ManagerDashboard = () => {
                             <Col lg={4} className="mb-4">
                                 <Card className="h-100">
                                     <div className="d-flex">
-                                        <h1 className="title">Tasks by Priority</h1>
+                                        <h1 className="title">WorkType by Priority</h1>
                                     </div>
-                                    <Chart type="pie" data={taskdata} options={taskoptions} className="w-full" />
+                                     <Chart type="doughnut" data={chartData1} options={chartOptions1} className="w-full md:w-30rem d-flex justifu-content-center" />
                                 </Card>
                             </Col>
 
                             <Col lg={8} className="mb-4">
                                 <Card className="h-70">
-                                    <h1 className="title">Created vs. Completed Tasks in Projects</h1>
+                                    <h1 className="title">Created vs. Completed WorkType in Projects</h1>
                                     <Chart type="bar" data={taskData} options={taskOptions} />
                                 </Card>
                             </Col>

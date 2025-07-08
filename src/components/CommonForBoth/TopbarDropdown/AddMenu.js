@@ -22,45 +22,30 @@ import { FilterMatchMode } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Tooltip } from 'primereact/tooltip';
-import CreateShortform from "ATSComponents/Common/CreateShortform";
+import CreateShortform from 'ATSComponents/Common/CreateShortform';
 
 const AddMenu = () => {
 
     const [visibleRight, setVisibleRight] = useState(false);
+    const [showCreateShortform, setShowCreateShortform] = useState(false);
 
     const toggleSidebar = () => {
         console.log("Toggling sidebar. Current state:", visibleRight);
         setVisibleRight(!visibleRight);
     };
 
-     const [showCreateShortform, setShowCreateShortform] = useState(false);
-
     const [selectedAddMenu, setSelectedAddMenu] = useState(null);
     const [showImportBulkResume, setShowImportBulkResume] = useState(false);
     const navigate = useNavigate(); // Hook to manage navigation
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const menuAddOptions = [
-        // {
-        //     name: 'Add Current Stakeholder',
-        //     code: 'EM-NE',
-        //     action: () => {
-        //         console.log("Current Path:", window.location.pathname);
-        //         // Check if we are on '/allactive-jobs'
-        //         if (window.location.pathname === '/allactive-jobs') {
-        //             toggleSidebar();
-        //         } else if (window.location.pathname === '/allactive-candidates') {
-        //             toggleCandidatesSidebar()
-        //         } else if (window.location.pathname === '/contacts-allactive') {
-        //             toggleContactsSidebar()
-        //         } else if (window.location.pathname === '/companies-allactive') {
-        //             toggleCompaniesSidebar()
-        //         }
-        //     }
-        // },
-         {
-            name: 'Project wizard',
+        {
+            name: 'Project Wizard',
             code: 'EM-NE',
-            onClick: () => { setShowCreateShortform(true) }
+            action: () => {
+                console.log("Opening Project Wizard...");
+                setShowCreateShortform(true);
+            }
         },
         // {
         //     name: 'Parse bulk resumes',
@@ -72,21 +57,21 @@ const AddMenu = () => {
             code: 'EM-JO',
             subItems: [
                 {
-                    name: 'Project', code: 'EM-JO-AL',
-                    action: () => navigate('/importfromcsv-candidates')
+                    name: 'Projects', code: 'EM-JO-AL',
+                    // action: () => navigate('/importfromcsv-candidates')
 
                 },
                 {
-                    name: 'WorkType', code: 'EM-JO-SE',
-                    action: () => navigate('/importfromcsv-jobs')
+                    name: 'Worktype', code: 'EM-JO-SE',
+                    // action: () => navigate('/importfromcsv-jobs')
                 },
                 {
                     name: 'Companies', code: 'EM-JO-SE',
-                    action: () => navigate('/importfromcsv-companies')
+                    // action: () => navigate('/importfromcsv-companies')
                 },
                 {
                     name: 'Contacts', code: 'EM-JO-SE',
-                    action: () => navigate('/importfromcsv-contacts')
+                    // action: () => navigate('/importfromcsv-contacts')
                 }
             ],
         },
@@ -95,11 +80,11 @@ const AddMenu = () => {
             code: 'EM-JO',
             subItems: [
                 {
-                    name: 'Project', code: 'EM-JO-AL',
+                    name: 'Projects', code: 'EM-JO-AL',
                     action: () => exportcandCSV(false)
                 },
                 {
-                    name: 'WorkType', code: 'EM-JO-SE',
+                    name: 'Worktype', code: 'EM-JO-SE',
                     action: () => jobsexportCSV(false)
                 },
 
@@ -1553,7 +1538,7 @@ const AddMenu = () => {
 
     // contacts table ends
 
-   
+
 
     return (
         <React.Fragment>
@@ -1575,16 +1560,10 @@ const AddMenu = () => {
                                     dropdownIcon={<PlusIcon onClick={handlePlusIconClick} className="custom-plus-icon" />}
                                 />
                             </div>
-                              <CreateShortform
-                        visible={showCreateShortform}
-                        onHide={() => setShowCreateShortform(false)}
-                      />
                         </Col>
                     </Row>
                 </Container>
             </div>
-
-          
 
             {/* jobs sidebar starts */}
             <Sidebar visible={visibleRight} position="right" className="sidebar" onHide={() => setVisibleRight(false)}>
@@ -2044,7 +2023,7 @@ const AddMenu = () => {
                             <Button
                                 color="primary"
                                 className="btn btn-primary  outlinebtn"
-                           
+
                             >
                                 Cancel
                             </Button>
@@ -3046,6 +3025,12 @@ const AddMenu = () => {
                 </div>
             </section>
             {/* contacts table ends */}
+
+            {/* CreateShortform Modal */}
+            <CreateShortform
+                visible={showCreateShortform}
+                onHide={() => setShowCreateShortform(false)}
+            />
 
         </React.Fragment>
     );

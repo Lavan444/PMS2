@@ -657,7 +657,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "9", // Company ID
       job_location: "Hyderabad", // Location of job
       workplace_type: "Due some issues", // Reason for delay
-      status: "To do",
+      status: "Open",
       job_type: "24-05-2025", // Target deployment or review date
       primary_skills: "HTML, CSS, JavaScript", // Required skills
       experience_required: "3 Years", // Experience
@@ -685,7 +685,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "12",
       job_location: "Bangalore",
       workplace_type: "Awaiting data source integration",
-      status: "In progress",
+      status: "In Progress",
       job_type: "15-06-2025",
       primary_skills: "Python, NLP, Regex",
       experience_required: "2 Years",
@@ -712,7 +712,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "14",
       job_location: "Chennai",
       workplace_type: "Dependency on third-party API",
-      status: "Done",
+      status: "Under Review",
       job_type: "10-07-2025",
       primary_skills: "React, Node.js, Dialogflow",
       experience_required: "4 Years",
@@ -739,7 +739,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "10",
       job_location: "Mumbai",
       workplace_type: "Awaiting design mockups",
-      status: "To do",
+      status: "Approved",
       job_type: "05-08-2025",
       primary_skills: "TensorFlow, OpenCV, Python",
       experience_required: "3 Years",
@@ -766,7 +766,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "11",
       job_location: "Noida",
       workplace_type: "Pending hardware testing",
-      status: "In progress",
+      status: "On Hold",
       job_type: "12-06-2025",
       primary_skills: "Python, SpeechRecognition, DeepSpeech",
       experience_required: "4 Years",
@@ -794,7 +794,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "8",
       job_location: "Pune",
       workplace_type: "Blocked on analytics integration",
-      status: "In progress",
+      status: "Done",
       job_type: "28-06-2025",
       primary_skills: "Python, Pandas, Scikit-learn",
       experience_required: "2 Years",
@@ -821,7 +821,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "15",
       job_location: "Delhi",
       workplace_type: "Delay in UI feedback",
-      status: "To do",
+      status: "Cancelled",
       job_type: "14-07-2025",
       primary_skills: "JavaScript, Node.js, MongoDB",
       experience_required: "3 Years",
@@ -848,13 +848,13 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "13",
       job_location: "Ahmedabad",
       workplace_type: "Stalled on test case setup",
-      status: "Done",
+      status: "Open",
       job_type: "25-06-2025",
       primary_skills: "React, Redux, Firebase",
       experience_required: "2 Years",
       min_salary: 550000,
       max_salary: 770000,
-      department: "QA",
+      department: "To Do",
       job_start_date: "10-02-2025",
       job_end_date: "30-09-2025",
       job_hiring_goal: 6,
@@ -875,7 +875,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "10",
       job_location: "Kolkata",
       workplace_type: "Model training delay",
-      status: "In progress",
+      status: "In Progress",
       job_type: "10-09-2025",
       primary_skills: "Python, Transformers, HuggingFace",
       experience_required: "3 Years",
@@ -902,7 +902,7 @@ const JobAllActive = ({ toggleSidebar }) => {
       company: "16",
       job_location: "Gurgaon",
       workplace_type: "Blocked on browser plugin API",
-      status: "In progress",
+      status: "Under Review",
       job_type: "20-07-2025",
       primary_skills: "JavaScript, Chrome API, ML",
       experience_required: "3 Years",
@@ -1753,34 +1753,38 @@ const JobAllActive = ({ toggleSidebar }) => {
   const [categories] = useState([
     {
       key: "0",
-      label: "Skills",
+      label: "Project Type",
       children: [
-        {
-          key: "0-0",
-          label: "Frontend",
-          children: [
-            { key: "0-0-0", label: "React" },
-            { key: "0-0-1", label: "Angular" },
-            { key: "0-0-2", label: "Bootstrap" },
-          ],
-        },
-        {
-          key: "0-1",
-          label: "Backend",
-          children: [
-            { key: "0-1-0", label: "Python" },
-            { key: "0-1-1", label: "Java" },
-            { key: "0-1-2", label: "C#" },
-          ],
-        },
-        {
-          key: "0-2",
-          label: "QA",
-          children: [
-            { key: "0-2-0", label: "Manual" },
-            { key: "0-2-1", label: "Automation" },
-          ],
-        },
+
+         { key: "0-0-0", label: "Own Project" },
+            { key: "0-0-1", label: "Client Project" },
+            { key: "0-0-2", label: "Others" },
+        // {
+        //   key: "0-0",
+        //   label: "Frontend",
+        //   children: [
+        //     { key: "0-0-0", label: "React" },
+        //     { key: "0-0-1", label: "Angular" },
+        //     { key: "0-0-2", label: "Bootstrap" },
+        //   ],
+        // },
+        // {
+        //   key: "0-1",
+        //   label: "Backend",
+        //   children: [
+        //     { key: "0-1-0", label: "Python" },
+        //     { key: "0-1-1", label: "Java" },
+        //     { key: "0-1-2", label: "C#" },
+        //   ],
+        // },
+        // {
+        //   key: "0-2",
+        //   label: "QA",
+        //   children: [
+        //     { key: "0-2-0", label: "Manual" },
+        //     { key: "0-2-1", label: "Automation" },
+        //   ],
+        // },
       ],
     },
   ])
@@ -1792,34 +1796,39 @@ const JobAllActive = ({ toggleSidebar }) => {
   const [groups] = useState([
     {
       key: "0",
-      label: "Skills",
+      label: "Project Domain",
       children: [
-        {
-          key: "0-0",
-          label: "Frontend",
-          children: [
-            { key: "0-0-0", label: "React" },
-            { key: "0-0-1", label: "Angular" },
-            { key: "0-0-2", label: "Bootstrap" },
-          ],
-        },
-        {
-          key: "0-1",
-          label: "Backend",
-          children: [
-            { key: "0-1-0", label: "Python" },
-            { key: "0-1-1", label: "Java" },
-            { key: "0-1-2", label: "C#" },
-          ],
-        },
-        {
-          key: "0-2",
-          label: "QA",
-          children: [
-            { key: "0-2-0", label: "Manual" },
-            { key: "0-2-1", label: "Automation" },
-          ],
-        },
+          { key: "0-0-0", label: "AI ML" },
+            { key: "0-0-1", label: "AI Phone" },
+            { key: "0-0-2", label: "Digital Marketing" },
+            { key: "0-0-3", label: "Ecommerce" },
+            { key: "0-0-4", label: "Others" },
+        // {
+        //   key: "0-0",
+        //   label: "Frontend",
+        //   children: [
+        //     { key: "0-0-0", label: "React" },
+        //     { key: "0-0-1", label: "Angular" },
+        //     { key: "0-0-2", label: "Bootstrap" },
+        //   ],
+        // },
+        // {
+        //   key: "0-1",
+        //   label: "Backend",
+        //   children: [
+        //     { key: "0-1-0", label: "Python" },
+        //     { key: "0-1-1", label: "Java" },
+        //     { key: "0-1-2", label: "C#" },
+        //   ],
+        // },
+        // {
+        //   key: "0-2",
+        //   label: "QA",
+        //   children: [
+        //     { key: "0-2-0", label: "Manual" },
+        //     { key: "0-2-1", label: "Automation" },
+        //   ],
+        // },
       ],
     },
   ])
@@ -2205,19 +2214,43 @@ const JobAllActive = ({ toggleSidebar }) => {
   
     const [moduleWorkTypes1, setModuleWorkTypes1] = useState([
       {
-        name: "To do",
+        name: "Open",
         color: "#000000",
-        id: "custom-task",
+        id: "custom-task1",
         statuses: ["Pending", "Processing", "Completed"],
       },
       {
         name: "In Progress",
         color: "#000000",
-        id: "custom-task",
+        id: "custom-task2",
         statuses: ["Pending", "Processing", "Completed"],
       },
       {
+        name: "Under Review",
+        color: "#000000",
+        id: "custom-task",
+        statuses: ["Pending", "Processing", "Completed"],
+      },
+       {
+        name: "Approved",
+        color: "#000000",
+        id: "custom-task",
+        statuses: ["Pending", "Processing", "Completed"],
+      },
+       {
+        name: "On Hold",
+        color: "#000000",
+        id: "custom-task",
+        statuses: ["Pending", "Processing", "Completed"],
+      },
+       {
         name: "Done",
+        color: "#000000",
+        id: "custom-task",
+        statuses: ["Pending", "Processing", "Completed"],
+      },
+       {
+        name: "Cancelled",
         color: "#000000",
         id: "custom-task",
         statuses: ["Pending", "Processing", "Completed"],
@@ -2265,7 +2298,9 @@ const JobAllActive = ({ toggleSidebar }) => {
                         <button
                           type="button"
                           class="btn btn-secondary icons-btn ms-1 view"
-                          onClick={() => setVisibleViewRight(true)}
+                          onClick={() => {setVisibleViewRight(true)
+                            setActiveTabIndex(0)
+                          }}
                         >
                           <i className="pi pi-eye"></i>
                         </button>
@@ -2335,12 +2370,15 @@ const JobAllActive = ({ toggleSidebar }) => {
       type="button"
       className="btn btn-secondary import-res-btn me-1 ms-2"
       label="Phases of Project"
-       onClick={() => setActiveTabIndex(1)} // Use the correct index for your tab
+       onClick={() => {setVisibleViewRight(true)
+        setActiveTabIndex(1)}} // Use the correct index for your tab
     />
     <Button
       type="button"
       className="btn btn-secondary import-res-btn me-1"
       label="WorkType"
+       onClick={() => {setVisibleViewRight(true)
+        setActiveTabIndex(3)}}
     />
     
   </div>
@@ -2751,7 +2789,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                             options={categories}
                             filter
                             className="w-full"
-                            placeholder="Frontend"
+                            placeholder="Select Project Type"
                           ></TreeSelect>
                         </div>
                       </Col>
@@ -2765,14 +2803,14 @@ const JobAllActive = ({ toggleSidebar }) => {
                             options={groups}
                             filter
                             className="w-full"
-                            placeholder="HTML, CSS"
+                            placeholder="Select Project Domain"
                           ></TreeSelect>
                         </div>
                       </Col>
 
                        <Col lg={6}>
                         <div className="p-field mt-3">
-                          <label htmlFor="jobType">Status</label>
+                          <label htmlFor="status">Status</label>
                           <WorkType1
                                                 initialWorkTypes={moduleWorkTypes1}
                                                 dropdownWorkTypes={moduleDropdownWorkTypes1}
@@ -3559,7 +3597,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                           </Row>
                         </TabPanel>
                         <TabPanel
-                          header="Ready for QA"
+                          header="Testing / QA"
                           rightIcon={
                             <Badge
                               value={interviewJobs.length}
@@ -3676,7 +3714,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                           </Row>
                         </TabPanel>
                         <TabPanel
-                          header="QA in Progress"
+                          header="Blocked"
                           rightIcon={
                             <Badge
                               value={offerJobs.length}
@@ -3793,7 +3831,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                           </Row>
                         </TabPanel>
                         <TabPanel
-                          header="Blocked"
+                          header="Done"
                           rightIcon={
                             <Badge
                               value={rejectedJobs.length}
@@ -3915,7 +3953,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                         </TabPanel>
 
                         <TabPanel
-                          header="Done or Closed"
+                          header="Cancelled"
                           rightIcon={
                             <Badge
                               value={placedJobs.length}
@@ -4037,7 +4075,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Row>
               </TabPanel>
 
-              <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2">
+              <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2" disabled>
                 <Row>
                   <Col lg={12}>
                     <section className="job-datatable-section">
@@ -4128,7 +4166,7 @@ const JobAllActive = ({ toggleSidebar }) => {
                 </Row>
               </TabPanel>
 
-              <TabPanel header="History" leftIcon="pi pi-clock mr-2">
+              <TabPanel header="History" leftIcon="pi pi-clock mr-2" disabled>
                 <Row>
                   <Col lg={12} sm={12}>
                     <section className="job-datatable-section">

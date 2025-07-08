@@ -3432,6 +3432,22 @@ ul {
             background: #f5f7fa !important;
           }
 
+.manager-textstyle-grn{
+    background-color: #28a7412b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+}
 
+.manager-textstyle-red{
+    background-color: #dc35452b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+}
 
 /* time sheet start */

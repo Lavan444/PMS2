@@ -182,19 +182,43 @@ const CandidateEditForm = () => {
 
     const [statusWorkTypes, setStatusWorkTypes] = useState([
         {
-            name: 'Active',
+            name: 'Open',
             color: '#000000',
             id: 'custom-task',
             statuses: ['Pending', 'Processing', 'Completed']
         },
         {
-            name: 'In Active',
+            name: 'In Progress',
             color: '#000000',
             id: 'in-active',
             statuses: ['Pending', 'Processing', 'Completed']
         },
         {
+            name: 'Under Review',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+         {
+            name: 'Approved',
+            color: '#000000',
+            id: 'custom-task',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
             name: 'On Hold',
+            color: '#000000',
+            id: 'in-active',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'Done',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+         {
+            name: 'Cancelled',
             color: '#000000',
             id: 'dnd',
             statuses: ['Pending', 'Processing', 'Completed']

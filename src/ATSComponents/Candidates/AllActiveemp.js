@@ -527,7 +527,7 @@ const AllActiveemp = () => {
       data: {
         id: "1",
         certificate_name: "Creative Strategy Blueprint",
-        docSubject: "Proposal Document - Visual Identity Plan",
+        docSubject: "Proposal Document",
         created_at: "2023-10-01 10:30 AM",
       },
     },
@@ -536,7 +536,7 @@ const AllActiveemp = () => {
       data: {
         id: "2",
         certificate_name: "Neural Systems Brief",
-        docSubject: "Technical Overview - Predictive Logic Engine",
+        docSubject: "Technical Overview",
         created_at: "2023-10-02 02:15 PM",
       },
     },
@@ -2541,10 +2541,10 @@ const AllActiveemp = () => {
   const [selectedMod, setSelectedMod] = useState(null)
 
   const modOptions = [
-    { name: "Home page", code: "HYD" },
-    { name: "Backend page", code: "CHN" },
-    { name: "HR Management", code: "MUM" },
-    { name: "Recruitement page", code: "BLR" },
+    { name: "User Management", code: "HYD" },
+    { name: "Reporting", code: "CHN" },
+    { name: "Authentication", code: "MUM" },
+    { name: "Payroll Management", code: "BLR" },
   ]
 
   const [selectedAss, setSelectedAss] = useState(null)
@@ -3049,7 +3049,7 @@ const AllActiveemp = () => {
       work_hours: 12,
       end_date: "03-05-2025",
       actual_end_date: "02-05-2025",
-      task_status: "Completed",
+      task_status: "To Do",
       priority: "High",
       approval_status: "Approved",
     },
@@ -3087,7 +3087,7 @@ const AllActiveemp = () => {
       work_hours: 5,
       end_date: "03-05-2025",
       actual_end_date: "03-05-2025",
-      task_status: "Completed",
+      task_status: "In Review",
       priority: "High",
       approval_status: "Approved",
     },
@@ -3107,7 +3107,7 @@ const AllActiveemp = () => {
       work_hours: 10,
       end_date: "06-05-2025",
       actual_end_date: "06-05-2025",
-      task_status: "Completed",
+      task_status: "Testing / QA",
       priority: "Medium",
       approval_status: "Approved",
     },
@@ -3127,7 +3127,7 @@ const AllActiveemp = () => {
       work_hours: 16,
       end_date: "07-05-2025",
       actual_end_date: "07-05-2025",
-      task_status: "In Progress",
+      task_status: "Blocked",
       priority: "High",
       approval_status: "Pending",
     },
@@ -3147,7 +3147,7 @@ const AllActiveemp = () => {
       work_hours: 6,
       end_date: "02-05-2025",
       actual_end_date: "02-05-2025",
-      task_status: "Completed",
+      task_status: "Done",
       priority: "Low",
       approval_status: "Approved",
     },
@@ -3167,7 +3167,7 @@ const AllActiveemp = () => {
       work_hours: 4,
       end_date: "06-05-2025",
       actual_end_date: "07-05-2025",
-      task_status: "Not Started",
+      task_status: "Cancelled",
       priority: "Medium",
       approval_status: "Pending",
     },
@@ -3187,7 +3187,7 @@ const AllActiveemp = () => {
       work_hours: 9,
       end_date: "04-05-2025",
       actual_end_date: "03-05-2025",
-      task_status: "Completed",
+      task_status: "To Do",
       priority: "High",
       approval_status: "Approved",
     },
@@ -3225,7 +3225,7 @@ const AllActiveemp = () => {
       work_hours: 7,
       end_date: "05-05-2025",
       actual_end_date: "05-05-2025",
-      task_status: "Completed",
+      task_status: "In Review",
       priority: "Medium",
       approval_status: "Approved",
     },
@@ -3301,23 +3301,47 @@ const AllActiveemp = () => {
 
   const [moduleWorkTypes1, setModuleWorkTypes1] = useState([
     {
-      name: "To do",
-      color: "#000000",
-      id: "custom-task",
-      statuses: ["Pending", "Processing", "Completed"],
-    },
-    {
-      name: "In Progress",
-      color: "#000000",
-      id: "custom-task",
-      statuses: ["Pending", "Processing", "Completed"],
-    },
-    {
-      name: "Done",
-      color: "#000000",
-      id: "custom-task",
-      statuses: ["Pending", "Processing", "Completed"],
-    },
+            name: 'To Do',
+            color: '#000000',
+            id: 'custom-task',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'In Progress',
+            color: '#000000',
+            id: 'in-active',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'In Review',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+         {
+            name: 'Testing / QA',
+            color: '#000000',
+            id: 'custom-task',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'Blocked',
+            color: '#000000',
+            id: 'in-active',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'Done',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+         {
+            name: 'Cancelled',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
   ])
 
   const moduleDropdownWorkTypes1 = [
@@ -3333,18 +3357,48 @@ const AllActiveemp = () => {
   // Assigned task start
 
    const [moduleWorkTypes2, setModuleWorkTypes2] = useState([
-    {
-      name: "Mahesh Kumar Bhoga",
-      color: "#000000",
-      id: "custom-task",
-      statuses: ["Pending", "Processing", "Completed"],
-    },
-    {
-      name: "Aman Kumar",
-      color: "#000000",
-      id: "custom-task",
-      statuses: ["Pending", "Processing", "Completed"],
-    },
+     {
+            name: 'To Do',
+            color: '#000000',
+            id: 'custom-task',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'In Progress',
+            color: '#000000',
+            id: 'in-active',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'In Review',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+         {
+            name: 'Testing / QA',
+            color: '#000000',
+            id: 'custom-task',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'Blocked',
+            color: '#000000',
+            id: 'in-active',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+        {
+            name: 'Done',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
+         {
+            name: 'Cancelled',
+            color: '#000000',
+            id: 'dnd',
+            statuses: ['Pending', 'Processing', 'Completed']
+        },
     
   ])
 
@@ -4750,6 +4804,25 @@ const AllActiveemp = () => {
                                   </div>
                                 </Col>
                               </Row>
+
+                               <Row className="mb-2">
+                                <Col lg={12}>
+                                  <div className="p-field">
+                                    <label htmlFor="taskCode" className="block">
+                                       Summary
+                                    </label>
+                                    <InputText
+                                      id="taskCode"
+                                      value={
+                                        getSelectedTaskData()?.task_name || ""
+                                      }
+                                      readOnly
+                                      placeholder=""
+                                      className="block w-full"
+                                    />
+                                  </div>
+                                </Col>
+                              </Row>
                             </Col>
 
                             {/* 2. Basic Information */}
@@ -4787,11 +4860,11 @@ const AllActiveemp = () => {
                                       Select Module
                                     </label>
                                     <Dropdown
-                                      value={selectedMod}
+                                      value={ getSelectedTaskData()?.module_name || ""}
                                       onChange={e => setSelectedMod(e.value)}
                                       options={modOptions}
                                       optionLabel="name"
-                                      placeholder="--select--"
+                                      placeholder="User Management"
                                       // filter
                                       className="bgclr w-100"
                                     />
@@ -5314,7 +5387,7 @@ const AllActiveemp = () => {
                     </Col>
                   </Row>
                 </TabPanel> */}
-                <TabPanel header="Pipeline" leftIcon="pi pi-cog mr-2">
+                <TabPanel header="Pipeline" leftIcon="pi pi-cog mr-2" disabled>
                   <Row>
                     <Col lg={12}>
                       <div className="pipelinetabs">
@@ -6097,7 +6170,7 @@ const AllActiveemp = () => {
                     </Col>
                   </Row>
                 </TabPanel>
-                <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2">
+                <TabPanel header="Activities" leftIcon="pi pi-calendar mr-2" disabled>
                   <Row>
                     <Col lg={12}>
                       <section className="job-datatable-section">
@@ -6187,7 +6260,7 @@ const AllActiveemp = () => {
                     </Col>
                   </Row>
                 </TabPanel>
-                <TabPanel header="History" leftIcon="pi pi-clock mr-2">
+                <TabPanel header="History" leftIcon="pi pi-clock mr-2" disabled>
                   <Row>
                     <Col lg={12} sm={12}>
                       <section className="job-datatable-section">

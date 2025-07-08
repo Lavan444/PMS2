@@ -3347,8 +3347,8 @@ const AllActiveemp = () => {
   const moduleDropdownWorkTypes1 = [
     ...moduleWorkTypes1,
     { id: "divider", disabled: true },
-    { name: "Add Status", id: "create-new-work-type" },
-    { name: "Edit Status", id: "edit-selected-work-type" },
+    { name: "Add Work Type Status", id: "create-new-work-type" },
+    { name: "Edit Work Type Status", id: "edit-selected-work-type" },
   ]
 
   // status work type end
@@ -3358,47 +3358,24 @@ const AllActiveemp = () => {
 
    const [moduleWorkTypes2, setModuleWorkTypes2] = useState([
      {
-            name: 'To Do',
+            name: 'Mahesh Kumar Bhoga',
             color: '#000000',
             id: 'custom-task',
             statuses: ['Pending', 'Processing', 'Completed']
         },
         {
-            name: 'In Progress',
+            name: 'Aman Kumar',
             color: '#000000',
             id: 'in-active',
             statuses: ['Pending', 'Processing', 'Completed']
         },
-        {
-            name: 'In Review',
-            color: '#000000',
-            id: 'dnd',
-            statuses: ['Pending', 'Processing', 'Completed']
-        },
          {
-            name: 'Testing / QA',
-            color: '#000000',
-            id: 'custom-task',
-            statuses: ['Pending', 'Processing', 'Completed']
-        },
-        {
-            name: 'Blocked',
+            name: 'Lavan kumar',
             color: '#000000',
             id: 'in-active',
             statuses: ['Pending', 'Processing', 'Completed']
         },
-        {
-            name: 'Done',
-            color: '#000000',
-            id: 'dnd',
-            statuses: ['Pending', 'Processing', 'Completed']
-        },
-         {
-            name: 'Cancelled',
-            color: '#000000',
-            id: 'dnd',
-            statuses: ['Pending', 'Processing', 'Completed']
-        },
+       
     
   ])
 
@@ -3942,29 +3919,7 @@ const AllActiveemp = () => {
                         </div>
                       </Col>
 
-                      <Col lg={12}>
-                        <label htmlFor="city" className="mb-1">
-                          Summary
-                        </label>
-                        <InputText
-                          placeholder="Add User Role Feature"
-                          value={taskAssigned}
-                        />
-                      </Col>
-
-                      <Col lg={6} className="mb-2 mt-2">
-                        <label htmlFor="city" className="mb-1">
-                          Status
-                        </label>
-                        <WorkType1
-                          initialWorkTypes={moduleWorkTypes1}
-                          dropdownWorkTypes={moduleDropdownWorkTypes1}
-                          onWorkTypesChange={handleModuleWorkTypesChange}
-                          onSelectionChange={handleModuleSelectionChange}
-                        />
-                      </Col>
-
-                      <Col lg={6} className="mb-2">
+                       <Col lg={6} className="mb-2">
                         <label htmlFor="city" className="mb-0 mt-2">
                           Priority
                         </label>
@@ -3978,7 +3933,31 @@ const AllActiveemp = () => {
                         />
                       </Col>
 
-                      <Col lg={6} className="mb-2">
+                      <Col lg={12}>
+                        <label htmlFor="city" className="mb-1">
+                          Summary
+                        </label>
+                        <InputText
+                          placeholder="Add User Role Feature"
+                          value={taskAssigned}
+                        />
+                      </Col>
+
+                      {/* <Col lg={6} className="mb-2 mt-2">
+                        <label htmlFor="city" className="mb-1">
+                          Status
+                        </label>
+                        <WorkType1
+                          initialWorkTypes={moduleWorkTypes1}
+                          dropdownWorkTypes={moduleDropdownWorkTypes1}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
+                        />
+                      </Col> */}
+
+                     
+
+                      <Col lg={6} className="mb-2 mt-2">
                         <label htmlFor="city" className="mb-1">
                           Assigned to
                         </label>
@@ -3990,7 +3969,7 @@ const AllActiveemp = () => {
                         />
                       </Col>
 
-                      <Col lg={6} className="mb-3">
+                      <Col lg={6} className="mb-3 mt-2">
                         <label htmlFor="city" className="mb-1">
                           Add Watcher
                         </label>
@@ -4089,7 +4068,19 @@ const AllActiveemp = () => {
                     </Row>
 
                     <Row className="mb-3 mt-2">
-                      <Col lg={6}>
+
+                       <Col lg={6} >
+                        <label htmlFor="city" className="mb-0">
+                          Work Type Status
+                        </label>
+                        <WorkType1
+                          initialWorkTypes={moduleWorkTypes1}
+                          dropdownWorkTypes={moduleDropdownWorkTypes1}
+                          onWorkTypesChange={handleModuleWorkTypesChange}
+                          onSelectionChange={handleModuleSelectionChange}
+                        />
+                      </Col>
+                      {/* <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Work Type Status
                         </label>
@@ -4099,7 +4090,7 @@ const AllActiveemp = () => {
                           onWorkTypesChange={handleModuleWorkTypesChange}
                           onSelectionChange={handleModuleSelectionChange}
                         />
-                      </Col>
+                      </Col> */}
                       <Col lg={6}>
                         <label htmlFor="city" className="mb-0">
                           Approval Status

@@ -668,7 +668,7 @@ const TimesheetComponent = () => {
         fontWeight: "300",
         fontSize: "16px",
         marginTop: "3px"
-      }}>8:30</div>
+      }}>{formatMinutes(calculateDayTotal('mon'))}</div>
     </div>
   }
   editor={timeEditor}
@@ -706,7 +706,7 @@ const TimesheetComponent = () => {
         fontWeight: "300",
         fontSize: "16px",
         marginTop: "3px"
-      }}>8:30</div>
+      }}>{formatMinutes(calculateDayTotal('tue'))}</div>
     </div>
   }
   editor={timeEditor}
@@ -744,7 +744,7 @@ const TimesheetComponent = () => {
         fontWeight: "300",
         fontSize: "16px",
         marginTop: "3px"
-      }}>9:00</div>
+      }}>{formatMinutes(calculateDayTotal('wed'))}</div>
     </div>
   }
   editor={timeEditor}
@@ -782,7 +782,7 @@ const TimesheetComponent = () => {
         fontWeight: "300",
         fontSize: "16px",
         marginTop: "3px"
-      }}>6:00</div>
+      }}>{formatMinutes(calculateDayTotal('thu'))}</div>
     </div>
   }
   editor={timeEditor}
@@ -820,7 +820,7 @@ const TimesheetComponent = () => {
         fontWeight: "300",
         fontSize: "16px",
         marginTop: "3px"
-      }}>0:00</div>
+      }}>{formatMinutes(calculateDayTotal('fri'))}</div>
     </div>
   }
   editor={timeEditor}
@@ -847,7 +847,12 @@ const TimesheetComponent = () => {
           header={
             <div className="text-end">
               <div style={{fontSize: '16px', marginLeft: '20px'}}>Total</div>
-              <div className="" style={{fontSize: '16px !important', marginTop: '3px', fontWeight: '300'}} >32:00</div>
+              <div className="" style={{fontSize: '16px !important', marginTop: '3px', fontWeight: '300'}} >{formatMinutes(
+                      ['mon', 'tue', 'wed', 'thu', 'fri'].reduce(
+                        (total, day) => total + calculateDayTotal(day),
+                        0
+                      )
+                    )}</div>
             </div>
           }
           style={{ width: '100px',  }}

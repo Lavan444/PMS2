@@ -20,7 +20,7 @@ import { useSelector } from "react-redux"
 
 
 
-const KpiPerformance = () => {
+const KpiTracking = () => {
   const { first, rows,  } = useSelector(
                   state => state.calendar.pagination
                 )
@@ -1097,7 +1097,7 @@ const saveAsExcelFile = (buffer, fileName) => {
 
                                      <Row className="align-items-center actjobsum">
                                                                 <Col sm={6} md={6} lg={8}>
-                                                                    <h1 className="page-title">KPI Performance</h1>
+                                                                    <h1 className="page-title">KPI Tracking</h1>
                                                                 </Col>
                                     
                                                                 <Col sm={6} md={6} lg={4}>
@@ -1942,4 +1942,4 @@ const saveAsExcelFile = (buffer, fileName) => {
   )
 }
 
-export default KpiPerformance
+export default KpiTracking

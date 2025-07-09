@@ -29,27 +29,31 @@ const SidebarContent = props => {
       order: 1,
       subItems: [
         { id: 'dashboards', title: 'Dashboards', route: '/manager-dashboard' },
-        {
-          id: 'project-health',
-          title: 'Project Health Monitoring',
-          subItems: [
-            { id: 'delivery-dates', title: 'Delivery Dates', route: '/delivery-dates' },
-            { id: 'delays', title: 'Delay', route: '/delays' },
-            { id: 'gaps', title: 'Gaps', route: '/gaps' }
-          ]
-        },
+        // {
+        //   id: 'project-health',
+        //   title: 'Project Health Monitoring',
+        //   subItems: [
+        //     { id: 'delivery-dates', title: 'Delivery Dates', route: '/delivery-dates' },
+        //     { id: 'delays', title: 'Delay', route: '/delays' },
+        //     { id: 'gaps', title: 'Gaps', route: '/gaps' }
+        //   ]
+        // },
         {
           id: 'reports',
           title: 'Reports',
           subItems: [
-            { id: 'recruiter-report', title: 'Recruiter Performance Report', route: '/recruiter-performance-report' },
-            { id: 'active-job-summary', title: 'Active Job Summary Report', route: '/activejob-summary' },
-            { id: 'time-to-hire', title: 'Time to Hire Report', route: '/time-to-hire' },
-            { id: 'placement-report', title: 'Placement Report', route: '/placement-report' },
-            { id: 'call-report', title: 'Call Report', route: '/call-report' },
-            { id: 'source-performance', title: 'Source Performance Report', route: '/source-performance-report' },
-            { id: 'pipeline-report', title: 'My Pipeline Report', route: '/pipeline-report' },
-            { id: 'my-placement-report', title: 'My Placement Report', route: '/my-placement-report' }
+            // { id: 'recruiter-report', title: 'Recruiter Performance Report', route: '/recruiter-performance-report' },
+            // { id: 'active-job-summary', title: 'Active Job Summary Report', route: '/activejob-summary' },
+            // { id: 'time-to-hire', title: 'Time to Hire Report', route: '/time-to-hire' },
+            // { id: 'placement-report', title: 'Placement Report', route: '/placement-report' },
+            // { id: 'call-report', title: 'Call Report', route: '/call-report' },
+            // { id: 'source-performance', title: 'Source Performance Report', route: '/source-performance-report' },
+            // { id: 'pipeline-report', title: 'My Pipeline Report', route: '/pipeline-report' },
+            // { id: 'my-placement-report', title: 'My Placement Report', route: '/my-placement-report' },
+            { id: 'project-status', title: 'Project Status', route: '/project-status', disabled: true },
+            { id: 'project-status', title: 'Project Phases Report', route: '/project-phases-report' },
+            { id: 'project-status', title: 'Resource Utilization', route: '/resource-utilization' },
+            { id: 'project-status', title: 'Work Type Report', route: '/work-type-report' },
           ]
         }
       ]
@@ -136,7 +140,8 @@ const SidebarContent = props => {
           ]
         },
         { id: 'timesheet', title: 'Time Sheet', route: '/timesheet' },
-        { id: 'kpi-performance', title: 'KPI / Performance Inputs', route: '/kpi-performance' }
+        { id: 'kpi-performance', title: 'KPI Tracking', route: '/kpi-tracking' },
+        { id: 'kpi-performance', title: 'KPI Performance', route: '/kpi-performance' }
       ]
     },
     {

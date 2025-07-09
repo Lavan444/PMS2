@@ -782,7 +782,7 @@ const EmployeeAllActive = () => {
       Company: "Pranathis Software Services",
       JobTitle: "Frontend Developer",
       PrimarySkills: "JavaScript, React",
-      Email: "lavan9@infosys.com",
+      Email: "lavan9@pranthissoftwareservices.com",
       MobilePhone: "9876543211",
       City: "Hyderabad",
       Status: "Active",
@@ -804,7 +804,7 @@ const EmployeeAllActive = () => {
       Company: "Vitel Global Communications",
       JobTitle: "Frontend Developer",
       PrimarySkills: "JavaScript, React",
-      Email: "ruchitha9@tarundigitalmedia.com",
+      Email: "ruchitha9@vitelglobalcommunication.com",
       MobilePhone: "9876543212",
       City: "Hyderabad",
       Status: "Active",
@@ -826,7 +826,7 @@ const EmployeeAllActive = () => {
       Company: "Pranathis Software Services",
       JobTitle: "Frontend Developer",
       PrimarySkills: "JavaScript, React",
-      Email: "venkatalaxmi9@cognizant.com",
+      Email: "venkatalaxmi9@pranthissoftwareservices.com",
       MobilePhone: "9876543210",
       City: "Hyderabad",
       Status: "Active",
@@ -849,7 +849,7 @@ const EmployeeAllActive = () => {
       Company: "Vitel Global Communications",
       JobTitle: "Content Writer",
       PrimarySkills: "Blog Writing, Article Writing",
-      Email: "nagendra9@catechnologies.com",
+      Email: "nagendra9@vitelglobalcommunication.com",
       MobilePhone: "9876543219",
       City: "Hyderabad",
       Status: "Active",
@@ -871,7 +871,7 @@ const EmployeeAllActive = () => {
       Company: "Vitel Global Communications",
       JobTitle: "Backend",
       PrimarySkills: "Python, Flask",
-      Email: "Saikumar9@l&tmindtre.com",
+      Email: "Saikumar9@vitelglobalcommunication.com",
       MobilePhone: "9876543217",
       City: "Hyderabad",
       Status: "Active",
@@ -893,7 +893,7 @@ const EmployeeAllActive = () => {
       Company: "Pranathis Software Services",
       JobTitle: "Data Scientist",
       PrimarySkills: "Deep Learning, Machine Learning",
-      Email: "Vasanth9@Ramss.com",
+      Email: "Vasanth9@pranthissoftwareservices.com",
       MobilePhone: "9876543218",
       City: "Hyderabad",
       Status: "Active",
@@ -915,7 +915,7 @@ const EmployeeAllActive = () => {
       Company: "Pranathis Software Services",
       JobTitle: "Web Developer",
       PrimarySkills: "HTML, JavaScript",
-      Email: "Ajay9@citelglobal.com",
+      Email: "Ajay9@pranthissoftwareservices.com",
       MobilePhone: "9876543214",
       City: "Hyderabad",
       Status: "Active",
@@ -937,7 +937,7 @@ const EmployeeAllActive = () => {
       Company: "Vitel Global Communications",
       JobTitle: "SEO",
       PrimarySkills: "On Page SEO, Off Page SEO",
-      Email: "bhargavi9@capgemini.com",
+      Email: "bhargavi9@vitelglobalcommunication.com",
       MobilePhone: "9873216550",
       City: "Hyderabad",
       Status: "Active",
@@ -960,7 +960,7 @@ const EmployeeAllActive = () => {
       Company: "Pranathis Software Services",
       JobTitle: "Frontend Developer",
       PrimarySkills: "HTML, React",
-      Email: "chandana9@Saidigitalmedia.com",
+      Email: "chandana9@pranthissoftwareservices.com",
       MobilePhone: "9876543213",
       City: "Hyderabad",
       Status: "Active",
@@ -982,7 +982,7 @@ const EmployeeAllActive = () => {
       Company: "Vitel Global Communications",
       JobTitle: "Graphic Designer",
       PrimarySkills: "Photoshop, Canva",
-      Email: "RajaShekar9@maheshdigitalmedia.com",
+      Email: "RajaShekar9@vitelglobalcommunication.com",
       MobilePhone: "9876543215",
       City: "Hyderabad",
       Status: "Active",
@@ -3191,8 +3191,8 @@ const worktypeData = [
                       <DataTable
                         ref={dt}
                         value={candidateData.slice(pageState.first, pageState.first + pageState.rows)}
-rows={pageState.rows}
-first={pageState.first}
+                        rows={pageState.rows}
+                        first={pageState.first}
                         // value={candidateData.slice(first, first + rows)}
                         // rows={rows}
                         // first={first}

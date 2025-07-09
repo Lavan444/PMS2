@@ -104,6 +104,7 @@ import TalentScan from "ATSComponents/Candidates/TalentScan";
 // Time sheet
 
 import TimeSheet from "ATSComponents/TimeSheet/TimeSheet";
+import KpiTracking from "ATSComponents/TimeSheet/KpiTracking";
 import KpiPerformance from "ATSComponents/TimeSheet/KpiPerformance";
 
 
@@ -225,6 +226,7 @@ const userRoutes = [
   // Time sheet
 
   { path: "/timesheet", component: <TimeSheet /> },
+  { path: "/kpi-tracking", component: <KpiTracking /> },
   { path: "/kpi-performance", component: <KpiPerformance /> },
 
   

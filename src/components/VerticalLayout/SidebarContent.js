@@ -53,7 +53,8 @@ const SidebarContent = props => {
             { id: 'project-status', title: 'Project Status', route: '/project-status', disabled: true },
             { id: 'project-status', title: 'Project Phases Report', route: '/project-phases-report' },
             { id: 'project-status', title: 'Resource Utilization', route: '/resource-utilization' },
-            { id: 'project-status', title: 'Work Type Report', route: '/work-type-report' },
+            { id: 'work-type-report', title: 'Work Type Report', route: '/work-type-report' },
+            { id: 'weekly-report', title: 'Weekly Report', route: '/weekly-report' },
           ]
         }
       ]

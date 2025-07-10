@@ -68,6 +68,15 @@ import PlacementReport from "ATSComponents/Reports/PlacementReport";
 import TimeToHire from "ATSComponents/Reports/TimeToHire";
 import MyPipelineReport from "ATSComponents/Reports/MyPipelineReport";
 
+// New reports
+import ProjectStatus from "ATSComponents/Reports/ProjectStatus";  
+import ProjectPhasesReport from "ATSComponents/Reports/ProjectPhasesReport";
+import WorkTypeReport from "ATSComponents/Reports/WorkTypeReport";
+import ResourceUtilization from "ATSComponents/Reports/ResourceUtilization";
+import WeeklyReport from "ATSComponents/Reports/WeeklyReport";
+
+
+
 // calender
 import CalenderActive from "ATSComponents/Calendar/CalenderActive";
 import CalenderAll from "ATSComponents/Calendar/CalenderAll";
@@ -185,6 +194,11 @@ const userRoutes = [
   { path: "/call-report", component: <CallReport /> },
   { path: "/placement-report", component: <PlacementReport /> },
   { path: "/pipeline-report", component: <MyPipelineReport /> },
+  { path: "/project-status", component: <ProjectStatus /> },
+  { path: "/project-phases-report", component: <ProjectPhasesReport /> },
+  { path: "/work-type-report", component: <WorkTypeReport /> },
+  { path: "/resource-utilization", component: <ResourceUtilization /> },
+  { path: "/weekly-report", component: <WeeklyReport /> },
 
   // Calender
   { path: "/calendar-active", component: <CalenderActive /> },

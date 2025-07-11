@@ -952,17 +952,18 @@ const saveAsExcelFile = (buffer, fileName) => {
                         selectionMode="multiple"
                         headerStyle={{ width: "3em" }}
                       />
-                   <Column field="project_name" header="Project Name" filter sortable style={{ minWidth: "12rem" }} />
-<Column field="company" header="Company" filter sortable style={{ minWidth: "12rem" }}  />
-<Column field="project_manager" header="Project Manager" filter sortable style={{ minWidth: "12rem" }}  />
-<Column field="status" header="Status" filter sortable showFilterMatchModes style={{ minWidth: "12rem" }} />
-<Column field="total_resources" header="Total Resources" filter sortable style={{ minWidth: "12rem" }}  />
-<Column field="billable_hours" header="Billable Hrs" filter sortable style={{ minWidth: "12rem" }}  />
-<Column field="utilization" header="Utilization" filter sortable style={{ minWidth: "12rem" }} />
-<Column field="start_date" header="Start Date" filter sortable dataType="date" style={{ minWidth: "12rem" }} />
-<Column field="end_date" header="End Date" filter sortable dataType="date" style={{ minWidth: "12rem" }} />
-<Column field="actual_end_date" header="Actual End Date" filter sortable dataType="date" style={{ minWidth: "12rem" }} />
-<Column field="comments" header="Comments" filter sortable style={{ minWidth: "12rem" }}  />
+                   <Column field="project_name" header="Project Name" filter sortable style={{ minWidth: "12rem", fontWeight: "bold" }} />
+                  <Column field="company" header="Company" filter sortable style={{ minWidth: "12rem" }}  />
+                  <Column field="project_manager" header="Project Manager" filter sortable style={{ minWidth: "12rem" }}  />
+                  <Column field="status" header="Status" filter sortable showFilterMatchModes style={{ minWidth: "12rem" }} />
+                  <Column field="total_resources" header="Total Resources" filter sortable style={{ minWidth: "12rem" }}  />
+                  <Column field="billable_hours" header="Billable Hrs" filter sortable style={{ minWidth: "12rem" }}  />
+                   <Column field="non_billable_hours" header="Non Billable Hrs" filter sortable style={{ minWidth: "12rem" }}  />
+                  <Column field="utilization" header="Utilization" filter sortable style={{ minWidth: "12rem" }} />
+                  <Column field="start_date" header="Start Date" filter sortable dataType="date" style={{ minWidth: "12rem" }} />
+                  <Column field="end_date" header="End Date" filter sortable dataType="date" style={{ minWidth: "12rem" }} />
+                  <Column field="actual_end_date" header="Actual End Date" filter sortable dataType="date" style={{ minWidth: "12rem" }} />
+                  <Column field="comments" header="Comments" filter sortable style={{ minWidth: "12rem" }}  />
 
 
                     </DataTable>
@@ -1001,7 +1002,7 @@ const saveAsExcelFile = (buffer, fileName) => {
                     </Dialog>
 
 
-                    <div className="card flex justify-content-center">
+                    {/* <div className="card flex justify-content-center"> */}
 
                       {/* Interview schedule start */}
 
@@ -1737,7 +1738,7 @@ const saveAsExcelFile = (buffer, fileName) => {
 
 
                     {/* Interview schedule end */}
-                  </div>
+                  {/* </div> */}
                 </section>
               </Col>
             </Row>

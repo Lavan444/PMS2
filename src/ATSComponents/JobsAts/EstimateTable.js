@@ -192,7 +192,7 @@ const EstimateTable = () => {
     // Split main date and extra info for custom rendering
     return {
       main: `${start} - ${end}`,
-      extra: `(${weeks} week${weeks !== 1 ? 's' : ''}, ${diffDays} days)`
+      extra: `(${weeks} week${weeks !== 1 ? 's' : ''}, 0 days)`
     };
   };
 

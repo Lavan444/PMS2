@@ -283,10 +283,34 @@ const CandidateEditForm = props => {
             statuses: ['Active', 'Working']
         },
         {
+            name: 'In Review',
+            color: '#28a745',
+            id: 'in-review',
+            statuses: ['Completed', 'Closed']
+        },
+        {
+            name: 'Testing / QA',
+            color: '#6c757d',
+            id: 'testing-qa',
+            statuses: ['Open', 'Assigned']
+        },
+        {
+            name: 'Blocked',
+            color: '#007bff',
+            id: 'in-progress',
+            statuses: ['Active', 'Working']
+        },
+        {
             name: 'Done',
             color: '#28a745',
             id: 'done',
             statuses: ['Completed', 'Closed']
+        },
+         {
+            name: 'Cancelled',
+            color: '#dc3545',
+            id: 'cancelled',
+            statuses: ['Cancelled']
         }
     ]);
 

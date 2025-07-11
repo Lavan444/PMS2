@@ -26,6 +26,7 @@ import { FileUpload } from 'primereact/fileupload';
 import WorkType1 from "../Common/WorkType1";
 import WorkType3 from "../Common/WorkType3";
 import EstimateTable from "./EstimateTable";
+import EstimateDelay from "./EstimateDelay";
 
 const CandidateEditForm = () => {
     // Project Information States
@@ -807,142 +808,8 @@ As the assigned team member, you will be responsible for managing your specific 
                                     </Row>
                                 </CardBody>
                             </Card>
-                        </Col>
 
-                        {/* Project Description */}
-                        <Col xl={7}>
-                            <Card className="bg-form screening-que">
-                                <CardBody>
-                                    <h4 className="card-title mb-3">Project Description</h4>
-                                    <div className="add-que-card mb-4">
-                                        <Row>
-                                            <Col xl={12}>
-                                                <Row className="sidebar d-flex align-items-center">
-                                                    <Col xl={6}>
-                                                        <label htmlFor="description" className="block mb-2">
-                                                            Description
-                                                        </label>
-                                                    </Col>
-                                                    <Col lg={6} className="d-flex justify-content-end mt-2">
-                                                        <Button color="primary" className="btn btn-primary aibtn">
-                                                            <i className="pi pi-star me-1"></i>
-                                                            Write with AI
-                                                        </Button>
-                                                    </Col>
-                                                </Row>
-                                                <Row className="mt-2 align-items-center">
-                                                    <Col xl={12}>
-                                                        <div className="p-field mb-0">
-                                                            <Editor
-                                                                value={content}
-                                                                onTextChange={handleEditorChange}
-                                                                headerTemplate={header}
-                                                                style={{ height: '200px' }}
-                                                                className="w-full"
-                                                            />
-                                                        </div>
-                                                    </Col>
-                                                </Row>
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                    <ConfirmDialog />
-                                </CardBody>
-                            </Card>
-
-
-
-                            {/* phases start */}
-
-                            <Card className="bg-form">
-                                <CardBody>
-                                    <h4 className="card-title mb-2"> Phases of Project Development</h4>
-                                    <EstimateTable />
-                                </CardBody>
-
-                                <Dialog
-                                    header="Add Document"
-                                    visible={displayDialog}
-                                    onHide={closeAddDocumentDialog}
-                                    style={{ width: "30vw" }}
-                                    footer={
-                                        <div>
-                                            <Button color="primary btn-main mr-2" onClick={handleAddDocument}>
-                                                Add Document
-                                            </Button>
-                                            <Button color="btn btn-primary cancel-outlinebtn" onClick={closeAddDocumentDialog}>
-                                                <i className="pi pi-times me-1"></i>
-                                                Cancel
-                                            </Button>
-                                        </div>
-                                    }
-                                >
-                                    <Row className="mt-2 align-items-center">
-                                        <Col xl={3}>
-                                            <label htmlFor="type" className="block mb-2">
-                                                Type
-                                            </label>
-                                        </Col>
-                                        <Col xl={9}>
-                                            <Dropdown
-                                                value={selectedDocument}
-                                                onChange={(e) => setSelectedDocument(e.value)}
-                                                options={groupedDocuments}
-                                                optionLabel="label"
-                                                optionGroupLabel="label"
-                                                optionGroupChildren="items"
-                                                optionGroupTemplate={groupedItemTemplate}
-                                                className="w-full bgclr"
-                                                style={{ border: '1px solid #ced4da' }}
-                                                placeholder="Select a Document"
-                                            />
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="mt-2 align-items-center">
-                                        <Col xl={3}>
-                                            <label htmlFor="subject" className="block mb-2">
-                                                Description
-                                            </label>
-                                        </Col>
-                                        <Col xl={9}>
-                                            <InputText
-                                                id="subject"
-                                                value={subject}
-                                                onChange={(e) => setSubject(e.target.value)}
-                                                className="w-full"
-                                                style={{ border: '1px solid #ced4da' }}
-                                            />
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="mt-2 align-items-center">
-                                        <Col xl={3}>
-                                            <label htmlFor="attachment" className="block mb-2">
-                                                Attachment
-                                            </label>
-                                        </Col>
-                                        <Col xl={9}>
-                                            <FileUpload
-                                                mode="basic"
-                                                name="demo[]"
-                                                url="/api/upload"
-                                                accept="*/*"
-                                                maxFileSize={1000000}
-                                                onUpload={handleUpload}
-                                                customUpload
-                                                uploadHandler={customBase64Uploader2}
-                                                className="custom-fileupload"
-                                            />
-                                        </Col>
-                                    </Row>
-                                </Dialog>
-                            </Card>
-
-                            {/* pharses end */}
-
-
-                            {/* Notes start */}
+                             {/* Notes start */}
 
 
                             <Card className="bg-form">
@@ -1098,6 +965,236 @@ As the assigned team member, you will be responsible for managing your specific 
 
 
                             {/* Notes end */}
+                        </Col>
+
+                        {/* Project Description */}
+                        <Col xl={7}>
+                            <Card className="bg-form screening-que">
+                                <CardBody>
+                                    <h4 className="card-title mb-3">Project Description</h4>
+                                    <div className="add-que-card mb-4">
+                                        <Row>
+                                            <Col xl={12}>
+                                                <Row className="sidebar d-flex align-items-center">
+                                                    <Col xl={6}>
+                                                        <label htmlFor="description" className="block mb-2">
+                                                            Description
+                                                        </label>
+                                                    </Col>
+                                                    <Col lg={6} className="d-flex justify-content-end mt-2">
+                                                        <Button color="primary" className="btn btn-primary aibtn">
+                                                            <i className="pi pi-star me-1"></i>
+                                                            Write with AI
+                                                        </Button>
+                                                    </Col>
+                                                </Row>
+                                                <Row className="mt-2 align-items-center">
+                                                    <Col xl={12}>
+                                                        <div className="p-field mb-0">
+                                                            <Editor
+                                                                value={content}
+                                                                onTextChange={handleEditorChange}
+                                                                headerTemplate={header}
+                                                                style={{ height: '200px' }}
+                                                                className="w-full"
+                                                            />
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                    <ConfirmDialog />
+                                </CardBody>
+                            </Card>
+
+
+
+                            {/* phases start */}
+
+                            <Card className="bg-form">
+                                <CardBody>
+                                    <h4 className="card-title mb-2"> Phases of Project Development</h4>
+                                    <EstimateTable />
+                                </CardBody>
+
+                                
+
+                                <Dialog
+                                    header="Add Document"
+                                    visible={displayDialog}
+                                    onHide={closeAddDocumentDialog}
+                                    style={{ width: "30vw" }}
+                                    footer={
+                                        <div>
+                                            <Button color="primary btn-main mr-2" onClick={handleAddDocument}>
+                                                Add Document
+                                            </Button>
+                                            <Button color="btn btn-primary cancel-outlinebtn" onClick={closeAddDocumentDialog}>
+                                                <i className="pi pi-times me-1"></i>
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    }
+                                >
+                                    <Row className="mt-2 align-items-center">
+                                        <Col xl={3}>
+                                            <label htmlFor="type" className="block mb-2">
+                                                Type
+                                            </label>
+                                        </Col>
+                                        <Col xl={9}>
+                                            <Dropdown
+                                                value={selectedDocument}
+                                                onChange={(e) => setSelectedDocument(e.value)}
+                                                options={groupedDocuments}
+                                                optionLabel="label"
+                                                optionGroupLabel="label"
+                                                optionGroupChildren="items"
+                                                optionGroupTemplate={groupedItemTemplate}
+                                                className="w-full bgclr"
+                                                style={{ border: '1px solid #ced4da' }}
+                                                placeholder="Select a Document"
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <Row className="mt-2 align-items-center">
+                                        <Col xl={3}>
+                                            <label htmlFor="subject" className="block mb-2">
+                                                Description
+                                            </label>
+                                        </Col>
+                                        <Col xl={9}>
+                                            <InputText
+                                                id="subject"
+                                                value={subject}
+                                                onChange={(e) => setSubject(e.target.value)}
+                                                className="w-full"
+                                                style={{ border: '1px solid #ced4da' }}
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <Row className="mt-2 align-items-center">
+                                        <Col xl={3}>
+                                            <label htmlFor="attachment" className="block mb-2">
+                                                Attachment
+                                            </label>
+                                        </Col>
+                                        <Col xl={9}>
+                                            <FileUpload
+                                                mode="basic"
+                                                name="demo[]"
+                                                url="/api/upload"
+                                                accept="*/*"
+                                                maxFileSize={1000000}
+                                                onUpload={handleUpload}
+                                                customUpload
+                                                uploadHandler={customBase64Uploader2}
+                                                className="custom-fileupload"
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Dialog>
+                            </Card>
+
+                            {/* pharses end */}
+
+
+                                {/* phases delay start */}
+
+                            <Card className="bg-form">
+                                <CardBody>
+                                    <h4 className="card-title mb-2"> Reason for Delay</h4>
+                                    <EstimateDelay />
+                                </CardBody>
+
+                                
+
+                                <Dialog
+                                    header="Add Document"
+                                    visible={displayDialog}
+                                    onHide={closeAddDocumentDialog}
+                                    style={{ width: "30vw" }}
+                                    footer={
+                                        <div>
+                                            <Button color="primary btn-main mr-2" onClick={handleAddDocument}>
+                                                Add Document
+                                            </Button>
+                                            <Button color="btn btn-primary cancel-outlinebtn" onClick={closeAddDocumentDialog}>
+                                                <i className="pi pi-times me-1"></i>
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    }
+                                >
+                                    <Row className="mt-2 align-items-center">
+                                        <Col xl={3}>
+                                            <label htmlFor="type" className="block mb-2">
+                                                Type
+                                            </label>
+                                        </Col>
+                                        <Col xl={9}>
+                                            <Dropdown
+                                                value={selectedDocument}
+                                                onChange={(e) => setSelectedDocument(e.value)}
+                                                options={groupedDocuments}
+                                                optionLabel="label"
+                                                optionGroupLabel="label"
+                                                optionGroupChildren="items"
+                                                optionGroupTemplate={groupedItemTemplate}
+                                                className="w-full bgclr"
+                                                style={{ border: '1px solid #ced4da' }}
+                                                placeholder="Select a Document"
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <Row className="mt-2 align-items-center">
+                                        <Col xl={3}>
+                                            <label htmlFor="subject" className="block mb-2">
+                                                Description
+                                            </label>
+                                        </Col>
+                                        <Col xl={9}>
+                                            <InputText
+                                                id="subject"
+                                                value={subject}
+                                                onChange={(e) => setSubject(e.target.value)}
+                                                className="w-full"
+                                                style={{ border: '1px solid #ced4da' }}
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <Row className="mt-2 align-items-center">
+                                        <Col xl={3}>
+                                            <label htmlFor="attachment" className="block mb-2">
+                                                Attachment
+                                            </label>
+                                        </Col>
+                                        <Col xl={9}>
+                                            <FileUpload
+                                                mode="basic"
+                                                name="demo[]"
+                                                url="/api/upload"
+                                                accept="*/*"
+                                                maxFileSize={1000000}
+                                                onUpload={handleUpload}
+                                                customUpload
+                                                uploadHandler={customBase64Uploader2}
+                                                className="custom-fileupload"
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Dialog>
+                            </Card>
+
+                            {/* pharses delay end */}
+
+
+                           
 
 
                         </Col>

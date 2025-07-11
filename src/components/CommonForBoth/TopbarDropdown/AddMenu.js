@@ -52,6 +52,23 @@ const AddMenu = () => {
         //     code: 'EM-SE',
         //     action: () => navigate('/import-bulkresume')
         // },
+
+         {
+            name: 'Parse Documents to',
+            code: 'EM-JO',
+            subItems: [
+                {
+                    name: 'Projects', code: 'EM-JO-AL',
+                    // action: () => navigate('/importfromcsv-candidates')
+
+                },
+                {
+                    name: 'Work Types', code: 'EM-JO-SE',
+                    // action: () => navigate('/importfromcsv-jobs')
+                },
+               
+            ],
+        },
         {
             name: 'Import stakeholder from CSV / Excel',
             code: 'EM-JO',
@@ -62,7 +79,7 @@ const AddMenu = () => {
 
                 },
                 {
-                    name: 'Worktype', code: 'EM-JO-SE',
+                    name: 'Work Type', code: 'EM-JO-SE',
                     // action: () => navigate('/importfromcsv-jobs')
                 },
                 {
@@ -84,7 +101,7 @@ const AddMenu = () => {
                     action: () => exportcandCSV(false)
                 },
                 {
-                    name: 'Worktype', code: 'EM-JO-SE',
+                    name: 'Work Type', code: 'EM-JO-SE',
                     action: () => jobsexportCSV(false)
                 },
 

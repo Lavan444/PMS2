@@ -62,110 +62,90 @@ const WeeklyReport = () => {
 
  const [filters, setFilters] = useState({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-  project: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  project_manager: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  tasks: { value: null, matchMode: FilterMatchMode.EQUALS },
-  bugs: { value: null, matchMode: FilterMatchMode.EQUALS },
-  task_hours: { value: null, matchMode: FilterMatchMode.GREATER_THAN_OR_EQUAL_TO },
-  bug_hours: { value: null, matchMode: FilterMatchMode.GREATER_THAN_OR_EQUAL_TO },
-  project_status: { value: null, matchMode: FilterMatchMode.EQUALS }
+  week: { value: null, matchMode: FilterMatchMode.CONTAINS },
+  avg_utilization: { value: null, matchMode: FilterMatchMode.GREATER_THAN_OR_EQUAL_TO },
+  billable_hours: { value: null, matchMode: FilterMatchMode.GREATER_THAN_OR_EQUAL_TO },
+  non_billable_hours: { value: null, matchMode: FilterMatchMode.LESS_THAN_OR_EQUAL_TO },
+  bench_strength: { value: null, matchMode: FilterMatchMode.EQUALS }
 });
+
 
 
 
 
  const [tableData, setTableData] = useState([
   {
-    project: "AI Generator",
-    project_manager: "Mahesh Kumar Bhoga",
-    tasks: 100,
-    bugs: 60,
-    task_hours: 400,
-    bug_hours: 120,
-    project_status: "Open"
+    week: "Week 1 - July",
+    avg_utilization: 78,
+    billable_hours: 5400,
+    non_billable_hours: 1500,
+    bench_strength: 12
   },
   {
-    project: "E-commerce Platform",
-    project_manager: "Sneha Mehta",
-    tasks: 80,
-    bugs: 45,
-    task_hours: 320,
-    bug_hours: 90,
-    project_status: "In Progress"
+    week: "Week 2 - July",
+    avg_utilization: 81,
+    billable_hours: 5620,
+    non_billable_hours: 1320,
+    bench_strength: 10
   },
   {
-    project: "Mobile Banking App",
-    project_manager: "Neha Verma",
-    tasks: 120,
-    bugs: 50,
-    task_hours: 480,
-    bug_hours: 100,
-    project_status: "Under Review"
+    week: "Week 3 - July",
+    avg_utilization: 75,
+    billable_hours: 5200,
+    non_billable_hours: 1600,
+    bench_strength: 15
   },
   {
-    project: "Inventory Management System",
-    project_manager: "Arjun Sethi",
-    tasks: 60,
-    bugs: 30,
-    task_hours: 240,
-    bug_hours: 60,
-    project_status: "Approved"
+    week: "Week 4 - July",
+    avg_utilization: 80,
+    billable_hours: 5800,
+    non_billable_hours: 1400,
+    bench_strength: 11
   },
   {
-    project: "Healthcare Portal",
-    project_manager: "Divya Nair",
-    tasks: 90,
-    bugs: 35,
-    task_hours: 360,
-    bug_hours: 70,
-    project_status: "On Hold"
+    week: "Week 1 - August",
+    avg_utilization: 83,
+    billable_hours: 6000,
+    non_billable_hours: 1200,
+    bench_strength: 9
   },
   {
-    project: "HR Management Tool",
-    project_manager: "Ankit Sharma",
-    tasks: 70,
-    bugs: 20,
-    task_hours: 280,
-    bug_hours: 40,
-    project_status: "Done"
+    week: "Week 2 - August",
+    avg_utilization: 79,
+    billable_hours: 5500,
+    non_billable_hours: 1350,
+    bench_strength: 13
   },
   {
-    project: "Blockchain Wallet",
-    project_manager: "Shalini Rao",
-    tasks: 85,
-    bugs: 40,
-    task_hours: 340,
-    bug_hours: 80,
-    project_status: "Cancelled"
+    week: "Week 3 - August",
+    avg_utilization: 77,
+    billable_hours: 5300,
+    non_billable_hours: 1450,
+    bench_strength: 14
   },
   {
-    project: "Online Learning Portal",
-    project_manager: "Mohit Jain",
-    tasks: 95,
-    bugs: 55,
-    task_hours: 380,
-    bug_hours: 110,
-    project_status: "In Progress"
+    week: "Week 4 - August",
+    avg_utilization: 82,
+    billable_hours: 5900,
+    non_billable_hours: 1250,
+    bench_strength: 10
   },
   {
-    project: "Food Delivery App",
-    project_manager: "Tanvi Shah",
-    tasks: 110,
-    bugs: 65,
-    task_hours: 440,
-    bug_hours: 130,
-    project_status: "Done"
+    week: "Week 1 - September",
+    avg_utilization: 85,
+    billable_hours: 6100,
+    non_billable_hours: 1100,
+    bench_strength: 8
   },
   {
-    project: "Smart Home Dashboard",
-    project_manager: "Vikram Reddy",
-    tasks: 75,
-    bugs: 25,
-    task_hours: 300,
-    bug_hours: 50,
-    project_status: "Open"
+    week: "Week 2 - September",
+    avg_utilization: 80,
+    billable_hours: 5700,
+    non_billable_hours: 1300,
+    bench_strength: 10
   }
 ]);
+
 
 
 
@@ -899,56 +879,11 @@ const saveAsExcelFile = (buffer, fileName) => {
                         selectionMode="multiple"
                         headerStyle={{ width: "3em" }}
                       />
-                    <Column
-    field="project"
-    header="Project"
-    filter
-    sortable
-    style={{ minWidth: "12rem", fontWeight: "bold" }}
-  />
-  <Column
-    field="project_manager"
-    header="Project Manager"
-    filter
-    sortable
-    style={{ minWidth: "12rem" }}
-  />
-  <Column
-    field="tasks"
-    header="Tasks #"
-    filter
-    sortable
-    style={{ minWidth: "12rem" }}
-  />
-  <Column
-    field="bugs"
-    header="Bugs #"
-    filter
-    sortable
-    style={{ minWidth: "12rem" }}
-  />
-  <Column
-    field="task_hours"
-    header="Task Hours"
-    filter
-    sortable
-    style={{ minWidth: "12rem" }}
-  />
-  <Column
-    field="bug_hours"
-    header="Bug Hours"
-    filter
-    sortable
-    style={{ minWidth: "12rem" }}
-  />
-  <Column
-    field="project_status"
-    header="Status"
-    filter
-    showFilterMatchModes
-    sortable
-    style={{ minWidth: "12rem" }}
-  />
+                    <Column field="week" header="Week" filter sortable style={{ minWidth: "12rem", fontWeight: "bold"}} />
+  <Column field="avg_utilization" header="Avg. Utilization %" filter sortable style={{ minWidth: "12rem" }} />
+  <Column field="billable_hours" header="Total Billable Hours" filter sortable style={{ minWidth: "12rem" }} />
+  <Column field="non_billable_hours" header="Total Non-Billable Hours" filter sortable style={{ minWidth: "12rem" }} />
+  <Column field="bench_strength" header="Bench Strength" filter sortable style={{ minWidth: "12rem" }} />   
 
                     </DataTable>
 

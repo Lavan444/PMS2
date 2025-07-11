@@ -516,7 +516,7 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
             <i className="pi pi-briefcase text-2xl text-blue-600"></i>
             <div>
               <h1 className="text-xl font-bold m-0">Project Creation Wizard</h1>
-              <p className="text-500 mt-1 mb-0 text-sm">Step {currentStep} of 3 - {wizardSteps.find(step => step.id === currentStep)?.description}</p>
+              <p className="text-500 mt-1 mb-0 text-sm text-white">Step {currentStep} of 3 - {wizardSteps.find(step => step.id === currentStep)?.description}</p>
             </div>
           </div>
         }
@@ -817,15 +817,15 @@ const CreateShortform = ({ visible = false, onHide = () => { } }) => {
                 <label className="block text-sm font-medium text-700 mb-2">
                   Work Type <span className="text-red-500">*</span>
                 </label>
-                {/* <Dropdown
+                <Dropdown
                   value={workItems[0]?.workType || ''}
                   onChange={(e) => handleWorkItemChange(0, 'workType', e.value)}
                   options={workTypeOptions}
                   className={`w-full ${workItems[0]?.workType?.trim() ? 'p-inputtext-success' : ''}`}
                   placeholder="Select work type..."
-                /> */}
+                />
  
-                <WorkType />
+                {/* <WorkType /> */}
 
                 
                 <small className="text-500">Category or type of work to be performed. (Required)</small>
